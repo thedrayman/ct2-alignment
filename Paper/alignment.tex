@@ -1,0 +1,89 @@
+
+
+\documentclass[conference]{IEEEtran}
+
+\ifCLASSINFOpdf
+   \usepackage[pdftex]{graphicx}
+  \graphicspath{{../pdf/}{../jpeg/}}
+\else
+\fi
+
+\usepackage{color,listings}
+\usepackage{cite}
+
+\lstset{language=[Sharp]C, % Grundsprache ist C und Dialekt ist Sharp (C#)
+	captionpos=b, % Beschriftung ist unterhalb
+	frame=lines, % Oberhalb und unterhalb des Listings ist eine Linie
+	basicstyle=\ttfamily, % Schriftart
+	keywordstyle=\color{blue}, % Farbe für die Keywords wie public, void, object u.s.w.
+	commentstyle=\color{green}, % Farbe der Kommentare
+	stringstyle=\color{red}, % Farbe der Zeichenketten
+	numbers=left, % Zeilennummern links vom Code
+	numberstyle=\tiny, % kleine Zeilennummern
+	numbersep=5pt,
+	breaklines=true, % Wordwrap a.k.a. Zeilenumbruch aktiviert
+	showstringspaces=false,
+	% emph legt Farben für bestimmte Wörter manuell fest
+	emph={double,bool,int,unsigned,char,true,false,void},
+	emphstyle=\color{blue},
+	emph={Assert,Test},
+	emphstyle=\color{red},
+	emph={[2]\using,\#define,\#ifdef,\#endif}, emphstyle={[2]\color{blue}}
+}
+
+\usepackage{amsmath}
+\usepackage{url}
+
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+
+\begin{document}
+
+\title{Location Prediction with Alignment Algorithm on Google Location Data}
+
+\author{\IEEEauthorblockN{Olga Groh\IEEEauthorrefmark{1},
+Johann G\"oth\IEEEauthorrefmark{2},
+Fabian Fr\"olich\IEEEauthorrefmark{3}}
+\IEEEauthorblockA{Faculty of Electrical Engineering and Computer Science\\
+University of Kassel,\\
+Kassel, Germany\\
+Email: {\{\IEEEauthorrefmark{1}uk000000, \IEEEauthorrefmark{2}uk000000, \IEEEauthorrefmark{3}uk000989\}@student.uni-kassel.de }}}
+	
+
+\maketitle
+
+\begin{abstract}
+When determining the position of an outdoor placed device, by using the Global Positioning System (GPS), it is common to face inaccuracies up to several meters. This paper discusses individual use-cases which makes it necessary to decide on which side of a road the device is located. The deviations of the measured and the actual position makes it difficult to determine the exact location, particularly when it comes to close placed road sides. In order to solve this problem, the paper presents a method by applying an adapted variation of the k-nearest neighbors algorithm (k-NN) on GPS data.
+Experimental results on real world data set demonstrate that the proposed method with the combined algorithm is more effective than the GPS data alone when trying to determine a position of a street.
+
+Results::The distance-based or euclidean based k-NN method reaches 95.52\% accuracy.
+
+\end{abstract}
+
+\IEEEpeerreviewmaketitle
+
+\section{Introduction}\label{section:introduction}
+
+
+\section{Related Work}\label{section:relatedWork}
+
+
+\section{Conception}\label{section:conception}
+
+
+\section{Implementation}\label{section:implementation}
+
+
+\section{Evaluation}\label{section:evaluation}
+
+
+\section{Conclusion}\label{section:conclusion}
+
+%\newpage
+%\bibliographystyle{IEEEtran}
+%\bibliography{alignment}
+
+
+\end{document}
+
+
