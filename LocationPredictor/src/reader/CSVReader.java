@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public class CSVReader {
 	ArrayList<String> longitudeSequence = new ArrayList<String>();
 	ArrayList<String> latitudeSequence = new ArrayList<String>();
-	ArrayList<String> locationSequence = new ArrayList<String>();
+	StringBuilder locationSequence = new StringBuilder();
 	
 	public void readCSV(String localPath) {
 		
@@ -28,9 +28,13 @@ public class CSVReader {
 			for (Entry<Long, List<String>> entry : collect.entrySet()) {
 				String dataLine = entry.getValue().get(0);
 				String[] split = dataLine.split(";");
+				
 				longitudeSequence.add(split[2]);
 				latitudeSequence.add(split[3]);
-				locationSequence.add(split[5]);
+				
+				locationSequence.append(split[5].substring(0, 1));
+				
+				
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -46,7 +50,7 @@ public class CSVReader {
 		return latitudeSequence;
 	}
 
-	public ArrayList<String> getLocationSequence() {
+	public StringBuilder getLocationSequence() {
 		return locationSequence;
 	}
 	
