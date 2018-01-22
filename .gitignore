@@ -20,3 +20,5 @@
 *.blg
 
 .idea
+.idea/
+Paper/.project
