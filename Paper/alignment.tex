@@ -85,7 +85,15 @@ In dieser Arbeit wird versucht, eine Positionsvorhersage mit dem Ansatz des Alig
 
 
 \section{Related Work}\label{section:relatedWork}
-\cite{craig2017region}
+Mittels Alignment Algorithmen ist es möglich zwei Sequenzen auf Ähnlichkeit zu untersuchen. Eine häufige Anwendung findet in der Bioinformatik statt. Beispielsweise um DNA- oder Protein-Sequenzen auf evolutionsbedingte Verwandtschaft zu untersuchen \cite{waterman1995introduction}.
+
+Sigg et al. \cite{sigg2010alignment} beschreiben einen Ansatz um mittels Alignment vorhersagen zu Kontext Sequenzen machen zu können, da es möglich ist mit Alignmnet-Algorithmen die am ähnlichsten vorkommende Teilsequenzen zu finden und darüber den nächsten Eintrag vorhersagen zu können.
+Wir verwenden ebenfalls Alignment-Algorithmen für unseren Location Prediction Ansatzt. Beispiele für Algorithmen die sich dafür eignen sind der Needleman-Wunsch-Algorithmus \cite{waterman1976some}, Smith-Waterman-Algorithmus \cite{smith1981identification} oder der Hirschberg-Algorithmus \cite{hirschberg1975linear}. 
+%Mehr über location prediction schreiben
+Neben dem Alignment Ansatz gibt es aber auch andere Ansätze um Location Prediction durchzuführen. Craig et al. \cite{craig2017region} nutzen einen Clustering-Ansatz um eine Location in Regionen einteilen zu können. 
+
+%\cite{craig2017region}
+
 %Alignment allgemein
 
 %Location prediction allgemein
