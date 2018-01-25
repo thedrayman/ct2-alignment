@@ -99,8 +99,10 @@ In dieser Arbeit wird versucht, eine Positionsvorhersage mit dem Ansatz des Alig
 
 %Alignment lÃ¤sst sich auf Location data anwenden
 
-Normalerweise wird Alignment in der Bioinformatik zum Vergleich von DNA-Sequenzen genutzt. Der Algorithmus lässt sich aber ebenfalls auf Google Location Data anwenden, um ausgewählte Sequenzen vorherzusagen. \newline
-Heutzutage besitzt fast jeden ein Smartphone. Der Vorteil ist, dass die Daten bereits von Google automatisch über eine App aufgenommen werden. Der Zugriff auf die Daten erfolgt über eine kml-Dateien. Zum Zweck des Programms wurden sie in das csv-Format konvertiert, die jeweils einen Zeitraum von Daten von bis zu einem Monat bereitstellen.\newline
+Normalerweise wird Alignment in der Bioinformatik zum Vergleich von DNA-Sequenzen genutzt. Der Algorithmus lässt sich aber ebenfalls auf Google Location Data anwenden, um ausgewählte Sequenzen vorherzusagen.
+
+Heutzutage besitzt fast jeden ein Smartphone. Der Vorteil ist, dass die Daten bereits von Google automatisch über eine App aufgenommen werden. Der Zugriff auf die Daten erfolgt über eine kml-Dateien. Zum Zweck des Programms wurden sie in das csv-Format konvertiert, die jeweils einen Zeitraum von Daten von bis zu einem Monat bereitstellen.
+
 Die Datei ist folgendermaßen aufgebaut: Die Spalten dieser Datei enthalten die Werte "{}longitude"{}, "{}latitude"{} und "{}altitude"{} für die Ortsbestimmung mit dem dazugehörigen "{}timestamp"{} und eine Ortsbezeichnung mit dem Titel "{}unknown"{}, sowie die Ortsgenauigkeit "{}accuracy"{}. Zur genauen Positionsbestimmung sind also vor allem die Werte für Position und Ortsbezeichnung wichtig. Der Timestamp bestimmt das Aufenthaltsverhalten der jeweiligen Person. Alle anderen Werte sind für unser Problem dagegen irrelevant und werden nicht berücksichtigt.
 
 %Idee der Implementierung und Grund für die Entscheidung
@@ -110,7 +112,7 @@ Die Datei ist folgendermaßen aufgebaut: Die Spalten dieser Datei enthalten die W
 
 %Erklärung Needleman-Wunsch
 
-Der Needleman-Wunsch ist ein globaler Optimierungsalgorithmus, der auf zwei Zeichenketten-Sequenzen arbeitet. Im ersten Schritt wird aus dem Vergleichen der beiden Sequenzen ein Ähnlichkeits-Score berechnet. Je höher der Score, desto ähnlicher sind die Sequenzen. Somit ist ein Alignment optimal, sobald es den maximal Score besitzt.
+Der Needleman-Wunsch ist ein globaler Optimierungsalgorithmus, der auf zwei Zeichenketten-Sequenzen arbeitet. Im ersten Schritt wird aus dem Vergleichen der beiden Sequenzen ein Ähnlichkeits-Score berechnet. Je höher der Score, desto ähnlicher sind die Sequenzen. Somit ist ein Alignment optimal, sobald es den maximal Score besitzt. Zur Berechnung des Scores wird zunächst eine Matrix erstellt, die anhand der Kosten für Match-, Mismatch und Einfüge- bzw. Löschungsoperationen sequentiell in Abhängigkeit von vorherigen Berechnungsschritt ausgefüllt.
 
 \section{Implementation}\label{section:implementation}
 
