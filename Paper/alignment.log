@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.8.8)  25 JAN 2018 11:35
+=======
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.8.10)  25 JAN 2018 11:34
+>>>>>>> 21d41b84c5da9415c7f641b3216047a2a5893af4
 entering extended mode
 **./alignment.tex
 (alignment.tex
@@ -246,13 +250,22 @@ LaTeX Info: Redefining \] on input line 2818.
 \Urlmuskip=\muskip11
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
+<<<<<<< HEAD
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\inputenc.sty"
+=======
+("C:\Program Files\MiKTeX 2.9\tex\generic\german\ngerman.sty" v2.5e 1998-07-08
+Package: ngerman 1998/07/08 v2.5e Support for writing german texts (br)
+\grmnU@D=\dimen141
+ngerman -- \language number for naustrian undefined, default 45 used.
+) ("C:\Program Files\MiKTeX 2.9\tex\latex\base\inputenc.sty"
+>>>>>>> 21d41b84c5da9415c7f641b3216047a2a5893af4
 Package: inputenc 2015/03/17 v1.2c Input encoding file
 \inpenc@prehook=\toks22
 \inpenc@posthook=\toks23
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\latin1.def"
 File: latin1.def 2015/03/17 v1.2c Input encoding file
+<<<<<<< HEAD
 ))
 ("C:\Program Files\MiKTeX 2.9\tex\generic\german\german.sty" v2.5e 1998-07-08
 Package: german 1998/07/08 v2.5e Support for writing german texts (br)
@@ -260,6 +273,9 @@ Package: german 1998/07/08 v2.5e Support for writing german texts (br)
 german -- \language number for Austrian undefined, default 24 used.
 )
 (alignment.aux)
+=======
+)) (alignment.aux)
+>>>>>>> 21d41b84c5da9415c7f641b3216047a2a5893af4
 \openout1 = `alignment.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 43.
@@ -356,11 +372,15 @@ Before submitting the final camera ready copy, remember to:
  process uses the appropriate paper size.
 
 [1{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}
+<<<<<<< HEAD
 
+=======
+>>>>>>> 21d41b84c5da9415c7f641b3216047a2a5893af4
 
 
 ] (alignment.aux) ) 
 Here is how much of TeX's memory you used:
+<<<<<<< HEAD
  4797 strings out of 493323
  70821 string characters out of 3139064
  146139 words of memory out of 3000000
@@ -368,13 +388,26 @@ Here is how much of TeX's memory you used:
  37835 words of font info for 79 fonts, out of 3000000 for 9000
  1144 hyphenation exceptions out of 8191
  39i,14n,40p,592b,334s stack positions out of 5000i,500n,10000p,200000b,50000s
+=======
+ 4796 strings out of 493323
+ 70850 string characters out of 3139069
+ 148139 words of memory out of 3000000
+ 8275 multiletter control sequences out of 15000+200000
+ 37835 words of font info for 79 fonts, out of 3000000 for 9000
+ 1144 hyphenation exceptions out of 8191
+ 39i,14n,40p,738b,334s stack positions out of 5000i,500n,10000p,200000b,50000s
+>>>>>>> 21d41b84c5da9415c7f641b3216047a2a5893af4
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C:
 /Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program
  Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/Mi
 KTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/ty
 pe1/urw/times/utmbi8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/ut
 mr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
+<<<<<<< HEAD
 Output written on alignment.pdf (1 page, 59700 bytes).
+=======
+Output written on alignment.pdf (1 page, 61358 bytes).
+>>>>>>> 21d41b84c5da9415c7f641b3216047a2a5893af4
 PDF statistics:
  31 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
