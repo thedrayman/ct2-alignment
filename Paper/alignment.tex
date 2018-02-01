@@ -85,13 +85,17 @@ In dieser Arbeit wird versucht, eine Positionsvorhersage mit dem Ansatz des Alig
 
 
 \section{Related Work}\label{section:relatedWork}
-Mittels Alignment Algorithmen ist es möglich zwei Sequenzen auf Ähnlichkeit zu untersuchen. Eine häufige Anwendung findet in der Bioinformatik statt. Beispielsweise um DNA- oder Protein-Sequenzen auf evolutionsbedingte Verwandtschaft zu untersuchen \cite{waterman1995introduction}.
+Zu Location Prediction gibt es eine menge Forschungsmaterial.
+Alignment Algorithmen bieten ein Ähnlichkeitsmaß für beliebige Folgen von Datenpunkten, auch Sequenzen genannt. Das heißt die Anwendung solcher Algorithmen ermöglicht es zwei Sequenzen auf ihre Ähnlichkeit zu untersuchen und somit zu Vergleichen. Eine häufige Anwendung findet in der Bioinformatik statt. Hierbei werden DNA- oder Protein-Sequenzen auf evolutionsbedingte Verwandtschaft untersucht. Ein Beispiel hierfür findet sich in \cite{waterman1995introduction}.
 
-Sigg et al. \cite{sigg2010alignment} beschreiben einen Ansatz um mittels Alignment vorhersagen zu Kontext Sequenzen machen zu können, da es möglich ist mit Alignmnet-Algorithmen die am ähnlichsten vorkommende Teilsequenzen zu finden und darüber den nächsten Eintrag vorhersagen zu können.
-Wir verwenden ebenfalls Alignment-Algorithmen für unseren Location Prediction Ansatzt. Beispiele für Algorithmen die sich dafür eignen sind der Needleman-Wunsch-Algorithmus \cite{waterman1976some}, Smith-Waterman-Algorithmus \cite{smith1981identification} oder der Hirschberg-Algorithmus \cite{hirschberg1975linear}. 
-%Mehr über location prediction schreiben
-Neben dem Alignment Ansatz gibt es aber auch andere Ansätze um Location Prediction durchzuführen. Craig et al. \cite{craig2017region} nutzen einen Clustering-Ansatz um eine Location in Regionen einteilen zu können. 
+Sigg et al. \cite{sigg2010alignment} beschreiben einen Ansatz um mittels Alignment vorhersagen anhand von Kontextsequenzen machen zu können. Die Anwendung von Alignment Algorithmen ermöglicht es Sigg et al. die ähnlichsten vorkommende Teilsequenzen zu finden und anhand dieser den nächsten Eintrag vorhersagen zu können. Dafür verwenden sie unter anderem  Needleman-Wunsch-Algorithmus \cite{s}, welcher mittels Backtracking ein globales Optimum findet. Ein Ähnlicher Algorithmus ist der Hirschberg-Algorithmus \cite{hirschberg1975linear}, welcher ebenfalls ein globaler Algorithmus ähnlich wie der Needleman-Wunsch-Algorithmus ist.
 
+Unser Ansatz basiert ebenfalls auf Alignment Algorithmen. Dabei verwenden wir im Gegensatz zu \cite{sigg2010alignment} den Smith-Waterman-Algorithmus \cite{smith1981identification}
+innerhalb unseres Location Prediction Ansatzes. 
+Dieser Algorithmus ist im Gegensatz zum Needleman-Wunsch-Algorithmus und Hirschbergalgorithmus ist in der Lage das lokale Optimum zu finden. Dies hat den Vorteil, das lokale Übereinstimmungen nicht wie bei einer globalen Betrachtung übersehen werden können.
+
+Neben der Verwendung von Alignment Algorithmen gibt es weitere Ansätze zur Location Prediction. Craig et al. \cite{craig2017region} nutzen einen Clustering-Ansatz um Aufenthaltsorte einer Person mittels Cluster zu definieren. Dies geschieht in dem ein Ort in möglichst kleine Regionen eingeteilt wird und Anschließend ähnliche benachbarte Regionen zu größeren Clustern kombiniert werden. Basierend auf diesen Regionen ist das Ziel den nächsten Ort an dem sich eine Person befinden wird vorherzusagen. Dabei wird anhand des aktuellen bzw. der vorherigen Standorte geprüft auf welcher Strecke sicher der Nutzer befindet und Anhand dieser Information das Cluster bestimmt in welchem sein nächstes Ziel liegen könnte.  
+Im Gegensatz zu unseren Ansatz liefert dieses Clustering keine optimale Lösung, sondern führt eine Reduktion der Daten durch und ermöglicht somit die Verwendung auf Leistungsschwachen Geräten.
 %\cite{craig2017region}
 
 %Alignment allgemein
