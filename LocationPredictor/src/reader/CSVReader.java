@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -11,14 +12,18 @@ import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 public class CSVReader {
+	
+	public static final char[] alphabet = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
+	
 	ArrayList<String> longitudeSequence = new ArrayList<String>();
 	ArrayList<String> latitudeSequence = new ArrayList<String>();
 	StringBuilder locationSequence = new StringBuilder();
 	
+	HashMap<String, String> wordMap = new HashMap<String, String>();
+	
 	public void readCSV(String localPath) {
 		
 		//read csv and sort by timestamp (titles are removed because of lambda commands)
-		
 		try {
 			Map<Long, List<String>> collect = Files.lines(Paths.get(localPath))
 				    .collect(
@@ -32,14 +37,43 @@ public class CSVReader {
 				longitudeSequence.add(split[2]);
 				latitudeSequence.add(split[3]);
 				
-				locationSequence.append(split[5].substring(0, 1));
+				String wholeWord = split[5];
 				
+				if(!wordMap.containsKey(wholeWord)) {					
+					wordMap.put(wholeWord, nextLetter() + "");
+				} else {
+					
+				}
 				
+				String letter = wordMap.get(wholeWord);
+				locationSequence.append(letter);
 			}
+			
+			System.out.println("This is the following word mapping: ");
+			System.out.println();
+			
+			for(Entry<String, String> entry : wordMap.entrySet()) {
+				System.out.println(entry.getKey() + " --> " + entry.getValue());
+			}
+			
+			System.out.println();
+			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	int letterCounter = 0;
+
+	private char nextLetter() {
+		char letter = alphabet[letterCounter];
+		letterCounter++;
+		
+		if(alphabet.length == letterCounter) {
+			throw new IllegalArgumentException("Out of letters.");
+		}
+		
+		return letter;
 	}
 
 	public ArrayList<String> getLongitudeSequence() {

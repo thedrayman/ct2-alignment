@@ -1,12 +1,11 @@
 package main;
 
-import algorithms.GlobalAlignment;
+import algorithms.LocalAlignment;
 
 public class Main {
 
 	public static void main(String[] args) {
-		GlobalAlignment alignment = new GlobalAlignment();
-
+		new LocalAlignment("google location data/test.csv");
 	}
 
 }

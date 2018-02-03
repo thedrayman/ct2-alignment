@@ -1,44 +1,46 @@
 package algorithms;
 
-import java.util.LinkedList;
-import java.util.Queue;
-
 public class Node {
+	private Node previousNode;
+	private int score;
+	private int row;
+	private int col;
 
-	private int value;
-	private boolean matchWay = false;
-	private final Queue<Character> direction = new LinkedList<Character>();
-
-	public int getValue() {
-		return value;
+	public Node(int i, int j) {
+		this.row = i;
+		this.col = j;
 	}
 
-	public void setValue(final int value) {
-		this.value = value;
+	public Node getPreviousNode() {
+		return previousNode;
 	}
 
-	public boolean isMatchWay() {
-		return matchWay;
+	public void setPreviousNode(Node previousNode) {
+		this.previousNode = previousNode;
 	}
 
-	public void setMatchWay(boolean matchWay) {
-		this.matchWay = matchWay;
+	public int getScore() {
+		return score;
 	}
 
-	public char popDirection() {
-		return direction.poll();
+	public void setScore(int score) {
+		this.score = score;
 	}
 
-	public char peekDirection() {
-		return direction.peek();
+	public int getRow() {
+		return row;
 	}
 
-	public int sizeDirection() {
-		return direction.size();
+	public void setRow(int row) {
+		this.row = row;
 	}
 
-	public boolean pushDirection(final Character c) {
-		return direction.add(c);
+	public int getCol() {
+		return col;
+	}
+
+	public void setCol(int col) {
+		this.col = col;
 	}
 
 }
