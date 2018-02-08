@@ -10,12 +10,20 @@ public class AlignmentTests {
 
 	@Test
 	public void testLocalAlignmentWithFirstDataSet() {
+		long start = System.currentTimeMillis();
 		new LocalAlignment("google location data/test.csv");
+		long end = System.currentTimeMillis();
+		
+		System.out.println("Time needed for algorithm: " + (end - start) + "ms");
 	}
 	
 	@Test
 	public void testLocalAlignmentWithSecondDataSet() {
+		long start = System.currentTimeMillis();
 		new LocalAlignment("google location data/test2.csv");
+		long end = System.currentTimeMillis();
+		
+		System.out.println("Time needed for algorithm: " + (end - start) + "ms");
 	}
 	
 	@Test

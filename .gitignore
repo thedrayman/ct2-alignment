@@ -22,5 +22,5 @@
 .idea
 .idea/
 Paper/.project
-*.pdf
+Paper/*.pdf
 .gitignore
