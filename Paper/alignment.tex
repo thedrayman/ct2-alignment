@@ -88,7 +88,7 @@ In dieser Arbeit wird versucht, eine Positionsvorhersage mit dem Ansatz des Alig
 Zu Location Prediction gibt es eine Menge Forschungsmaterial.
 Alignment Algorithmen bieten ein Ähnlichkeitsmaß für beliebige Folgen von Datenpunkten, auch Sequenzen genannt. Das heißt die Anwendung solcher Algorithmen ermöglicht es zwei Sequenzen auf ihre Ähnlichkeit zu untersuchen und somit zu Vergleichen. Eine häufige Anwendung findet in der Bioinformatik statt. Hierbei werden DNA- oder Protein-Sequenzen auf evolutionsbedingte Verwandtschaft untersucht. Ein Beispiel hierfür findet sich in \cite{waterman1995introduction}.
 
-Sigg et al. \cite{sigg2010alignment} beschreiben einen Ansatz um mittels Alignment vorhersagen anhand von Kontextsequenzen machen zu können. Die Anwendung von Alignment Algorithmen ermöglicht es Sigg et al. die ähnlichsten vorkommende Teilsequenzen zu finden und anhand dieser den nächsten Eintrag vorhersagen zu können. Dafür verwenden sie unter anderem  Needleman-Wunsch-Algorithmus, welcher mittels Backtracking ein globales Optimum findet. Ein Ähnlicher Algorithmus ist der Hirschberg-Algorithmus \cite{hirschberg1975linear}, welcher ebenfalls ein globaler Algorithmus ähnlich wie der Needleman-Wunsch-Algorithmus ist.
+Sigg et al. \cite{sigg2010alignment} beschreiben einen Ansatz um mittels Alignment vorhersagen anhand von Kontextsequenzen machen zu können. Die Anwendung von Alignment Algorithmen ermöglicht es Sigg et al. die ähnlichsten vorkommende Teilsequenzen zu finden und anhand dieser den nächsten Eintrag vorhersagen zu können. Dafür verwenden sie unter anderem  Needleman-Wunsch-Algorithmus \cite{needleman1970general}, welcher mittels Backtracking ein globales Optimum findet. Ein Ähnlicher Algorithmus ist der Hirschberg-Algorithmus \cite{hirschberg1975linear}, welcher ebenfalls ein globaler Algorithmus ähnlich wie der Needleman-Wunsch-Algorithmus ist.
 
 Unser Ansatz basiert ebenfalls auf Alignment Algorithmen. Dabei verwenden wir im Gegensatz zu \cite{sigg2010alignment} den Smith-Waterman-Algorithmus \cite{smith1981identification}
 innerhalb unseres Location Prediction Ansatzes. 
@@ -96,13 +96,12 @@ Dieser Algorithmus ist im Gegensatz zum Needleman-Wunsch-Algorithmus und Hirschb
 
 Neben der Verwendung von Alignment Algorithmen gibt es weitere Ansätze zur Location Prediction. Craig et al. \cite{craig2017region} nutzen einen Clustering-Ansatz um Aufenthaltsorte einer Person mittels Cluster zu definieren. Dies geschieht, in dem ein Ort in möglichst kleine Regionen eingeteilt wird und anschließend ähnliche benachbarte Regionen zu größeren Clustern kombiniert werden. Basierend auf diesen Regionen ist das Ziel den nächsten Ort an dem sich eine Person befinden wird vorherzusagen. Dabei wird anhand des aktuellen bzw. der vorherigen Standorte geprüft auf welcher Strecke sicher der Nutzer befindet und Anhand dieser Information das Cluster bestimmt in welchem sein nächstes Ziel liegen könnte.  
 Im Gegensatz zu unseren Ansatz liefert Clustering keine optimale Lösung, sondern führt eine Reduktion der Daten durch und ermöglicht somit die Verwendung auf leistungsschwachen Geräten.
+
+Rjeily et al. \cite{8167546} nutzen einen Sequenz Prediction Ansatz um ein Herzfehler eines Patienten festzustellen.
+Dazu werden diskrete sowie kontinuierliche Datensequenzen verwendet, z.\,B.Schmerzen in der Brust auf einer Skala von 1 bis 4 und Blutdruckwerte. Dabei basiert Ihr Ansatz auf einer Erweiterung des Compact Prediction Tree Algorithmus \cite{gueniche2013compact}. Dieser Algorithmus ist in der Lage anhand einer gegebenen Sequenz das nächste Symbol zu schätzen, welches die Patienten zu Risikogruppen zuordnet. Die Sequenz wird dabei genutzt um zu überprüfen in welche Risikokategorie ein Patient eingestuft werden kann. Im Vergleich zu dem hier präsentierten Ansatz arbeitet der Algorithmus von Rjeily et al.auf komplexen hochdimensionalen Daten wodurch der Algorithmus zu komplex für die hier verwendeten Daten ist. Da sich die hier betrachteten Daten aus reinen diskreten Symbolen zusammensetzten, wäre die Anwendung eines solchen Algorithmus für unseren Ansatz ungeeignet.
+
+Zusammenfassend findet Sequenzprediction eine breite Anwendung und eignet sich daher auch potentiell zu Verwendung von Location Prediction.
 %\cite{craig2017region}
-
-%Alignment allgemein
-
-%Location prediction allgemein
-
-%Alignment eignet besonders gut fÃ¼r Locations
 
 \section{Conception}\label{section:conception} 
 
