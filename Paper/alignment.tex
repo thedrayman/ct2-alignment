@@ -34,7 +34,7 @@
 \usepackage{amsmath}
 \usepackage{url}
 
-\usepackage{ngerman}
+%\usepackage{ngerman}
 %\usepackage[latin1, utf8]{inputenc}
 \usepackage[latin1]{inputenc}
 %\usepackage[utf8x]{inputenc}
@@ -112,14 +112,20 @@ Im Gegensatz zu unseren Ansatz liefert Clustering keine optimale Lösung, sondern
 
 %Alignment lÃ¤sst sich auf Location data anwenden
 
-Heutzutage besitzt fast jeder Mensch ein Smartphone. Der Vorteil ist, dass die Daten bereits von Google automatisch über eine Applikation aufgenommen werden. Der Zugriff auf die Daten erfolgt über herunterladbare KML-Dateien. Zum Zweck des Programms wurden sie in das CSV-Format konvertiert, die jeweils einen Zeitraum von Daten von bis zu einem Monat bis hin zu mehreren Monaten bereitstellen.
-
-Solch eine Datei ist folgendermaßen aufgebaut: Die Spalten enthalten Werte "{}longitude"{}, "{}latitude"{} und "{}altitude"{} für die Ortsbestimmung mit dem dazugehörigen "{}timestamp"{} und eine Ortsbezeichnung mit dem Titel "{}unknown"{}, sowie die Ortsgenauigkeit "{}accuracy"{}. Zur Vorhersagebestimmung wurden in dieser Arbeit nur Ortsbezeichnungen, sortiert nach ihrer Zeit, verwendet. Alle anderen Werte können mittels Alignment nicht auf trivialer Weise vorhergesagt werden und werden daher nicht berücksichtigt.
+Heutzutage besitzt fast jeder Mensch ein Smartphone. Der Vorteil ist, dass die Daten bereits über Google Location Data automatisch über eine Applikation aufgenommen werden, die auf Android-Systemen bereits bei einem Kauf des Geräts mitgeliefert wird. Die täglich aufgezeichneten Daten beinhalten genaue Positionskoordinaten und Zeiten bis hin zur Ortsbezeichnungen und Ortsgenauigkeiten. 
 
 %Idee der Implementierung und Grund für die Entscheidung
 
-%Wir verwenden den Waterman-Smith Algorithmus, um die Zukunftsposition vorherzusagen. Der Grund für die Entscheidung für diesen %Algorithmus ist...
-%Die Idee ist es nun, die eingelesenen Daten in eine Zeichenkette umzuwandeln, damit der Waterman-Smith-Algorithmus darauf arbeiten kann.
+\begin{figure}
+	\centering
+	\includegraphics[width=0.49\textwidth]{images/alignment_diagram3.pdf}
+	\caption{Concept of sequence alignment}
+	\label{fig:diagram}
+\end{figure}
+
+Die Idee ist es nun, den nächsten Ort einer Person anhand ihres Verhaltens vorherzusagen. Dafür betrachten wir die Daten als eine lange Sequenz, wie in Fig. \ref{fig:diagram} dargestellt. Sie wird an einer bestimmten Stelle - üblicherweise in der Mitte - zu einer History- und einer Testsequenz gespalten. Somit entsteht eine Historysequenz, die abrupt endet und deren \textit{l} Zeichen man vorhersagen kann. Nun wird der Historysequenz eine Suchsequenz mit den letzten \textit{x} Zeichen entnommen. Das Alignment wird dann auf die Test- und Suchsequenz angewendet, um die ähnlichste Sequenz zu finden. Alle Zeichen danach bilden die Vorhersagesequenz.
+
+Der Algorithmus, der sich für dieses Problem am besten eignet, ist der Waterman-Smith-Algorithmus, da er auf unterschiedlich lange Sequenzen angewendet werden kann, um lokal den kleinst möglichen Match zu finden. Ein anderer Vorteil ist, dass die Sequenzen nicht identisch sein müssen, sodass ebenfalls auch ähnliche Sequenzen gefunden werden können. Algorithmen wie Needleman-Wunsch und Hirschberg eignen sich dafür nicht, da diese nur global die größte, ähnlichste Sequenz aus den beiden Sequenzen errechnet.
 
 %Erklärung Waterman-Smith
 
@@ -127,7 +133,7 @@ Der Waterman-Smith ist ein lokaler Optimierungsalgorithmus, der auf zwei Zeichen
 
 Im zweiten Schritt werden die entsprechenden ähnlichsten Stellen anhand des Traceback-Algorithmus erfasst. Ausgehend vom maximalen Wert wird der Berechnungspfad rückwärts diagonal nach Nord-Westen auf den Wert Null ausgeschlossen zurückverfolgt. Daraus ergeben sich Indizes für Start und Ende der Match-Sequenz.
 
-Wir haben uns für den Waterman-Smith-Algorithmus entschieden, da wir nur eine kleine Teilsequenz in einer viel Größeren finden wollen, d.h. wir suchen ein gewisses Verhalten einer Sequenz in einer Anderen, ohne, dass sie genau identisch sein müssen. Übertragen auf die reale Situation bedeutet das, dass man anhand eines typischen Verhaltens eines Menschen eine treffende Vorhersage für sein nächstes Verhalten deuten kann, indem man aus dem nächsten vorhandenen Daten entnimmt, wo er sich als nächstes aufgehalten hat. Im nächsten Kapitel betrachten wir die genaue Implementierung in der Programmiersprache Java.
+Um den Algorithmus besser zu verdeutlichen, betrachte man nun das folgende Beispiel.
 
 \begin{figure}
 	\centering
@@ -140,7 +146,7 @@ Wir haben uns für den Waterman-Smith-Algorithmus entschieden, da wir nur eine kl
 
 \subsection{Example}
 
-In Figure \ref{fig:watermansmith} sind zwei Sequenzen "{}GCCCTAGCG"{} und "{}GCGCAATG"{} gegeben, die zusammen eine Matrix bilden. 
+In Fig. \ref{fig:watermansmith} sind zwei Sequenzen "{}GCCCTAGCG"{} und "{}GCGCAATG"{} gegeben, die zusammen eine Matrix bilden. 
 
 \begin{enumerate}
 	\item Die erste Spalte und Zeile der Matrix wird mit Nullen initialisiert werden.
@@ -150,7 +156,13 @@ In Figure \ref{fig:watermansmith} sind zwei Sequenzen "{}GCCCTAGCG"{} und "{}GCG
 	\item Aus der Matrix kann man herauslesen, dass das Ergebnis des lokalen Alignments "{}GCG"{} lautet.
 \end{enumerate}
 
+Im nächsten Kapitel betrachten wir die genaue Implementierung in der Programmiersprache Java.
+
 \section{Implementation}\label{section:implementation}
+
+Der Zugriff auf die Daten erfolgt über herunterladbare KML-Dateien. Zum Zweck des Programms wurden sie in das CSV-Format konvertiert.
+
+Solch eine Datei ist folgendermaßen aufgebaut: Die Spalten enthalten Werte "{}longitude"{}, "{}latitude"{} und "{}altitude"{} für die Ortsbestimmung mit dem dazugehörigen "{}timestamp"{} und eine Ortsbezeichnung mit dem Titel "{}unknown"{}, sowie die Ortsgenauigkeit "{}accuracy"{}. Zur Vorhersagebestimmung wurden in dieser Arbeit nur Ortsbezeichnungen, sortiert nach ihrer Zeit, verwendet. Alle anderen Werte können mittels Alignment nicht auf trivialer Weise vorhergesagt werden und werden daher nicht berücksichtigt.
 
 %Wie sehen die Daten aus?
 
@@ -161,6 +173,8 @@ In Figure \ref{fig:watermansmith} sind zwei Sequenzen "{}GCCCTAGCG"{} und "{}GCG
 Um die von Google gesammelten Daten zu verwenden, müssen diese eingelesen werden. Zunächst einmal wird KML-Datei beispielweise mit einem externen Programm in das CSV-Format konvertiert. Die Daten werden durch ein Semikolon voneinander getrennt.  
 
 \section{Evaluation}\label{section:evaluation}
+
+Es wurden uns Daten von drei unterschiedlichen Personen bereitgestellt, die jeweils einen Zeitraum von einem Monat bis hin zu mehreren Monaten aufweisen.
 
 %Wie schnell ist der Algorithmus auf groÃŸen Daten?
 

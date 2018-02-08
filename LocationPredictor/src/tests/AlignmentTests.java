@@ -27,6 +27,15 @@ public class AlignmentTests {
 	}
 	
 	@Test
+	public void testLocalAlignmentWithThirdDataSet() {
+		long start = System.currentTimeMillis();
+		new LocalAlignment("google location data/test3.csv");
+		long end = System.currentTimeMillis();
+		
+		System.out.println("Time needed for algorithm: " + (end - start) + "ms");
+	}
+	
+	@Test
 	public void testLocalAlignment() {
 		SmithWaterman algorithm = new SmithWaterman();
 		
