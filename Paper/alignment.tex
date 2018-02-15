@@ -41,7 +41,7 @@
 
 \hyphenation{op-tical net-works semi-conduc-tor}
 
-\newcommand{\algoSW}{Smith?Waterman algorithm}
+\newcommand{\algoSW}{Smith-Waterman algorithm}
 
 
 \begin{document}
@@ -136,11 +136,11 @@ Die Idee ist es nun, den nächsten Ort einer Person anhand ihrer jetzigen und ver
 	\label{fig:diagram}
 \end{figure}
 
-Der Algorithmus, der sich für dieses Problem am besten eignet, ist der Waterman-Smith-Algorithmus, da er auf unterschiedlich lange Sequenzen angewendet werden kann, um lokal den kleinst möglichen Match zu finden. Ein anderer Vorteil ist, dass die Sequenzen nicht identisch sein müssen, sodass ebenfalls auch ähnliche Sequenzen gefunden werden können. Algorithmen wie Needleman-Wunsch und Hirschberg eignen sich dafür weniger, da diese nur global die größte, ähnlichste Sequenz aus den beiden Sequenzen errechnet.
+Der Algorithmus, der sich für dieses Problem am besten eignet, ist der \algoSW-Algorithmus, da er auf unterschiedlich lange Sequenzen angewendet werden kann, um lokal den kleinst möglichen Match zu finden. Ein anderer Vorteil ist, dass die Sequenzen nicht identisch sein müssen, sodass ebenfalls auch ähnliche Sequenzen gefunden werden können. Algorithmen wie Needleman-Wunsch und Hirschberg eignen sich dafür weniger, da diese nur global die größte, ähnlichste Sequenz aus den beiden Sequenzen errechnet.
 
 %Erklärung Waterman-Smith
 
-Der Waterman-Smith ist ein lokaler Optimierungsalgorithmus, der auf zwei Zeichenketten-Sequenzen arbeitet. Im ersten Schritt werden beide Sequenzen so angeordnet, dass sie eine Matrix bilden, von denen die erste Spalte und Zeile jeweils mit Nullen initialisiert wird. Jedes Zeichen aus Sequenz A wird mit jedem Zeichen aus Sequenz B iterativ, beginnend mit dem ersten Index in der Matrix, verglichen. Anhand von Rekurrenzen wird dann ein Ähnlichkeitsmaß (Score) berechnet. Handelt es sich beispielsweise um einen Match, so erhöht sich der Score um einen festgelegten Rekurrenzwert. Analog dazu verringert sich der Score dementsprechend. Ebenso kann es passieren, dass die Sequenzen zwar ähnlich, aber durch eine Lücke nicht mehr identisch sind. Bei einer Lücke handelt es sich entweder um eine Insertion oder eine Deletion in der Sequenz. Die nächsten Einträge werden genauso in Abhängigkeit vom vorherigen Wert berechnet. Im Gegensatz zum Needleman-Wunsch-Algorithmus kann der Eintrag in der Matrix beim Waterman-Smith-Algorithmus nicht negativ sein. Sollte er jedoch in den negativen Bereich fallen, wird der Wert wieder auf Null gesetzt. Anschließend sucht man nach dem höchsten Wert in der gesamten Matrix. Dies ist der optimale Wert. Ein Alignment ist dann optimal, sobald es solch einen Wert besitzt. Eine Matrix kann mehrere Maxima haben, daher kann das Alignment an mehreren Stellen optimal sein. 
+Der \algoSW ist ein lokaler Optimierungsalgorithmus, der auf zwei Zeichenketten-Sequenzen arbeitet. Im ersten Schritt werden beide Sequenzen so angeordnet, dass sie eine Matrix bilden, von denen die erste Spalte und Zeile jeweils mit Nullen initialisiert wird. Jedes Zeichen aus Sequenz A wird mit jedem Zeichen aus Sequenz B iterativ, beginnend mit dem ersten Index in der Matrix, verglichen. Anhand von Rekurrenzen wird dann ein Ähnlichkeitsmaß (Score) berechnet. Handelt es sich beispielsweise um einen Match, so erhöht sich der Score um einen festgelegten Rekurrenzwert. Analog dazu verringert sich der Score dementsprechend. Ebenso kann es passieren, dass die Sequenzen zwar ähnlich, aber durch eine Lücke nicht mehr identisch sind. Bei einer Lücke handelt es sich entweder um eine Insertion oder eine Deletion in der Sequenz. Die nächsten Einträge werden genauso in Abhängigkeit vom vorherigen Wert berechnet. Im Gegensatz zum Needleman-Wunsch-Algorithmus kann der Eintrag in der Matrix beim \algoSW-Algorithmus nicht negativ sein. Sollte er jedoch in den negativen Bereich fallen, wird der Wert wieder auf Null gesetzt. Anschließend sucht man nach dem höchsten Wert in der gesamten Matrix. Dies ist der optimale Wert. Ein Alignment ist dann optimal, sobald es solch einen Wert besitzt. Eine Matrix kann mehrere Maxima haben, daher kann das Alignment an mehreren Stellen optimal sein. 
 
 Im zweiten Schritt werden die entsprechenden ähnlichsten Stellen anhand des Traceback-Algorithmus erfasst. Ausgehend vom maximalen Wert wird der Berechnungspfad rückwärts diagonal nach Nord-Westen auf den Wert Null ausgeschlossen zurückverfolgt. Daraus ergeben sich Indizes für Start und Ende der Match-Sequenz.
 
@@ -149,7 +149,7 @@ Um den Algorithmus besser zu verdeutlichen, betrachte man nun das folgende Beisp
 \begin{figure}
 	\centering
 	\includegraphics[width=0.45\textwidth]{images/watermansmith.jpg}
-	\caption{Example of Waterman-Smith algorithm\cite{ibm}}
+	\caption{Example of Smith-Waterman algorithm\cite{ibm}}
 	\label{fig:watermansmith}
 \end{figure}
 
@@ -197,11 +197,11 @@ Es wurden uns Daten von drei unterschiedlichen Personen bereitgestellt, die jewe
 \section{Conclusion}\label{section:conclusion}
 
 %Erneute Zusammenfassung der Ergebnisse
-
+Wir haben Daten von der Google Location History von verschiedenen Nutzern entnommen und haben versucht eine Vorhersage über die nächsten Standorte zumachen. Für unseren Ansatz haben wir den Smith-Waterman-Algorithmus verwendet.
+\newline
 %Was ist dabei herausgekommen?
 
 %Was kÃ¶nnte man noch machen?
-
 In der Zukunft wollen wir unseren Ansatz noch dahingehend verbessern das wir unser Programm besser auf Echtzeitanwendungen abstimmen wollen und das die Daten direkt aus der Google Location History entnommen werden. Eine mögliche Anwendung könnte sein das ein Nutzer in Echtzeit sehen kann wie sich die Prediction ändert währen er den Ort wechselt.
 
 %\newpage
