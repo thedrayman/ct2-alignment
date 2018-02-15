@@ -70,7 +70,7 @@ public class LocalAlignment {
 		System.out.println();
 	}
 	
-	public void testSequences(int searchLength, int predictedLength) {
+	public int testSequences(int searchLength, int predictedLength, int shift) {
 		String historySequence;
 		String searchSequence;
 		String testSequence;
@@ -78,7 +78,7 @@ public class LocalAlignment {
 		System.out.println("==========SEQUENCE TESTING==========");
 		
 		int historyStart = 0;
-		int historyEnd = locationSequence.length()/2;
+		int historyEnd = locationSequence.length()/2 + shift;
 		int searchPatternStart = historyEnd - searchLength;
 		int searchPatternEnd = historyEnd;
 		
@@ -120,7 +120,7 @@ public class LocalAlignment {
 		
 		System.out.println();
 		
-		algorithm.predictWithExpected(highScoreNode.getCol(), predictedLength);
+		return algorithm.predictWithExpected(highScoreNode.getCol(), predictedLength);
 	}
 
 	private String readFile(String path) {

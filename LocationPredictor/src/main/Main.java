@@ -8,7 +8,7 @@ public class Main {
 		long start = System.currentTimeMillis();
 		LocalAlignment localAlignment = new LocalAlignment("google location data/test.csv");
 		localAlignment.findPrediction(5, 10);
-		localAlignment.testSequences(5, 10);
+		localAlignment.testSequences(5, 10, 0);
 		long end = System.currentTimeMillis();
 		
 		System.out.println("Time needed for algorithm: " + (end - start) + "ms");

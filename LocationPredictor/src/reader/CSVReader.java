@@ -46,7 +46,7 @@ public class CSVReader {
 				}
 				
 				char letter = wordMap.get(wholeWord);
-				
+//				locationSequence.append(letter);	
 				if(locationSequence.length() == 0 || locationSequence.charAt(locationSequence.length() - 1) != letter) {
 					locationSequence.append(letter);					
 				}

@@ -1,5 +1,7 @@
 package tests;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
 
 import algorithms.LocalAlignment;
@@ -13,7 +15,7 @@ public class AlignmentTests {
 		long start = System.currentTimeMillis();
 		LocalAlignment localAlignment = new LocalAlignment("google location data/test.csv");
 		localAlignment.findPrediction(5, 10);
-		localAlignment.testSequences(5, 10);
+		localAlignment.testSequences(5, 10, 0);
 		long end = System.currentTimeMillis();
 		
 		System.out.println("Time needed for algorithm: " + (end - start) + "ms");
@@ -24,7 +26,7 @@ public class AlignmentTests {
 		long start = System.currentTimeMillis();
 		LocalAlignment localAlignment = new LocalAlignment("google location data/test2.csv");
 		localAlignment.findPrediction(5, 10);
-		localAlignment.testSequences(5, 10);
+		localAlignment.testSequences(5, 10, 0);
 		long end = System.currentTimeMillis();
 		
 		System.out.println("Time needed for algorithm: " + (end - start) + "ms");
@@ -35,10 +37,50 @@ public class AlignmentTests {
 		long start = System.currentTimeMillis();
 		LocalAlignment localAlignment = new LocalAlignment("google location data/test3.csv");
 		localAlignment.findPrediction(5, 10);
-		localAlignment.testSequences(5, 10);
+		localAlignment.testSequences(5, 10, 0);
 		long end = System.currentTimeMillis();
 		
 		System.out.println("Time needed for algorithm: " + (end - start) + "ms");
+	}
+	
+	@Test
+	public void testShift() {
+		long start = System.currentTimeMillis();
+		LocalAlignment localAlignment = new LocalAlignment("google location data/test2.csv");
+		localAlignment.findPrediction(5, 10);
+		
+		ArrayList<Integer> list = new ArrayList<>();
+		
+		for(int i = 0; i < 20; i++) {
+			list.add(localAlignment.testSequences(5, 10, i));		
+			
+		}
+		
+		long end = System.currentTimeMillis();
+		
+		System.out.println("Time needed for algorithm: " + (end - start) + "ms");
+		
+		System.out.println("Levenstein distances: " + list);
+	}
+	
+	@Test
+	public void testSearchLength() {
+		long start = System.currentTimeMillis();
+		LocalAlignment localAlignment = new LocalAlignment("google location data/test.csv");
+		//localAlignment.findPrediction(5, 10);
+		
+		ArrayList<Integer> list = new ArrayList<>();
+		
+		for(int i = 1; i < 50; i++) {
+			list.add(localAlignment.testSequences(i, 1, 0));		
+			
+		}
+		
+		long end = System.currentTimeMillis();
+		
+		System.out.println("Time needed for algorithm: " + (end - start) + "ms");
+		
+		System.out.println("Levenstein distances: " + list);
 	}
 	
 	@Test

@@ -1,6 +1,6 @@
 package algorithms;
 
-
+import java.util.logging.Level;
 
 public class SmithWaterman {
 	private String testSequence;
@@ -141,22 +141,38 @@ public class SmithWaterman {
 		
 	}
 	
-	public String predictWithExpected(int endIndex, int length) {
+	public int predictWithExpected(int endIndex, int length) {
 		String predictedSequence = predict(endIndex, length);
 		System.out.println("Expected sequence of max length " + length + ": " + testSequence.substring(0, length));
 		
-		int result = 0;
+		int similarity = computeLevenshteinDistance(predictedSequence, testSequence.substring(0, length));
 		
-		for(int i = 0; i < predictedSequence.length(); i++) {
-			if(predictedSequence.charAt(i) == testSequence.substring(0, length).charAt(i)) {
-				result += Math.round((1.0/predictedSequence.length()) * 100);
-			}
-		}
+		System.out.println("Similarity: " + similarity);
 		
-		System.out.println("Similarity: " + result + " %");
-		
-		return predictedSequence;
+		return similarity;
 	}
+	
+	public int computeLevenshteinDistance(CharSequence lhs, CharSequence rhs) {      
+        int[][] distance = new int[lhs.length() + 1][rhs.length() + 1];        
+                                                                                 
+        for (int i = 0; i <= lhs.length(); i++)                                 
+            distance[i][0] = i;                                                  
+        for (int j = 1; j <= rhs.length(); j++)                                 
+            distance[0][j] = j;                                                  
+                                                                                 
+        for (int i = 1; i <= lhs.length(); i++)                                 
+            for (int j = 1; j <= rhs.length(); j++)                             
+                distance[i][j] = minimum(                                        
+                        distance[i - 1][j] + 1,                                  
+                        distance[i][j - 1] + 1,                                  
+                        distance[i - 1][j - 1] + ((lhs.charAt(i - 1) == rhs.charAt(j - 1)) ? 0 : 1));
+                                                                                 
+        return distance[lhs.length()][rhs.length()];                           
+    }   
+	
+	private int minimum(int a, int b, int c) {                            
+        return Math.min(Math.min(a, b), c);                                      
+    }
 
 	public Node[][] getScoreTable() {
 		return scoreTable;
