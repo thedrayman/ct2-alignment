@@ -19,7 +19,7 @@ public class CSVReader {
 	ArrayList<String> latitudeSequence = new ArrayList<String>();
 	StringBuilder locationSequence = new StringBuilder();
 	
-	HashMap<String, String> wordMap = new HashMap<String, String>();
+	HashMap<String, Character> wordMap = new HashMap<String, Character>();
 	
 	public void readCSV(String localPath) {
 		
@@ -40,19 +40,22 @@ public class CSVReader {
 				String wholeWord = split[5];
 				
 				if(!wordMap.containsKey(wholeWord)) {					
-					wordMap.put(wholeWord, nextLetter() + "");
+					wordMap.put(wholeWord, nextLetter());
 				} else {
 					
 				}
 				
-				String letter = wordMap.get(wholeWord);
-				locationSequence.append(letter);
+				char letter = wordMap.get(wholeWord);
+				
+				if(locationSequence.length() == 0 || locationSequence.charAt(locationSequence.length() - 1) != letter) {
+					locationSequence.append(letter);					
+				}
 			}
 			
 			System.out.println("This is the following word mapping: ");
 			System.out.println();
 			
-			for(Entry<String, String> entry : wordMap.entrySet()) {
+			for(Entry<String, Character> entry : wordMap.entrySet()) {
 				System.out.println(entry.getKey() + " --> " + entry.getValue());
 			}
 			
@@ -65,7 +68,7 @@ public class CSVReader {
 	
 	int letterCounter = 0;
 
-	private char nextLetter() {
+	private Character nextLetter() {
 		char letter = alphabet[letterCounter];
 		letterCounter++;
 		

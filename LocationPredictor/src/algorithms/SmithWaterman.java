@@ -18,7 +18,7 @@ public class SmithWaterman {
 		this.testSequence = testSequence;
 		this.searchSequence = searchSequence;
 		
-		scoreTable = new Node[searchSequence.length()][testSequence.length()];
+		scoreTable = new Node[searchSequence.length() + 1][testSequence.length() + 1];
 		
 		for (int i = 0; i < scoreTable.length; i++) {
 			for (int j = 0; j < scoreTable[i].length; j++) {
@@ -116,11 +116,12 @@ public class SmithWaterman {
 	      } else {
 	         align1Buf.insert(0, '-');
 	      }
+	      
 	      currentNode = currentNode.getPreviousNode();
 	   }
 	 
-	   String[] alignments = new String[] { "Test sequence: " + align1Buf.toString(),
-	         "Search sequence: " + align2Buf.toString() };
+	   String[] alignments = new String[] { "In test sequence: " + align1Buf.toString(),
+	         "In search sequence: " + align2Buf.toString() };
 	 
 	   return alignments;
 	}
@@ -138,6 +139,23 @@ public class SmithWaterman {
 		
 		return predictedSequence;
 		
+	}
+	
+	public String predictWithExpected(int endIndex, int length) {
+		String predictedSequence = predict(endIndex, length);
+		System.out.println("Expected sequence of max length " + length + ": " + testSequence.substring(0, length));
+		
+		int result = 0;
+		
+		for(int i = 0; i < predictedSequence.length(); i++) {
+			if(predictedSequence.charAt(i) == testSequence.substring(0, length).charAt(i)) {
+				result += Math.round((1.0/predictedSequence.length()) * 100);
+			}
+		}
+		
+		System.out.println("Similarity: " + result + " %");
+		
+		return predictedSequence;
 	}
 
 	public Node[][] getScoreTable() {

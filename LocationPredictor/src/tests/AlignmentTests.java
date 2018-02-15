@@ -11,7 +11,9 @@ public class AlignmentTests {
 	@Test
 	public void testLocalAlignmentWithFirstDataSet() {
 		long start = System.currentTimeMillis();
-		new LocalAlignment("google location data/test.csv");
+		LocalAlignment localAlignment = new LocalAlignment("google location data/test.csv");
+		localAlignment.findPrediction(5, 10);
+		localAlignment.testSequences(5, 10);
 		long end = System.currentTimeMillis();
 		
 		System.out.println("Time needed for algorithm: " + (end - start) + "ms");
@@ -20,7 +22,9 @@ public class AlignmentTests {
 	@Test
 	public void testLocalAlignmentWithSecondDataSet() {
 		long start = System.currentTimeMillis();
-		new LocalAlignment("google location data/test2.csv");
+		LocalAlignment localAlignment = new LocalAlignment("google location data/test2.csv");
+		localAlignment.findPrediction(5, 10);
+		localAlignment.testSequences(5, 10);
 		long end = System.currentTimeMillis();
 		
 		System.out.println("Time needed for algorithm: " + (end - start) + "ms");
@@ -29,7 +33,9 @@ public class AlignmentTests {
 	@Test
 	public void testLocalAlignmentWithThirdDataSet() {
 		long start = System.currentTimeMillis();
-		new LocalAlignment("google location data/test3.csv");
+		LocalAlignment localAlignment = new LocalAlignment("google location data/test3.csv");
+		localAlignment.findPrediction(5, 10);
+		localAlignment.testSequences(5, 10);
 		long end = System.currentTimeMillis();
 		
 		System.out.println("Time needed for algorithm: " + (end - start) + "ms");

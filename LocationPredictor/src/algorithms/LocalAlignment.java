@@ -3,19 +3,9 @@ package algorithms;
 import reader.CSVReader;
 
 public class LocalAlignment {
-
-	public static final int HISTORY_START = 0;
-	public static final int HISTORY_END = 800;
-	
-	public static final int TEST_START = HISTORY_END;
-	public static int TEST_END; 
-	
-	public static final int SEARCH_PATTERN_START = HISTORY_END - 11;
-	public static final int SEARCH_PATTERN_END = HISTORY_END;
-	
-	public static final int PREDICTED_LENGTH = 50;
 	
 	private String path;
+	private String locationSequence;
 
 	public LocalAlignment(String path) {
 		
@@ -24,36 +14,38 @@ public class LocalAlignment {
 		}
 		
 		this.path = path;
-		
-		String historySequence;
-		String searchSequence;
-		String testSequence;
-		
-		String locationSequence = readFile(this.path);
+
+		locationSequence = readFile(this.path);
 		
 		System.out.println("File path: " + this.path);
+		System.out.println();
+	}
+	
+	public void findPrediction(int searchLength, int predictedLength) {
+		String historySequence;
+		String searchSequence;
 		
-		if(HISTORY_START < 0 || HISTORY_END < 0 || SEARCH_PATTERN_START < 0 || HISTORY_END - HISTORY_START < 0) {
-			throw new IllegalArgumentException("Wrong bounds error occured! Please check the constants.");
-		}
+		System.out.println("==========SEQUENCE PREDICTION==========");
 		
-		historySequence = locationSequence.substring(HISTORY_START, HISTORY_END);
-		searchSequence = locationSequence.substring(SEARCH_PATTERN_START, SEARCH_PATTERN_END);
+		int historyStart = 0;
+		int historyEnd = locationSequence.length();
+		int searchPatternStart = historyEnd - searchLength;
+		int searchPatternEnd = historyEnd;
 		
-		TEST_END = locationSequence.length();
-		System.out.println("Length of Data sequence: " + TEST_END);
-		testSequence = locationSequence.substring(TEST_START, TEST_END);
+		historySequence = locationSequence.substring(historyStart, historyEnd);
+		searchSequence = locationSequence.substring(searchPatternStart, searchPatternEnd);
 		
-		System.out.println("History sequence: " + historySequence);
+		System.out.println("Length of Data sequence: " + historyEnd);
+		
 		System.out.println("Search sequence: " + searchSequence);
-		System.out.println("In Test sequence: " + testSequence);
+		System.out.println("In History sequence: " + historySequence);
 
 		SmithWaterman algorithm = new SmithWaterman();
 		
-		algorithm.initialize(testSequence, searchSequence);
+		algorithm.initialize(historySequence, searchSequence);
 		algorithm.fillInAll();
 		
-		//printScoreTable(testSequence, searchSequence, algorithm.getScoreTable());
+		printScoreTable(historySequence, searchSequence, algorithm.getScoreTable());
 		
 		String[] traceback = algorithm.getTraceback();
 		
@@ -73,7 +65,62 @@ public class LocalAlignment {
 		
 		System.out.println();
 		
-		algorithm.predict(highScoreNode.getCol(), PREDICTED_LENGTH);
+		algorithm.predict(highScoreNode.getCol(), predictedLength);
+		
+		System.out.println();
+	}
+	
+	public void testSequences(int searchLength, int predictedLength) {
+		String historySequence;
+		String searchSequence;
+		String testSequence;
+		
+		System.out.println("==========SEQUENCE TESTING==========");
+		
+		int historyStart = 0;
+		int historyEnd = locationSequence.length()/2;
+		int searchPatternStart = historyEnd - searchLength;
+		int searchPatternEnd = historyEnd;
+		
+		int testStart = historyEnd;
+		int testEnd = locationSequence.length();
+		
+		historySequence = locationSequence.substring(historyStart, historyEnd);
+		searchSequence = locationSequence.substring(searchPatternStart, searchPatternEnd);
+		
+		System.out.println("Length of Data sequence: " + testEnd);
+		testSequence = locationSequence.substring(testStart, testEnd);
+		
+		System.out.println("History sequence: " + historySequence);
+		System.out.println("Search sequence: " + searchSequence);
+		System.out.println("In Test sequence: " + testSequence);
+		
+		SmithWaterman algorithm = new SmithWaterman();
+		
+		algorithm.initialize(testSequence, searchSequence);
+		algorithm.fillInAll();
+		
+		printScoreTable(testSequence, searchSequence, algorithm.getScoreTable());
+		
+		String[] traceback = algorithm.getTraceback();
+		
+		System.out.println();
+		
+		System.out.println("Traceback:");
+		
+		for(String t : traceback) {
+			System.out.println(t);			
+		}
+		
+		System.out.println();
+		
+		Node highScoreNode = algorithm.getHighScoreNode();
+		
+		System.out.println("Highest Score: " + highScoreNode.getScore() + " in row " + highScoreNode.getRow() + " and col " + highScoreNode.getCol());
+		
+		System.out.println();
+		
+		algorithm.predictWithExpected(highScoreNode.getCol(), predictedLength);
 	}
 
 	private String readFile(String path) {
@@ -85,20 +132,24 @@ public class LocalAlignment {
 	public void printScoreTable(String testSequence, String searchSequence, Node[][] scoreTable) {
 		System.out.println("Score Table: ");
 		
-		System.out.print("  ");
+		System.out.print("    ");
 		
 		for(int i = 0; i < testSequence.length(); i++) {
-			System.out.print(testSequence.charAt(i) + " ");
+			System.out.print(testSequence.charAt(i) + " ");				
 		}
 		
 		System.out.println();
 		
 		for(int i = 0; i < scoreTable.length; i++) {
 			
-			System.out.print(searchSequence.charAt(i) + " ");
+			if(i != 0) {
+				System.out.print(searchSequence.charAt(i - 1) + " ");				
+			} else {
+				System.out.print("  ");
+			}
 			
-			for(int j = 0; j < scoreTable[i].length; j++) {				
-				System.out.print(scoreTable[i][j].getScore() + " ");
+			for(int j = 0; j < scoreTable[i].length; j++) {			
+				System.out.print(scoreTable[i][j].getScore() + " ");					
 			}
 			System.out.println();
 		}
