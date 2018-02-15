@@ -113,22 +113,32 @@ Zusammenfassend findet Sequenzprediction eine breite Anwendung und eignet sich d
 
 Heutzutage besitzt fast jeder Mensch ein Smartphone. Der Vorteil ist, dass die Daten bereits über Google Location Data automatisch über eine Applikation aufgenommen werden, die auf Android-Systemen bereits bei einem Kauf des Geräts mitgeliefert wird. Die täglich aufgezeichneten Daten beinhalten genaue Positionskoordinaten und Zeiten bis hin zur Ortsbezeichnungen und Ortsgenauigkeiten. 
 
+Die hier genutzten Daten stammen aus dem Google Location-Projekt (REF!!) und liegen als .CSV-Datei vor, die im folgenden auszugsweisen dargestellt ist.
+
+\begin{lstlisting}[caption={Example of collected location data}, label=listing:exampledata]
+timestamp, accuracy, logitude, latitude, altitude, description
+1311761703, 36, 9.472.948, 51.311.078, 0, WORK
+1311747139, 55, 9.403.654, 51.404.189, 0, HOME
+\end{lstlisting}
+
+Für die Vorhersage der Location werden die einzelnen Datensätze der .CSV-Datei nach Zeit (\texttt{timestamp}) sortiert. Die Beschreibung (\texttt{description}) definiert den Ort des Nutzers anhand der Koordinaten (\texttt{logitude} und \texttt{latitude}). Für unseren Ansatz benötigen wird lediglich diese Beschreibung in der korrekten, zeitlichen Reihenfolge.
+
 %Idee der Implementierung und Grund für die Entscheidung
 
-\begin{figure}
+Die Idee ist es nun, den nächsten Ort einer Person anhand ihrer jetzigen und vergangenden Positionen vorherzusagen. Dafür betrachten wir die Daten als eine lange Sequenz, wie in Fig. \ref{fig:diagram} dargestellt. Sie wird an einer bestimmten Stelle - üblicherweise in der Mitte - zu einer History- und einer Testsequenz gespalten. Somit entsteht eine Historysequenz, die abrupt endet und deren \textit{l} Zeichen man vorhersagen kann. Nun wird der Historysequenz eine Suchsequenz mit den letzten \textit{x} Zeichen entnommen. Das Alignment wird dann auf die Test- und Suchsequenz angewendet, um die ähnlichste Sequenz zu finden. Alle Zeichen danach bilden die Vorhersagesequenz.
+
+\begin{figure}[h]
 	\centering
 	\includegraphics[width=0.49\textwidth]{images/alignment_diagram3.pdf}
 	\caption{Concept of sequence alignment}
 	\label{fig:diagram}
 \end{figure}
 
-Die Idee ist es nun, den nächsten Ort einer Person anhand ihres Verhaltens vorherzusagen. Dafür betrachten wir die Daten als eine lange Sequenz, wie in Fig. \ref{fig:diagram} dargestellt. Sie wird an einer bestimmten Stelle - üblicherweise in der Mitte - zu einer History- und einer Testsequenz gespalten. Somit entsteht eine Historysequenz, die abrupt endet und deren \textit{l} Zeichen man vorhersagen kann. Nun wird der Historysequenz eine Suchsequenz mit den letzten \textit{x} Zeichen entnommen. Das Alignment wird dann auf die Test- und Suchsequenz angewendet, um die ähnlichste Sequenz zu finden. Alle Zeichen danach bilden die Vorhersagesequenz.
-
-Der Algorithmus, der sich für dieses Problem am besten eignet, ist der Waterman-Smith-Algorithmus, da er auf unterschiedlich lange Sequenzen angewendet werden kann, um lokal den kleinst möglichen Match zu finden. Ein anderer Vorteil ist, dass die Sequenzen nicht identisch sein müssen, sodass ebenfalls auch ähnliche Sequenzen gefunden werden können. Algorithmen wie Needleman-Wunsch und Hirschberg eignen sich dafür nicht, da diese nur global die größte, ähnlichste Sequenz aus den beiden Sequenzen errechnet.
+Der Algorithmus, der sich für dieses Problem am besten eignet, ist der Waterman-Smith-Algorithmus, da er auf unterschiedlich lange Sequenzen angewendet werden kann, um lokal den kleinst möglichen Match zu finden. Ein anderer Vorteil ist, dass die Sequenzen nicht identisch sein müssen, sodass ebenfalls auch ähnliche Sequenzen gefunden werden können. Algorithmen wie Needleman-Wunsch und Hirschberg eignen sich dafür weniger, da diese nur global die größte, ähnlichste Sequenz aus den beiden Sequenzen errechnet.
 
 %Erklärung Waterman-Smith
 
-Der Waterman-Smith ist ein lokaler Optimierungsalgorithmus, der auf zwei Zeichenketten-Sequenzen arbeitet. Im ersten Schritt werden beide Sequenzen so angeordnet, dass sie eine Matrix bilden, von denen die erste Spalte und Zeile jeweils mit Nullen initialisiert wird. Jedes Zeichen aus Sequenz A wird mit jedem Zeichen aus Sequenz B iterativ, beginnend mit dem ersten Index in der Matrix, verglichen. Anhand von Rekurrenzen wird dann ein Ähnlichkeits-Score berechnet. Handelt es sich beispielsweise um einen Match, so erhöht sich der Score um einen festgelegten Rekurrenzwert. Analog dazu verringert sich der Score dementsprechend. Ebenso kann es passieren, dass die Sequenzen zwar ähnlich, aber durch eine Lücke nicht mehr identisch sind. Bei einer Lücke handelt es sich entweder um eine Insertion oder eine Deletion in der Sequenz. Die nächsten Einträge werden genauso in Abhängigkeit vom vorherigen Wert berechnet. Im Gegensatz zum Needleman-Wunsch-Algorithmus kann der Eintrag in der Matrix beim Waterman-Smith-Algorithmus nicht negativ sein. Sollte er jedoch in den negativen Bereich fallen, wird der Wert wieder auf Null gesetzt. Anschließend sucht man nach dem höchsten Wert in der gesamten Matrix. Dies ist der optimale Wert. Ein Alignment ist dann optimal, sobald es solch einen Wert besitzt. Eine Matrix kann mehrere Maxima haben, daher kann das Alignment an mehreren Stellen optimal sein. 
+Der Waterman-Smith ist ein lokaler Optimierungsalgorithmus, der auf zwei Zeichenketten-Sequenzen arbeitet. Im ersten Schritt werden beide Sequenzen so angeordnet, dass sie eine Matrix bilden, von denen die erste Spalte und Zeile jeweils mit Nullen initialisiert wird. Jedes Zeichen aus Sequenz A wird mit jedem Zeichen aus Sequenz B iterativ, beginnend mit dem ersten Index in der Matrix, verglichen. Anhand von Rekurrenzen wird dann ein Ähnlichkeitsmaß (Score) berechnet. Handelt es sich beispielsweise um einen Match, so erhöht sich der Score um einen festgelegten Rekurrenzwert. Analog dazu verringert sich der Score dementsprechend. Ebenso kann es passieren, dass die Sequenzen zwar ähnlich, aber durch eine Lücke nicht mehr identisch sind. Bei einer Lücke handelt es sich entweder um eine Insertion oder eine Deletion in der Sequenz. Die nächsten Einträge werden genauso in Abhängigkeit vom vorherigen Wert berechnet. Im Gegensatz zum Needleman-Wunsch-Algorithmus kann der Eintrag in der Matrix beim Waterman-Smith-Algorithmus nicht negativ sein. Sollte er jedoch in den negativen Bereich fallen, wird der Wert wieder auf Null gesetzt. Anschließend sucht man nach dem höchsten Wert in der gesamten Matrix. Dies ist der optimale Wert. Ein Alignment ist dann optimal, sobald es solch einen Wert besitzt. Eine Matrix kann mehrere Maxima haben, daher kann das Alignment an mehreren Stellen optimal sein. 
 
 Im zweiten Schritt werden die entsprechenden ähnlichsten Stellen anhand des Traceback-Algorithmus erfasst. Ausgehend vom maximalen Wert wird der Berechnungspfad rückwärts diagonal nach Nord-Westen auf den Wert Null ausgeschlossen zurückverfolgt. Daraus ergeben sich Indizes für Start und Ende der Match-Sequenz.
 
