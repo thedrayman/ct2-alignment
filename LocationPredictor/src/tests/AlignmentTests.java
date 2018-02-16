@@ -13,7 +13,7 @@ public class AlignmentTests {
 	@Test
 	public void testLocalAlignmentWithFirstDataSet() {
 		long start = System.currentTimeMillis();
-		LocalAlignment localAlignment = new LocalAlignment("google location data/test.csv");
+		LocalAlignment localAlignment = new LocalAlignment("google location data/Latitude_cv (2013_06_19 08_17_46 UTC).csv");
 		localAlignment.findPrediction(5, 10);
 		localAlignment.testSequences(5, 10, 0);
 		long end = System.currentTimeMillis();
@@ -24,7 +24,7 @@ public class AlignmentTests {
 	@Test
 	public void testLocalAlignmentWithSecondDataSet() {
 		long start = System.currentTimeMillis();
-		LocalAlignment localAlignment = new LocalAlignment("google location data/test2.csv");
+		LocalAlignment localAlignment = new LocalAlignment("google location data/Latitude_ik (2013_06_19 08_17_46 UTC).csv");
 		localAlignment.findPrediction(5, 10);
 		localAlignment.testSequences(5, 10, 0);
 		long end = System.currentTimeMillis();
@@ -35,7 +35,7 @@ public class AlignmentTests {
 	@Test
 	public void testLocalAlignmentWithThirdDataSet() {
 		long start = System.currentTimeMillis();
-		LocalAlignment localAlignment = new LocalAlignment("google location data/test3.csv");
+		LocalAlignment localAlignment = new LocalAlignment("google location data/Latitude_nk (2013_06_19 08_17_46 UTC).csv");
 		localAlignment.findPrediction(5, 10);
 		localAlignment.testSequences(5, 10, 0);
 		long end = System.currentTimeMillis();
@@ -46,7 +46,7 @@ public class AlignmentTests {
 	@Test
 	public void testShift() {
 		long start = System.currentTimeMillis();
-		LocalAlignment localAlignment = new LocalAlignment("google location data/test2.csv");
+		LocalAlignment localAlignment = new LocalAlignment("google location data/Latitude_ik (2013_06_19 08_17_46 UTC).csv");
 		localAlignment.findPrediction(5, 10);
 		
 		ArrayList<Integer> list = new ArrayList<>();
@@ -66,7 +66,7 @@ public class AlignmentTests {
 	@Test
 	public void testSearchLength() {
 		long start = System.currentTimeMillis();
-		LocalAlignment localAlignment = new LocalAlignment("google location data/test.csv");
+		LocalAlignment localAlignment = new LocalAlignment("google location data/Latitude_cv (2013_06_19 08_17_46 UTC).csv");
 		//localAlignment.findPrediction(5, 10);
 		
 		ArrayList<Integer> list = new ArrayList<>();

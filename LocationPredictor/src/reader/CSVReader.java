@@ -26,6 +26,7 @@ public class CSVReader {
 		//read csv and sort by timestamp (titles are removed because of lambda commands)
 		try {
 			Map<Long, List<String>> collect = Files.lines(Paths.get(localPath))
+					.skip(1)
 				    .collect(
 				    		Collectors.groupingBy(
 				    				l -> Long.valueOf(l.split(";", 6)[0]), TreeMap::new, Collectors.toList()));
