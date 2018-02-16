@@ -117,13 +117,13 @@ Heutzutage besitzt fast jeder Mensch ein Smartphone. Der Vorteil ist, dass die D
 
 Die hier genutzten Daten stammen aus dem Google Location-Projekt \cite{google-location} und liegen als .CSV-Datei vor, die auszugweise im folgenden Listing \ref{listing:exampledata}  dargestellt ist.
 
-\begin{lstlisting}[caption={Example of collected location data}, label=listing:exampledata]
+\begin{lstlisting}[basicstyle=\small, caption={Example of collected location data}, label=listing:exampledata]
 timestamp, accuracy, logitude, latitude, altitude, description
 1311761703, 36, 9.472.948, 51.311.078, 0, WORK
 1311747139, 55, 9.403.654, 51.404.189, 0, HOME
 \end{lstlisting}
 
-Für die Vorhersage der Location werden die einzelnen Datensätze der .CSV-Datei nach Zeit (\texttt{timestamp}) sortiert. Die Beschreibung (\texttt{description}) definiert den Ort des Nutzers anhand der Koordinaten (\texttt{logitude} und \texttt{latitude}). Für unseren Ansatz benötigen wird lediglich diese Beschreibung in der korrekten, zeitlichen Reihenfolge.
+Für die Vorhersage der Location werden die einzelnen Datensätze der .CSV-Datei nach Zeit (\texttt{timestamp}) sortiert. Die Beschreibung (\texttt{description}) definiert den Ort des Nutzers anhand der Koordinaten (\texttt{logitude}, \texttt{latitude} und \texttt{altitude}). Für unseren Ansatz benötigen wird lediglich diese Beschreibung in der korrekten, zeitlichen Reihenfolge.
 
 %Idee der Implementierung und Grund für die Entscheidung
 
@@ -192,6 +192,8 @@ Es wurden uns Daten von drei unterschiedlichen Personen bereitgestellt, die jewe
 %LÃ¤nge der Vergleichssequenz
 
 %Grafiken/Bilder fÃ¼r vorhergesagte Locations (und alte Locations)
+
+%Nutzbarkeit für Real-Time-Anwendung
 
 
 \section{Conclusion}\label{section:conclusion}
