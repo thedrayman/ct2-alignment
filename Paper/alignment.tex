@@ -60,7 +60,9 @@ Email: {\{\IEEEauthorrefmark{1}o\_groh, \IEEEauthorrefmark{2}uk017305, \IEEEauth
 \maketitle
 
 \begin{abstract}
-
+	Nowadays, with the position history of a person, it's possible to predict the location the person will be next. This approach is interesting in a wider field of application, such as rescue service, crime detection, advertising or personal smart-home systems. In this paper we try to predict a persons location with the Smith-Waterman alignment algorithm, commonly used in bioinformatics to compares segments protein sequences. As data set we used Google's location history from different mobile devices. 
+	
+	Results::
 \end{abstract}
 
 \IEEEpeerreviewmaketitle
@@ -175,11 +177,9 @@ Der Zugriff auf die Daten erfolgt über herunterladbare KML-Dateien. Zum Zweck de
 
 Solch eine Datei ist folgendermaßen aufgebaut: Die Spalten enthalten Werte "{}longitude"{}, "{}latitude"{} und "{}altitude"{} für die Ortsbestimmung mit dem dazugehörigen "{}timestamp"{} und eine Ortsbezeichnung mit dem Titel "{}unknown"{}, sowie die Ortsgenauigkeit "{}accuracy"{}. Zur Vorhersagebestimmung wurden in dieser Arbeit nur Ortsbezeichnungen, sortiert nach ihrer Zeit, verwendet. Alle anderen Werte können mittels Alignment nicht auf trivialer Weise vorhergesagt werden und werden daher nicht berücksichtigt.
 
-%Wie sehen die Daten aus?
-
-%CSV Aufbau
-
 %Import der CSV
+
+%
 
 Um die von Google gesammelten Daten zu verwenden, müssen diese eingelesen werden. Zunächst einmal wird KML-Datei beispielweise mit einem externen Programm in das CSV-Format konvertiert. Die Daten werden durch ein Semikolon voneinander getrennt.  
 
