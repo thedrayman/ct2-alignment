@@ -123,18 +123,18 @@ timestamp, accuracy, logitude, latitude, altitude, description
 1311747139, 55, 9.403.654, 51.404.189, 0, HOME
 \end{lstlisting}
 
-Für die Vorhersage der Location werden die einzelnen Datensätze der .CSV-Datei nach Zeit (\texttt{timestamp}) sortiert. Die Beschreibung (\texttt{description}) definiert den Ort des Nutzers anhand der Koordinaten (\texttt{logitude} und \texttt{latitude}). Für unseren Ansatz benötigen wird lediglich diese Beschreibung in der korrekten, zeitlichen Reihenfolge.
+Für die Vorhersage der Location werden die einzelnen Datensätze der .CSV-Datei nach Zeit (\texttt{timestamp}) sortiert. Die Beschreibung (\texttt{description}) definiert den Ort des Nutzers anhand der Koordinaten (\texttt{logitude}, \texttt{latitude} und der Höhe \texttt{altitude}), während \texttt{accuracy} die Ortsgenauigkeit beschreibt. Für unseren Ansatz benötigen wird lediglich diese Beschreibung in der korrekten, zeitlichen Reihenfolge.
 
 %Idee der Implementierung und Grund für die Entscheidung
 
-Die Idee ist es nun, den nächsten Ort einer Person anhand ihrer jetzigen und vergangenden Positionen vorherzusagen. Dafür betrachten wir die Daten als eine lange Sequenz, wie in Fig. \ref{fig:diagram} dargestellt. Sie wird an einer bestimmten Stelle - üblicherweise in der Mitte - zu einer History- und einer Testsequenz gespalten. Somit entsteht eine Historysequenz, die abrupt endet und deren \textit{l} Zeichen man vorhersagen kann. Nun wird der Historysequenz eine Suchsequenz mit den letzten \textit{x} Zeichen entnommen. Das Alignment wird dann auf die Test- und Suchsequenz angewendet, um die ähnlichste Sequenz zu finden. Alle Zeichen danach bilden die Vorhersagesequenz.
-
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.49\textwidth]{images/alignment_diagram3.pdf}
-	\caption{Concept of sequence alignment}
+	\includegraphics[width=0.49\textwidth]{images/alignment_diagram5.pdf}
+	\caption{Concept of sequence alignment and prediction}
 	\label{fig:diagram}
 \end{figure}
+
+Die Idee ist es nun, den nächsten Ort einer Person anhand ihrer jetzigen und vergangenen Positionen vorherzusagen. Dafür betrachten wir die Daten als eine lange Sequenz, wie in Fig. \ref{fig:diagram} dargestellt. Aus ihr wird eine Suchsequenz mit den letzten \textit{x} Zeichen entnommen. Das Alignment wird nun auf der gesamten Sequenz und der Suchsequenz angewendet, um die ähnlichste lokale Sequenz zu finden. Alle Zeichen danach bilden die Vorhersagesequenz der Länge \textit{l}.
 
 Der Algorithmus, der sich für dieses Problem am besten eignet, ist der \algoSW-Algorithmus, da er auf unterschiedlich lange Sequenzen angewendet werden kann, um lokal den kleinst möglichen Match zu finden. Ein anderer Vorteil ist, dass die Sequenzen nicht identisch sein müssen, sodass ebenfalls auch ähnliche Sequenzen gefunden werden können. Algorithmen wie Needleman-Wunsch und Hirschberg eignen sich dafür weniger, da diese nur global die größte, ähnlichste Sequenz aus den beiden Sequenzen errechnet.
 
@@ -142,9 +142,7 @@ Der Algorithmus, der sich für dieses Problem am besten eignet, ist der \algoSW-A
 
 Der \algoSW ist ein lokaler Optimierungsalgorithmus, der auf zwei Zeichenketten-Sequenzen arbeitet. Im ersten Schritt werden beide Sequenzen so angeordnet, dass sie eine Matrix bilden, von denen die erste Spalte und Zeile jeweils mit Nullen initialisiert wird. Jedes Zeichen aus Sequenz A wird mit jedem Zeichen aus Sequenz B iterativ, beginnend mit dem ersten Index in der Matrix, verglichen. Anhand von Rekurrenzen wird dann ein Ähnlichkeitsmaß (Score) berechnet. Handelt es sich beispielsweise um einen Match, so erhöht sich der Score um einen festgelegten Rekurrenzwert. Analog dazu verringert sich der Score dementsprechend. Ebenso kann es passieren, dass die Sequenzen zwar ähnlich, aber durch eine Lücke nicht mehr identisch sind. Bei einer Lücke handelt es sich entweder um eine Insertion oder eine Deletion in der Sequenz. Die nächsten Einträge werden genauso in Abhängigkeit vom vorherigen Wert berechnet. Im Gegensatz zum Needleman-Wunsch-Algorithmus kann der Eintrag in der Matrix beim \algoSW-Algorithmus nicht negativ sein. Sollte er jedoch in den negativen Bereich fallen, wird der Wert wieder auf Null gesetzt. Anschließend sucht man nach dem höchsten Wert in der gesamten Matrix. Dies ist der optimale Wert. Ein Alignment ist dann optimal, sobald es solch einen Wert besitzt. Eine Matrix kann mehrere Maxima haben, daher kann das Alignment an mehreren Stellen optimal sein. 
 
-Im zweiten Schritt werden die entsprechenden ähnlichsten Stellen anhand des Traceback-Algorithmus erfasst. Ausgehend vom maximalen Wert wird der Berechnungspfad rückwärts diagonal nach Nord-Westen auf den Wert Null ausgeschlossen zurückverfolgt. Daraus ergeben sich Indizes für Start und Ende der Match-Sequenz.
-
-Um den Algorithmus besser zu verdeutlichen, betrachte man nun das folgende Beispiel.
+Im zweiten Schritt, wie in \ref{fig:watermansmith} zu erkennen, werden die entsprechenden ähnlichsten Stellen anhand des Traceback-Algorithmus erfasst. Ausgehend vom maximalen Wert wird der Berechnungspfad rückwärts diagonal nach Nord-Westen auf den Wert Null ausgeschlossen zurückverfolgt. Daraus ergeben sich Indizes für Start und Ende der Match-Sequenz.
 
 \begin{figure}
 	\centering
@@ -153,35 +151,98 @@ Um den Algorithmus besser zu verdeutlichen, betrachte man nun das folgende Beisp
 	\label{fig:watermansmith}
 \end{figure}
 
-%Beispiel
-
-\subsection{Example}
-
-In Fig. \ref{fig:watermansmith} sind zwei Sequenzen "{}GCCCTAGCG"{} und "{}GCGCAATG"{} gegeben, die zusammen eine Matrix bilden. 
-
-\begin{enumerate}
-	\item Die erste Spalte und Zeile der Matrix wird mit Nullen initialisiert werden.
-	\item Ausgehend von dem ersten Index (0,0) wird der Score iterativ anhand von Rekkurenzen ausgerechnet. Für (G,G) ergibt der Score 1, da dies ein Match ist. Für (G,C) hingegen ergibt der Score 0, da dies kein Match (und somit mit -1 versehen wird) ist und aus dem Grund, dass der Wert nun negativ ist, nach der Regel auf 0 gebracht. 
-	\item Ist die Matrix vollständig berechnet, wird dort anschließend nach dem höchsten Wert gesucht. In diesem Fall beträgt er 3.
-	\item Der Traceback-Algorithmus folgt dem Berechnungspfad diagonal nach Nord-Westen rückwärts bis zum Wert 0. Daraus ergibt sich ein Pfad der Länge 4, wobei die Null nicht dazuzählt. D.h. die Pfadlänge beträgt 3.
-	\item Aus der Matrix kann man herauslesen, dass das Ergebnis des lokalen Alignments "{}GCG"{} lautet.
-\end{enumerate}
-
-Im nächsten Kapitel betrachten wir die genaue Implementierung in der Programmiersprache Java.
+Im nächsten Kapitel betrachten wir die genaue Implementierung.
 
 \section{Implementation}\label{section:implementation}
 
-Der Zugriff auf die Daten erfolgt über herunterladbare KML-Dateien. Zum Zweck des Programms wurden sie in das CSV-Format konvertiert.
+%Implementierung prediction
 
-Solch eine Datei ist folgendermaßen aufgebaut: Die Spalten enthalten Werte "{}longitude"{}, "{}latitude"{} und "{}altitude"{} für die Ortsbestimmung mit dem dazugehörigen "{}timestamp"{} und eine Ortsbezeichnung mit dem Titel "{}unknown"{}, sowie die Ortsgenauigkeit "{}accuracy"{}. Zur Vorhersagebestimmung wurden in dieser Arbeit nur Ortsbezeichnungen, sortiert nach ihrer Zeit, verwendet. Alle anderen Werte können mittels Alignment nicht auf trivialer Weise vorhergesagt werden und werden daher nicht berücksichtigt.
+Wie in Kapitel \ref{section:conception} bereits erklärt, benötigen wir für das Alignment aus den Daten nur den timestamp und die Ortsbezeichnungen.
 
-%Wie sehen die Daten aus?
+Die Daten der CSV-Datei sind durch Semikolons voneinander getrennt. Beim Einlesen wird die Header-Zeile zunächst übersprungen. Aus den Zeilen werden Ortsbezeichnungen entnommen und anhand des timestamps sortiert. Während des zeilenweisen Einlesens werden den Orten jeweils ein Buchstabe aus dem Alphabet zugeordnet. Der Grund, warum man kann nicht einfach den ersten Buchstaben eines Ortes nehmen kann ist, dass es oft vorkommt, dass die Orte mit dem gleichen Buchstaben anfangen. Aus den Buchstaben entsteht jetzt eine sortierte Zeichenketten-Sequenz, die wir als History-Sequenz bezeichnen. Im jetzigen Zustand ist die Sequenz mit Zeichen aufgebläht, die mehrfach hintereinander vorkommen können. Wie oft der gleiche Ort in der Sequenz vorkommt, interessiert uns aber an dieser Stelle nicht. Daher werden wiederholte Zeichen zu einem zusammengefasst. Dies hat zusätzlich den Effekt, dass die Sequenz kürzer wird und der Algorithmus noch effizienter darauf arbeiten kann. 
 
-%CSV Aufbau
+Im nächsten Schritt werden am Ende der History-Sequenz \textit{x} Zeichen abgeschnitten und als Suchsequenz abgespeichert. Nun werden beide Sequenzen an den Smith-Waterman-Algorithmus übergeben, damit er aus ihnen eine Score-Matrix berechnen kann. In unserem Programm arbeitet der Algorithmus auf den Rekurrenzen \textit{match=2}, \textit{mismatch=-1} und \textit{gap=-1}. Als Ausgabe wird eine Matrixzelle mit dem höchsten Score und mit den Indizes der gefundenen lokalen Sequenz erwartet, sodass man direkt auf die Stelle in der History-Sequenz zugreifen kann. Gibt es mehrere höchste Scores, so wird der zuerst gefundene genommen. Alle Zeichen mit der gewählten Länge \textit{l} können nun aus der History-Sequenz abgelesen werden.
 
-%Import der CSV
+%Beispiel prediction
 
-Um die von Google gesammelten Daten zu verwenden, müssen diese eingelesen werden. Zunächst einmal wird KML-Datei beispielweise mit einem externen Programm in das CSV-Format konvertiert. Die Daten werden durch ein Semikolon voneinander getrennt.  
+\subsection{Example}
+
+\begin{table}
+	\caption{Example of Google Location Data}
+	\resizebox{0.49\textwidth}{!}{%home:700, work:500, friend:800, sport:300
+	\begin{tabular}{l*{4}{c}r}
+		timestamp & accuaracy & longitude & latitude & altitude & unknown \\ 
+		\hline		
+		1300000000 & 30 & 9.500.700 & 51.330.700 & 0 & Home \\ 
+		1299999800 & 31 & 9.500.700 & 51.330.700 & 0 & Home \\ 
+		1299999600 & 31 & 9.500.300 & 51.330.300 & 0 & Sport \\ 
+		1299999400 & 31 & 9.500.700 & 51.330.700 & 0 & Home \\ 
+		1299999200 & 31 & 9.500.800 & 51.330.800 & 0 & Friend \\ 
+		1299999000 & 32 & 9.500.800 & 51.330.800 & 0 & Friend \\ 
+		1299998800 & 32 & 9.500.700 & 51.330.700 & 0 & Home \\ 
+		1299998600 & 31 & 9.500.500 & 51.330.500 & 0 & Work \\ 
+		1299998400 & 30 & 9.500.500 & 51.330.500 & 0 & Work \\ 
+		1299998200 & 31 & 9.500.700 & 51.330.700 & 0 & Home \\ 
+	\end{tabular}}
+	\label{fig:csv}
+\end{table}
+
+Wir nehmen an, dass der Ausschnitt einer CSV-Datei aus den unsortierten Daten wie in Tabelle \ref{fig:csv} besteht. 
+
+\begin{table}
+	\centering
+	\caption{Sorted, usable Google Location Data}
+	\begin{tabular}{{c}r}
+		timestamp & unknown \\ 
+		\hline
+		1299998200 & Home \\ 
+		1299998400 & Work \\ 
+		1299998600 & Work \\
+		1299998800 & Home \\ 
+		1299999000 & Friend \\
+		1299999200 & Friend \\  
+		1299999400 & Home \\
+		1299999600 & Sport \\ 
+		1299999800 & Home \\ 
+		1300000000 & Home \\  
+	\end{tabular}
+	\label{fig:csv_sorted}
+\end{table}
+
+\begin{figure}
+	\[Home \rightarrow A, Work \rightarrow B, Friend \rightarrow C, Sport \rightarrow D\]
+	\caption{Example of location data mapping}
+	\label{fig:csv_converted}
+\end{figure}
+
+
+
+%\begin{enumerate}
+	%\item Die erste Spalte und Zeile der Matrix wird mit Nullen initialisiert werden.
+	%\item Ausgehend von dem ersten Index (0,0) wird der Score iterativ anhand von Rekkurenzen ausgerechnet. Für (G,G) ergibt der Score 1, da dies ein Match ist. Für (G,C) hingegen ergibt der Score 0, da dies kein Match (und somit mit -1 versehen wird) ist und aus dem Grund, dass der Wert nun negativ ist, nach der Regel auf 0 gebracht. 
+	%\item Ist die Matrix vollständig berechnet, wird dort anschließend nach dem höchsten Wert gesucht. In diesem Fall beträgt er 3.
+	%\item Der Traceback-Algorithmus folgt dem Berechnungspfad diagonal nach Nord-Westen rückwärts bis zum Wert 0. Daraus ergibt sich ein Pfad der Länge 4, wobei die Null nicht dazuzählt. D.h. die Pfadlänge beträgt 3.
+	%\item Aus der Matrix kann man herauslesen, dass das Ergebnis des lokalen Alignments "{}GCG"{} lautet.
+%\end{enumerate}
+
+%Implementierung test
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.49\textwidth]{images/alignment_diagram4.pdf}
+	\caption{Concept of prediction sequence testing}
+	\label{fig:diagram_test}
+\end{figure}
+
+%Beispiel test
+
+\subsection{Example}
+
+Wir nehmen an, dass ...
+
+%\begin{enumerate}
+	%\item
+%\end{enumerate}
 
 \section{Evaluation}\label{section:evaluation}
 
@@ -192,6 +253,10 @@ Es wurden uns Daten von drei unterschiedlichen Personen bereitgestellt, die jewe
 %LÃ¤nge der Vergleichssequenz
 
 %Grafiken/Bilder fÃ¼r vorhergesagte Locations (und alte Locations)
+
+
+
+Sie wird an einer bestimmten Stelle - üblicherweise in der Mitte - zu einer History- und einer Testsequenz gespalten. Somit entsteht eine Historysequenz, die abrupt endet und deren \textit{l} Zeichen man vorhersagen kann. Nun wird der Historysequenz eine Suchsequenz mit den letzten \textit{x} Zeichen entnommen. Das Alignment wird dann auf die Test- und Suchsequenz angewendet, um die ähnlichste Sequenz zu finden. Alle Zeichen danach bilden die Vorhersagesequenz.
 
 
 \section{Conclusion}\label{section:conclusion}

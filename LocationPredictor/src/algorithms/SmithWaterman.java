@@ -1,7 +1,5 @@
 package algorithms;
 
-import java.util.logging.Level;
-
 public class SmithWaterman {
 	private String testSequence;
 	private String searchSequence;
