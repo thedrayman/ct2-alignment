@@ -101,7 +101,7 @@ Unser Ansatz basiert ebenfalls auf Alignment Algorithmen. Dabei verwenden wir im
 innerhalb unseres Location Prediction Ansatzes. 
 Dieser Algorithmus ist im Gegensatz zum Needleman-Wunsch-Algorithmus und Hirschbergalgorithmus in der Lage das lokale Optimum zu finden. Dies hat den Vorteil, dass lokale Übereinstimmungen nicht wie bei einer globalen Betrachtung übersehen werden können.
 
-Neben der Verwendung von Alignment Algorithmen gibt es weitere Ansätze zur Location Prediction. Craig et al. \cite{craig2017region} nutzen einen Clustering-Ansatz um Aufenthaltsorte einer Person mittels Cluster zu definieren. Dies geschieht, in dem ein Ort in möglichst kleine Regionen eingeteilt wird und anschließend ähnliche benachbarte Regionen zu größeren Clustern kombiniert werden. Basierend auf diesen Regionen ist das Ziel den nächsten Ort an dem sich eine Person befinden wird vorherzusagen. Dabei wird anhand des aktuellen bzw. der vorherigen Standorte geprüft auf welcher Strecke sicher der Nutzer befindet und Anhand dieser Information das Cluster bestimmt in welchem sein nächstes Ziel liegen könnte.  
+Neben der Verwendung von Alignment Algorithmen gibt es weitere Ansätze zur Location Prediction. Craig et al. \cite{craig2017region} nutzen einen Clustering-Ansatz um Aufenthaltsorte einer Person mittels Cluster zu definieren. Dies geschieht, in dem ein Ort in möglichst kleine Regionen eingeteilt wird und anschließend ähnliche benachbarte Regionen zu größeren Clustern kombiniert werden. Basierend auf diesen Regionen ist das Ziel den nächsten Ort an dem sich eine Person befinden wird vorherzusagen. Dabei wird anhand des aktuellen bzw. der vorherigen Standorte geprüft auf welcher Strecke sicher der Nutzer befindet und Anhand dieser Information das Cluster bestimmt in welchem sein nächstes Ziel liegen könnte.
 Im Gegensatz zu unseren Ansatz liefert Clustering keine optimale Lösung, sondern führt eine Reduktion der Daten durch und ermöglicht somit die Verwendung auf leistungsschwachen Geräten.
 
 Rjeily et al. \cite{8167546} nutzen einen Sequenz Prediction Ansatz um ein Herzfehler eines Patienten festzustellen.
@@ -118,7 +118,7 @@ Zusammenfassend findet Sequenzprediction eine breite Anwendung und eignet sich d
 
 %Alignment lÃ¤sst sich auf Location data anwenden
 
-Heutzutage besitzt fast jeder Mensch ein Smartphone. Der Vorteil ist, dass die Daten bereits über Google Location Data \cite{37522} automatisch über eine Applikation aufgenommen werden, die auf Android-Systemen bereits bei einem Kauf des Geräts mitgeliefert wird. Die täglich aufgezeichneten Daten beinhalten genaue Positionskoordinaten und Zeiten bis hin zur Ortsbezeichnungen und Ortsgenauigkeiten. 
+Heutzutage besitzt fast jeder Mensch ein Smartphone. Der Vorteil ist, dass die Daten bereits über Google Location Data \cite{37522} automatisch über eine Applikation aufgenommen werden, die auf Android-Systemen bereits bei einem Kauf des Geräts mitgeliefert wird. Die täglich aufgezeichneten Daten beinhalten genaue Positionskoordinaten und Zeiten bis hin zur Ortsbezeichnungen und Ortsgenauigkeiten.
 
 Die hier genutzten Daten stammen aus dem Google Location-Projekt \cite{google-location} und liegen als .CSV-Datei vor, die auszugweise im folgenden Listing \ref{listing:exampledata}  dargestellt ist.
 
