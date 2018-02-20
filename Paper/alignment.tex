@@ -152,7 +152,7 @@ Im zweiten Schritt, wie in \ref{fig:watermansmith} zu erkennen, werden die entsp
 \begin{figure}
 	\centering
 	\includegraphics[width=0.45\textwidth]{images/watermansmith.jpg}
-	\caption{Example of Smith-Waterman algorithm\cite{ibm}}
+	\caption{Filled-in Smith-Waterman table with traceback\cite{ibm}}
 	\label{fig:watermansmith}
 \end{figure}
 
@@ -164,7 +164,16 @@ Im nächsten Kapitel betrachten wir die genaue Implementierung.
 
 Wie in Kapitel \ref{section:conception} bereits erklärt, benötigen wir für das Alignment aus den Daten nur den timestamp und die Ortsbezeichnungen.
 
-Die Daten der CSV-Datei sind durch Semikolons voneinander getrennt. Beim Einlesen wird die Header-Zeile zunächst übersprungen. Aus den Zeilen werden Ortsbezeichnungen entnommen und anhand des timestamps sortiert. Während des zeilenweisen Einlesens werden den Orten jeweils ein Buchstabe aus dem Alphabet zugeordnet. Der Grund, warum man kann nicht einfach den ersten Buchstaben eines Ortes nehmen kann ist, dass es oft vorkommt, dass die Orte mit dem gleichen Buchstaben anfangen. Aus den Buchstaben entsteht jetzt eine sortierte Zeichenketten-Sequenz, die wir als History-Sequenz bezeichnen. Im jetzigen Zustand ist die Sequenz mit Zeichen aufgebläht, die mehrfach hintereinander vorkommen können. Wie oft der gleiche Ort in der Sequenz vorkommt, interessiert uns aber an dieser Stelle nicht. Daher werden wiederholte Zeichen zu einem zusammengefasst. Dies hat zusätzlich den Effekt, dass die Sequenz kürzer wird und der Algorithmus noch effizienter darauf arbeiten kann. 
+Die Daten der CSV-Datei sind durch Semikolons voneinander getrennt. Beim Einlesen wird die Header-Zeile zunächst übersprungen. Aus den Zeilen werden Ortsbezeichnungen entnommen und anhand des timestamps sortiert. Während des zeilenweisen Einlesens werden den Orten jeweils ein Buchstabe aus dem Alphabet zugeordnet. Der Grund, warum man kann nicht einfach den ersten Buchstaben eines Ortes nehmen kann ist, dass es oft vorkommt, dass die Orte mit dem gleichen Buchstaben anfangen. Aus den Buchstaben entsteht jetzt eine sortierte Zeichenketten-Sequenz, die wir als History-Sequenz bezeichnen. 
+
+%Das können wir so nicht schreiben!% 
+%Wir sollten die Daten im ersten Schritt nicht zusammenfassen%
+%Wenn doch, dann beschreiben warum das geht und wie man es machen könnte. Dabei ist die Dauer dringend zu beachten. Sprich: Es muss in den zusammengefassten Daten noch klar erkennbar sein das man acht Stunden an der Arbeit war und nur eine beim Sport.% 
+%Meiner Meinung und Tests nach, sollten wir das am Ende der Implementierung als Optimierungen überlegend erwähnen.%
+
+Im jetzigen Zustand ist die Sequenz mit Zeichen aufgebläht, die mehrfach hintereinander vorkommen können. Wie oft der gleiche Ort in der Sequenz vorkommt, interessiert uns aber an dieser Stelle nicht. Daher werden wiederholte Zeichen zu einem zusammengefasst. Dies hat zusätzlich den Effekt, dass die Sequenz kürzer wird und der Algorithmus noch effizienter darauf arbeiten kann. 
+
+%Weiter gehts...%
 
 Im nächsten Schritt werden am Ende der History-Sequenz \textit{x} Zeichen abgeschnitten und als Suchsequenz abgespeichert. Nun werden beide Sequenzen an den Smith-Waterman-Algorithmus übergeben, damit er aus ihnen eine Score-Matrix berechnen kann. In unserem Programm arbeitet der Algorithmus auf den Rekurrenzen \textit{match=2}, \textit{mismatch=-1} und \textit{gap=-1}. Als Ausgabe wird eine Matrixzelle mit dem höchsten Score und mit den Indizes der gefundenen lokalen Sequenz erwartet, sodass man direkt auf die Stelle in der History-Sequenz zugreifen kann. Gibt es mehrere höchste Scores, so wird der zuerst gefundene genommen. Alle Zeichen mit der gewählten Länge \textit{l} können nun aus der History-Sequenz abgelesen werden.
 
@@ -172,7 +181,7 @@ Im nächsten Schritt werden am Ende der History-Sequenz \textit{x} Zeichen abgesc
 
 \subsection{Example}
 
-\begin{table}
+\begin{table}[h]
 	\caption{Example of Google Location Data}
 	\resizebox{0.49\textwidth}{!}{%home:700, work:500, friend:800, sport:300
 	\begin{tabular}{l*{4}{c}r}
@@ -194,7 +203,7 @@ Im nächsten Schritt werden am Ende der History-Sequenz \textit{x} Zeichen abgesc
 
 Wir nehmen an, dass der Ausschnitt einer CSV-Datei aus den unsortierten Daten wie in Tabelle \ref{fig:csv} besteht. 
 
-\begin{table}
+\begin{table}[h]
 	\centering
 	\caption{Sorted, usable Google Location Data}
 	\begin{tabular}{{c}r}
@@ -250,6 +259,8 @@ Wir nehmen an, dass ...
 
 Es wurden uns Daten von drei unterschiedlichen Personen bereitgestellt, die jeweils einen Zeitraum von einem Monat bis hin zu mehreren Monaten aufweisen.
 
+Um die Genauigkeit der Vorhersage zu evaluieren, versuchen wir auf den vorhandnen Daten Vorhersagen zu machen und diese mit den vorliegenden Datensatz zu vergleichen. Dazu nutzen wir die letzten \textit{x} Daten als Test-Sequenz, welcher wir eine Such-Sequenz entnehmen. Folglich bilden die übrigen Daten die History-Sequenz. Die an die Such-Sequenz anschließenden \textit{y} Zeichen definieren wir als zu \textit{erwartende Vorhersage}. Nun wenden wir unser Programm auf die Such- und History-Sequenz an. Wird eine Vorhersage gefunden, wird diese mit der erwartenden Vorhersage verglichen. Dieses Evlauationsverfahren ist auf Abbildung \ref{fig:diagram_test} dargestellt.
+
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.49\textwidth]{images/alignment_diagram6.pdf}
@@ -257,11 +268,11 @@ Es wurden uns Daten von drei unterschiedlichen Personen bereitgestellt, die jewe
 	\label{fig:diagram_test}
 \end{figure}
 
+Betrachtet wird außerdem die Auswirkklung der Länge der Such-Sequenz \textit{k} und der Länge der Vorhersage \textit{l}. Dabei fällt auf, dass
+
 %Wie schnell ist der Algorithmus auf groÃŸen Daten?
 
 %LÃ¤nge der Vergleichssequenz
-
-%Grafiken/Bilder fÃ¼r vorhergesagte Locations (und alte Locations)
 
 %Nutzbarkeit für Real-Time-Anwendung
 
