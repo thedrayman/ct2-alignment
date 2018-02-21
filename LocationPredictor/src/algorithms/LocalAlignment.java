@@ -32,7 +32,8 @@ public class LocalAlignment {
 		int searchPatternStart = historyEnd - searchLength;
 		int searchPatternEnd = historyEnd;
 		
-		historySequence = locationSequence.substring(historyStart, historyEnd);
+		//new history = history - search
+		historySequence = locationSequence.substring(historyStart, historyEnd - searchLength);
 		searchSequence = locationSequence.substring(searchPatternStart, searchPatternEnd);
 		
 		System.out.println("Length of Data sequence: " + historyEnd);
