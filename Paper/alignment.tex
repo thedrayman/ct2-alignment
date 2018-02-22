@@ -190,18 +190,22 @@ Wie in Kapitel \ref{section:conception} bereits erklärt, benötigen wir für das A
 
 Die Daten der CSV-Datei sind durch Semikolons voneinander getrennt. Beim Einlesen wird die Header-Zeile zunächst übersprungen. Aus den Zeilen werden Ortsbezeichnungen entnommen und anhand des timestamps sortiert. Während des zeilenweisen Einlesens werden den Orten jeweils ein Buchstabe aus dem Alphabet zugeordnet. Dies ist nötig, da die Implementierung des Algorithmuses zur Berechnung ein einzelnes Zeichen erwartet - Anpassungen und Optimierungen auf Zeichenketten als Ortsbezeichnung sind durchführbar. Um Dopplungen zu vermeiden, wird nicht der erste Buchstaben der Ortsbezeichnung als Zeichen genutzt, sondern ein vorab definierter Buchstabe. Diese Zeichenkette ist anhand des Zeitstempels sortiert und bildet die sogenannte \textit{History-Sequenz}.
 
-Die Implementierung nutzt zwei Arten der History-Sequenz Darstellung - die komplette Zeichenkette der Ortsbezeichnung und eine zusammengefasste. Bei der ersten Darstellung, werden alle zu Verfügung stehenden, aufgezeichneten Daten in die History-Sequenz übernommen. Die zusammengefasste Darstellung fast Dateneinträge anhand von Zeitintervallen zusammen.  
+Die Implementierung nutzt zwei Arten der History-Sequenz Darstellung - die komplette Zeichenkette der Ortsbezeichnung und eine zusammengefasste. Bei der ersten Darstellung, werden alle zu Verfügung stehenden, aufgezeichneten Daten in die History-Sequenz übernommen. Die zusammengefasste Darstellung fast Dateneinträge anhand von Zeitintervallen zusammen. Dabei wird die Sequenz Zeichen für Zeichen eingelesen und überprüft, ob sich aufeinanderfolgende die Zeichen zusammenfassen lassen. Das hier gewählte Zeitintervall beträgt 30 Minuten. Sollte sich innerhalb dieses Intervalls das Zeichen nicht ändern, so wird dieses ignoriert. Folgt auf das betrachtet Zeichen ein anderes ( Ortswechsel) wrid dieses Zeichen in den komprimierte Sequenz aufgenommen. Ist das nachfolgende Zeichen gleich, aber dasZeitintervall wird überschritten, verbleibt das Zeichen in der Sequenz. Hier wird ein längerer Aufenthalt an einem Ort dargestellt. Durch die Komprimierung erhält man eine deutlich kürzere Sequenz, was in der nachfolgenden Tabelle \ref{tab:compression} detailiert dargestellt ist.
 
-%Das können wir so nicht schreiben!% 
-%Wir sollten die Daten im ersten Schritt nicht zusammenfassen%
-%Wenn doch, dann beschreiben warum das geht und wie man es machen könnte. Dabei ist die Dauer dringend zu beachten. Sprich: Es muss in den zusammengefassten Daten noch klar erkennbar sein das man acht Stunden an der Arbeit war und nur eine beim Sport.% 
-%Meiner Meinung und Tests nach, sollten wir das am Ende der Implementierung als Optimierungen überlegend erwähnen.%
+\begin{table}[h]
+	\centering
+	\caption{Comparison uncompressed and compressed history sequenz}
+	\begin{tabular}{cccc}
+		Data set & uncompressed & compressed & reduction \\
+		\hline
+		Sequenz 1 & 1858 & 436 & 76,53\% \\
+		Sequenz 2 & 5499 & 1015 & 81,54\% \\
+		Sequenz 3 & 2222 & 581 & 73,85\% \\
+	\end{tabular}
+	\label{tab:compression}
+\end{table}
 
-Im jetzigen Zustand ist die Sequenz mit Zeichen aufgebläht, die mehrfach hintereinander vorkommen können. Wie oft der gleiche Ort in der Sequenz vorkommt, interessiert uns aber an dieser Stelle nicht. Daher werden wiederholte Zeichen zu einem zusammengefasst. Dies hat zusätzlich den Effekt, dass die Sequenz kürzer wird und der Algorithmus noch effizienter darauf arbeiten kann. 
-
-%Weiter gehts...%
-
-Im nächsten Schritt werden am Ende der History-Sequenz \textit{x} Zeichen abgeschnitten und als Suchsequenz abgespeichert. Nun werden beide Sequenzen an den Smith-Waterman-Algorithmus übergeben, damit er aus ihnen eine Score-Matrix berechnen kann. In unserem Programm arbeitet der Algorithmus auf den Rekurrenzen \textit{match=2}, \textit{mismatch=-1} und \textit{gap=-1}. Als Ausgabe wird eine Matrixzelle mit dem höchsten Score und mit den Indizes der gefundenen lokalen Sequenz erwartet, sodass man direkt auf die Stelle in der History-Sequenz zugreifen kann. Gibt es mehrere höchste Scores, so wird der zuerst gefundene genommen. Alle Zeichen mit der gewählten Länge \textit{l} können nun aus der History-Sequenz abgelesen werden.
+Im nächsten Schritt werden \textit{x} Zeichen am Ende der History-Sequenz als Suchsequenz definiert. Nun werden beide Sequenzen an den Smith-Waterman-Algorithmus übergeben, damit er aus ihnen eine Score-Matrix berechnen kann. In unserem Programm arbeitet der Algorithmus auf den Rekurrenzen \textit{match=2}, \textit{mismatch=-1} und \textit{gap=-1}. Als Ausgabe wird eine Matrixzelle mit dem höchsten Score und mit den Indizes der gefundenen lokalen Sequenz erwartet, sodass man direkt auf die Stelle in der History-Sequenz zugreifen kann. Gibt es mehrere höchste Scores, so wird der zuerst gefundene genommen. Alle Zeichen mit der gewählten Länge \textit{l} können nun aus der History-Sequenz abgelesen werden.
 
 %Beispiel prediction
 
@@ -270,19 +274,7 @@ Wir nehmen an, dass der Ausschnitt einer CSV-Datei aus den unsortierten Daten wi
 %Sie wird an einer bestimmten Stelle - üblicherweise in der Mitte - zu einer History- und einer Testsequenz gespalten. Somit entsteht eine Historysequenz, die abrupt endet und deren \textit{l} Zeichen man vorhersagen kann. Nun wird der Historysequenz eine Suchsequenz mit den letzten \textit{x} Zeichen entnommen. Das Alignment wird dann auf die Test- und Suchsequenz angewendet, um die ähnlichste Sequenz zu finden. Alle Zeichen danach bilden die Vorhersagesequenz.
 
 
-
-%Beispiel test
-
-\subsection{Example}
-
-Wir nehmen an, dass ...
-
-%\begin{enumerate}
-	%\item
-%\end{enumerate}
-
 \section{Evaluation}\label{section:evaluation}
-
 Es wurden uns Daten von drei unterschiedlichen Personen bereitgestellt, die jeweils einen Zeitraum von einem Monat bis hin zu mehreren Monaten aufweisen.
 
 Um die Genauigkeit der Vorhersage zu evaluieren, versuchen wir auf den vorhandnen Daten Vorhersagen zu machen und diese mit den vorliegenden Datensatz zu vergleichen. Dazu nutzen wir die letzten \textit{x} Daten als Test-Sequenz, welcher wir eine Such-Sequenz entnehmen. Folglich bilden die übrigen Daten die History-Sequenz. Die an die Such-Sequenz anschließenden \textit{y} Zeichen definieren wir als zu \textit{erwartende Vorhersage}. Nun wenden wir unser Programm auf die Such- und History-Sequenz an. Wird eine Vorhersage gefunden, wird diese mit der erwartenden Vorhersage verglichen. Dieses Evlauationsverfahren ist auf Abbildung \ref{fig:diagram_test} dargestellt.
