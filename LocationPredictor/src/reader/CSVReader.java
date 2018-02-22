@@ -3,12 +3,16 @@ package reader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 import java.util.Map.Entry;
+import java.util.TimeZone;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 public class CSVReader {
@@ -17,6 +21,7 @@ public class CSVReader {
 	
 	ArrayList<String> longitudeSequence = new ArrayList<String>();
 	ArrayList<String> latitudeSequence = new ArrayList<String>();
+	ArrayList<LocalDateTime> timestampSequence = new ArrayList<LocalDateTime>();
 	StringBuilder locationSequence = new StringBuilder();
 	
 	HashMap<String, Character> wordMap = new HashMap<String, Character>();
@@ -30,11 +35,18 @@ public class CSVReader {
 				    .collect(
 				    		Collectors.groupingBy(
 				    				l -> Long.valueOf(l.split(";", 6)[0]), TreeMap::new, Collectors.toList()));
-			
+
+			int index = 0;
 			for (Entry<Long, List<String>> entry : collect.entrySet()) {
 				String dataLine = entry.getValue().get(0);
 				String[] split = dataLine.split(";");
 				
+				long milliSecondTimestamp = Long.parseLong(split[0]);
+				LocalDateTime timestamp =
+				        LocalDateTime.ofInstant(Instant.ofEpochSecond(milliSecondTimestamp), 
+				                                TimeZone.getDefault().toZoneId()); 
+				
+				timestampSequence.add(timestamp);
 				longitudeSequence.add(split[2]);
 				latitudeSequence.add(split[3]);
 				
@@ -42,16 +54,26 @@ public class CSVReader {
 				
 				if(!wordMap.containsKey(wholeWord)) {					
 					wordMap.put(wholeWord, nextLetter());
-				} else {
-					
 				}
 				
 				char letter = wordMap.get(wholeWord);
-//				locationSequence.append(letter);	
-				if(locationSequence.length() == 0 || locationSequence.charAt(locationSequence.length() - 1) != letter) {
+				
+//				locationSequence.append(letter);
+				
+				long  minutes = 0;
+				
+				if (index != 0)
+				{
+					minutes = ChronoUnit.MINUTES.between(timestampSequence.get(index -1), timestampSequence.get(index));
+				}
+				
+				if(locationSequence.length() == 0 || locationSequence.charAt(locationSequence.length() - 1) != letter || minutes >= 30) {
 					locationSequence.append(letter);					
 				}
+
+				index++;
 			}
+			
 			
 			System.out.println("This is the following word mapping: ");
 			System.out.println();
@@ -90,7 +112,6 @@ public class CSVReader {
 
 	public StringBuilder getLocationSequence() {
 		return locationSequence;
-	}
-	
+	}	
 	
 }
