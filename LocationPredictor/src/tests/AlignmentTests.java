@@ -15,7 +15,7 @@ public class AlignmentTests {
 		long start = System.currentTimeMillis();
 		LocalAlignment localAlignment = new LocalAlignment("google location data/Latitude_cv (2013_06_19 08_17_46 UTC).csv");
 		localAlignment.findPrediction(5, 10);
-		localAlignment.testSequences(5, 10, 0);
+		localAlignment.testSequences(10, 10, 0);
 		long end = System.currentTimeMillis();
 		
 		System.out.println("Time needed for algorithm: " + (end - start) + "ms");
@@ -26,7 +26,7 @@ public class AlignmentTests {
 		long start = System.currentTimeMillis();
 		LocalAlignment localAlignment = new LocalAlignment("google location data/Latitude_ik (2013_06_19 08_17_46 UTC).csv");
 		localAlignment.findPrediction(5, 10);
-		localAlignment.testSequences(5, 10, 0);
+		localAlignment.testSequences(10, 10, 0);
 		long end = System.currentTimeMillis();
 		
 		System.out.println("Time needed for algorithm: " + (end - start) + "ms");
@@ -37,7 +37,7 @@ public class AlignmentTests {
 		long start = System.currentTimeMillis();
 		LocalAlignment localAlignment = new LocalAlignment("google location data/Latitude_nk (2013_06_19 08_17_46 UTC).csv");
 		localAlignment.findPrediction(5, 10);
-		localAlignment.testSequences(5, 10, 0);
+		localAlignment.testSequences(10, 10, 0);
 		long end = System.currentTimeMillis();
 		
 		System.out.println("Time needed for algorithm: " + (end - start) + "ms");
