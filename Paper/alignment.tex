@@ -114,17 +114,17 @@ Alignment Algorithmen bieten ein Ähnlichkeitsmaß für beliebige Folgen von Datenp
 Sigg et al. \cite{sigg2010alignment} beschreiben einen Ansatz um mittels Alignment vorhersagen anhand von Kontextsequenzen machen zu können. Die Anwendung von Alignment Algorithmen ermöglicht es Sigg et al. die ähnlichsten vorkommende Teilsequenzen zu finden und anhand dieser den nächsten Eintrag vorhersagen zu können. Dafür verwenden sie unter anderem  Needleman-Wunsch-Algorithmus \cite{needleman1970general}, welcher mittels Backtracking ein globales Optimum findet. Ein Ähnlicher Algorithmus ist der Hirschberg-Algorithmus \cite{hirschberg1975linear}, welcher ebenfalls ein globaler Algorithmus ähnlich wie der Needleman-Wunsch-Algorithmus ist.
 
 Unser Ansatz basiert ebenfalls auf Alignment Algorithmen. Dabei verwenden wir im Gegensatz zu \cite{sigg2010alignment} den Smith-Waterman-Algorithmus \cite{smith1981identification}
-innerhalb unseres Location Prediction Ansatzes.
+innerhalb unseres Location Prediction Ansatzes. Dieser Algorithmus ist im Gegensatz zum Needleman-Wunsch-Algorithmus und Hirschbergalgorithmus in der Lage das lokale Optimum zu finden. Dies hat den Vorteil, dass lokale Übereinstimmungen nicht wie bei einer globalen Betrachtung übersehen werden können.
+
 }
 
 Plenty of research material exists for location prediction.
-Alignment algorithms offer a similarity measure for arbitrary continuations of data points which are also called sequences. In other words the use for such algorithms allows us to check and compare the similarity of two sequences. Common adaptations often take place in bioinformatics. Here, DNA and protein sequences are being analyzed to determine evolution based relations. An example for this purpose can be found in \cite{waterman1995introduction}.
+Alignment algorithms offer a similarity measure for arbitrary continuations of data points which are also called sequences. In other words the use for such algorithms allows us to check and compare the similarity of two sequences. Common adaptations often take place in bioinformatics. Here, DNA (Deoxyribonucleic acid) and protein sequences are being analyzed to determine evolution based relations. An example for this purpose can be found in \cite{waterman1995introduction}.
 
 Sigg et al. \cite{sigg2010alignment} describe an approach where context sequences can be predicted by using alignment. The utilization of alignment algorithms allows Sigg et al. to find the most similar partial sequences and with the aid of these to predict the next entry. Among other things they use the Needleman-Wunsch algorithm \cite{needleman1970general} for that purpose which finds a global optimum by using the backtracking algorithm. A similar approach is the Hirschberg algorithm \cite{hirschberg1975linear} which is also a global algorithm similar to Needleman-Wunsch.
 
-Our attempt is based on alignment as well. Unlike \cite{sigg2010alignment} we make us of the Smith-Waterman algorithm \cite{smith1981identification} within our location prediction approach.
+Our attempt is based on alignment as well. Unlike \cite{sigg2010alignment} we make us of the Smith-Waterman algorithm \cite{smith1981identification} within our location prediction approach. In contrast to the Needleman-Wunsch and the Hirschberg algorithm, this algorithm is able to find a local optimum. One benefit would be the fact, that local analogy can't be missed, which is often the case with global consideration. 
 
-Dieser Algorithmus ist im Gegensatz zum Needleman-Wunsch-Algorithmus und Hirschbergalgorithmus in der Lage das lokale Optimum zu finden. Dies hat den Vorteil, dass lokale Übereinstimmungen nicht wie bei einer globalen Betrachtung übersehen werden können.
 
 Neben der Verwendung von Alignment Algorithmen gibt es weitere Ansätze zur Location Prediction. Craig et al. \cite{craig2017region} nutzen einen Clustering-Ansatz um Aufenthaltsorte einer Person mittels Cluster zu definieren. Dies geschieht, in dem ein Ort in möglichst kleine Regionen eingeteilt wird und anschließend ähnliche benachbarte Regionen zu größeren Clustern kombiniert werden. Basierend auf diesen Regionen ist das Ziel den nächsten Ort an dem sich eine Person befinden wird vorherzusagen. Dabei wird anhand des aktuellen bzw. der vorherigen Standorte geprüft auf welcher Strecke sicher der Nutzer befindet und Anhand dieser Information das Cluster bestimmt in welchem sein nächstes Ziel liegen könnte.
 Im Gegensatz zu unseren Ansatz liefert Clustering keine optimale Lösung, sondern führt eine Reduktion der Daten durch und ermöglicht somit die Verwendung auf leistungsschwachen Geräten.
@@ -133,7 +133,6 @@ Rjeily et al. \cite{8167546} nutzen einen Sequenz Prediction Ansatz um ein Herzf
 Dazu werden diskrete sowie kontinuierliche Datensequenzen verwendet, z.\,B.Schmerzen in der Brust auf einer Skala von 1 bis 4 und Blutdruckwerte. Dabei basiert Ihr Ansatz auf einer Erweiterung des Compact Prediction Tree Algorithmus \cite{gueniche2013compact}. Dieser Algorithmus ist in der Lage anhand einer gegebenen Sequenz das nächste Symbol zu schätzen, welches die Patienten zu Risikogruppen zuordnet. Die Sequenz wird dabei genutzt um zu überprüfen in welche Risikokategorie ein Patient eingestuft werden kann. Im Vergleich zu dem hier präsentierten Ansatz arbeitet der Algorithmus von Rjeily et al.auf komplexen hochdimensionalen Daten wodurch der Algorithmus zu komplex für die hier verwendeten Daten ist. Da sich die hier betrachteten Daten aus reinen diskreten Symbolen zusammensetzten, wäre die Anwendung eines solchen Algorithmus für unseren Ansatz ungeeignet.
 
 Zusammenfassend findet Sequenzprediction eine breite Anwendung und eignet sich daher auch potentiell zu Verwendung von Location Prediction.
-%\cite{craig2017region}
 
 \section{Conception}\label{section:conception} 
 
@@ -142,6 +141,8 @@ Zusammenfassend findet Sequenzprediction eine breite Anwendung und eignet sich d
 %Wir nutzen Google Location Data, da Google es anbietet und fast jeder heutzutage ein Smartphone besitzt
 
 %Alignment lÃ¤sst sich auf Location data anwenden
+
+Nowadays, almost anybody using a mobile device with a GPS (Global Positioning System) on-board. 
 
 Heutzutage besitzt fast jeder Mensch ein Smartphone. Der Vorteil ist, dass die Daten bereits über Google Location Data \cite{37522} automatisch über eine Applikation aufgenommen werden, die auf Android-Systemen bereits bei einem Kauf des Geräts mitgeliefert wird. Die täglich aufgezeichneten Daten beinhalten genaue Positionskoordinaten und Zeiten bis hin zur Ortsbezeichnungen und Ortsgenauigkeiten.
 
@@ -181,15 +182,15 @@ Im zweiten Schritt, wie in \ref{fig:watermansmith} zu erkennen, werden die entsp
 	\label{fig:watermansmith}
 \end{figure}
 
-Im nächsten Kapitel betrachten wir die genaue Implementierung.
 
 \section{Implementation}\label{section:implementation}
-
 %Implementierung prediction
 
 Wie in Kapitel \ref{section:conception} bereits erklärt, benötigen wir für das Alignment aus den Daten nur den timestamp und die Ortsbezeichnungen.
 
-Die Daten der CSV-Datei sind durch Semikolons voneinander getrennt. Beim Einlesen wird die Header-Zeile zunächst übersprungen. Aus den Zeilen werden Ortsbezeichnungen entnommen und anhand des timestamps sortiert. Während des zeilenweisen Einlesens werden den Orten jeweils ein Buchstabe aus dem Alphabet zugeordnet. Der Grund, warum man kann nicht einfach den ersten Buchstaben eines Ortes nehmen kann ist, dass es oft vorkommt, dass die Orte mit dem gleichen Buchstaben anfangen. Aus den Buchstaben entsteht jetzt eine sortierte Zeichenketten-Sequenz, die wir als History-Sequenz bezeichnen. 
+Die Daten der CSV-Datei sind durch Semikolons voneinander getrennt. Beim Einlesen wird die Header-Zeile zunächst übersprungen. Aus den Zeilen werden Ortsbezeichnungen entnommen und anhand des timestamps sortiert. Während des zeilenweisen Einlesens werden den Orten jeweils ein Buchstabe aus dem Alphabet zugeordnet. Dies ist nötig, da die Implementierung des Algorithmuses zur Berechnung ein einzelnes Zeichen erwartet - Anpassungen und Optimierungen auf Zeichenketten als Ortsbezeichnung sind durchführbar. Um Dopplungen zu vermeiden, wird nicht der erste Buchstaben der Ortsbezeichnung als Zeichen genutzt, sondern ein vorab definierter Buchstabe. Diese Zeichenkette ist anhand des Zeitstempels sortiert und bildet die sogenannte \textit{History-Sequenz}.
+
+Die Implementierung nutzt zwei Arten der History-Sequenz Darstellung - die komplette Zeichenkette der Ortsbezeichnung und eine zusammengefasste. Bei der ersten Darstellung, werden alle zu Verfügung stehenden, aufgezeichneten Daten in die History-Sequenz übernommen. Die zusammengefasste Darstellung fast Dateneinträge anhand von Zeitintervallen zusammen.  
 
 %Das können wir so nicht schreiben!% 
 %Wir sollten die Daten im ersten Schritt nicht zusammenfassen%
