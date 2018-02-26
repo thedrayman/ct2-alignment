@@ -116,16 +116,6 @@ Sigg et al. \cite{sigg2010alignment} beschreiben einen Ansatz um mittels Alignme
 Unser Ansatz basiert ebenfalls auf Alignment Algorithmen. Dabei verwenden wir im Gegensatz zu \cite{sigg2010alignment} den Smith-Waterman-Algorithmus \cite{smith1981identification}
 innerhalb unseres Location Prediction Ansatzes. Dieser Algorithmus ist im Gegensatz zum Needleman-Wunsch-Algorithmus und Hirschbergalgorithmus in der Lage das lokale Optimum zu finden. Dies hat den Vorteil, dass lokale Übereinstimmungen nicht wie bei einer globalen Betrachtung übersehen werden können.
 
-}
-
-Plenty of research material exists for location prediction.
-Alignment algorithms offer a similarity measure for arbitrary continuations of data points which are also called sequences. In other words the use for such algorithms allows us to check and compare the similarity of two sequences. Common adaptations often take place in bioinformatics. Here, DNA (Deoxyribonucleic acid) and protein sequences are being analyzed to determine evolution based relations. An example for this purpose can be found in \cite{waterman1995introduction}.
-
-Sigg et al. \cite{sigg2010alignment} describe an approach where context sequences can be predicted by using alignment. The utilization of alignment algorithms allows Sigg et al. to find the most similar partial sequences and with the aid of these to predict the next entry. Among other things they use the Needleman-Wunsch algorithm \cite{needleman1970general} for that purpose which finds a global optimum by using the backtracking algorithm. A similar approach is the Hirschberg algorithm \cite{hirschberg1975linear} which is also a global algorithm similar to Needleman-Wunsch.
-
-Our attempt is based on alignment as well. Unlike \cite{sigg2010alignment} we make us of the Smith-Waterman algorithm \cite{smith1981identification} within our location prediction approach. In contrast to the Needleman-Wunsch and the Hirschberg algorithm, this algorithm is able to find a local optimum. One benefit would be the fact, that local analogy can't be missed, which is often the case with global consideration. 
-
-
 Neben der Verwendung von Alignment Algorithmen gibt es weitere Ansätze zur Location Prediction. Craig et al. \cite{craig2017region} nutzen einen Clustering-Ansatz um Aufenthaltsorte einer Person mittels Cluster zu definieren. Dies geschieht, in dem ein Ort in möglichst kleine Regionen eingeteilt wird und anschließend ähnliche benachbarte Regionen zu größeren Clustern kombiniert werden. Basierend auf diesen Regionen ist das Ziel den nächsten Ort an dem sich eine Person befinden wird vorherzusagen. Dabei wird anhand des aktuellen bzw. der vorherigen Standorte geprüft auf welcher Strecke sicher der Nutzer befindet und Anhand dieser Information das Cluster bestimmt in welchem sein nächstes Ziel liegen könnte.
 Im Gegensatz zu unseren Ansatz liefert Clustering keine optimale Lösung, sondern führt eine Reduktion der Daten durch und ermöglicht somit die Verwendung auf leistungsschwachen Geräten.
 
@@ -133,6 +123,21 @@ Rjeily et al. \cite{8167546} nutzen einen Sequenz Prediction Ansatz um ein Herzf
 Dazu werden diskrete sowie kontinuierliche Datensequenzen verwendet, z.\,B.Schmerzen in der Brust auf einer Skala von 1 bis 4 und Blutdruckwerte. Dabei basiert Ihr Ansatz auf einer Erweiterung des Compact Prediction Tree Algorithmus \cite{gueniche2013compact}. Dieser Algorithmus ist in der Lage anhand einer gegebenen Sequenz das nächste Symbol zu schätzen, welches die Patienten zu Risikogruppen zuordnet. Die Sequenz wird dabei genutzt um zu überprüfen in welche Risikokategorie ein Patient eingestuft werden kann. Im Vergleich zu dem hier präsentierten Ansatz arbeitet der Algorithmus von Rjeily et al.auf komplexen hochdimensionalen Daten wodurch der Algorithmus zu komplex für die hier verwendeten Daten ist. Da sich die hier betrachteten Daten aus reinen diskreten Symbolen zusammensetzten, wäre die Anwendung eines solchen Algorithmus für unseren Ansatz ungeeignet.
 
 Zusammenfassend findet Sequenzprediction eine breite Anwendung und eignet sich daher auch potentiell zu Verwendung von Location Prediction.
+
+}
+
+Plenty of research material exists for location prediction.
+Alignment algorithms offer a similarity measure for arbitrary continuations of data points which are also called sequences. In other words the use for such algorithms allows us to check and compare the similarity of two sequences. Common adaptations often take place in bioinformatics. Here, DNA (Deoxyribonucleic acid) and protein sequences are being analyzed to determine evolution based relations. An example for this purpose can be found in \cite{waterman1995introduction}.
+
+Sigg et al. \cite{sigg2010alignment} describe an approach where context sequences can be predicted by using alignment. The utilization of alignment algorithms allows Sigg et al. to find the most similar partial sequences and with the aid of these to predict the next entry. Among other things they use the Needleman-Wunsch algorithm \cite{needleman1970general} for that purpose which finds a global optimum by using the backtracking algorithm. A similar approach is the Hirschberg algorithm \cite{hirschberg1975linear} which is also a global algorithm similar to Needleman-Wunsch.
+
+Our attempt is based on alignment as well. Unlike \cite{sigg2010alignment} we make us of the Smith-Waterman algorithm \cite{smith1981identification} within our location prediction approach. In contrast to the Needleman-Wunsch and the Hirschberg algorithm, this algorithm is able to find a local optimum. One benefit would be the fact, that local analogy can't be missed which is often the case with global consideration. 
+
+Apart from the use of alignment algorithms there are two additional approaches for location prediction. Craig et al. \cite{craig2017region} use a clustering approach for defining whereabouts of one person trough clusters. This is done by deviding a location in preferably small regions and then combining similar adjacent regions to bigger clusters. Based on these regions the next objective is to predict the next location where a person will be situated. On the basis of the current or previous location the algorithm checks which route is the user is currently on. The cluster, which contains the user's next possible goal, is then determined with the aid of this information. Unlike our approach, clustering doesn't provide an optimal solution but rather it performs a reduction of data and thus enables the use for it on under-performing devices.
+
+Rjeily et al. \cite{8167546} use a sequence prediction approach to detect a heart deficiency of a patient. For that to happen discrete and continuous data sequences are applied for example to determine the chest pain index from 1 to 4 and high blood pressure values. Therefore her approach is based on the compact prediction tree algorithm extension \cite{gueniche2013compact}. This algorithm is capable of estimating the next symbol of a given sequence which places the patients in a certain risk group. In doing so the sequence is used to check the ranking of the patient in a risk category. In comparison to this presented approach the algorithm of Rjeily et al. operates on complex high-dimensional data hence it is too sophisticated for our data. Because the data is composed of pure discrete symbols the application of such an algorithm would be unsuitable for our approach.
+
+All in all the sequence prediction has several uses and potentially qualifies for location prediction.
 
 \section{Conception}\label{section:conception} 
 
