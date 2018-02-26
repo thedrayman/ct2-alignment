@@ -131,7 +131,7 @@ Alignment algorithms offer a similarity measure for arbitrary continuations of d
 
 Sigg et al. \cite{sigg2010alignment} describe an approach where context sequences can be predicted by using alignment. The utilization of alignment algorithms allows Sigg et al. to find the most similar partial sequences and with the aid of these to predict the next entry. Among other things they use the Needleman-Wunsch algorithm \cite{needleman1970general} for that purpose which finds a global optimum by using the backtracking algorithm. A similar approach is the Hirschberg algorithm \cite{hirschberg1975linear} which is also a global algorithm similar to Needleman-Wunsch.
 
-Our attempt is based on alignment as well. Unlike \cite{sigg2010alignment} we make us of the Smith-Waterman algorithm \cite{smith1981identification} within our location prediction approach. In contrast to the Needleman-Wunsch and the Hirschberg algorithm, this algorithm is able to find a local optimum. One benefit would be the fact, that local analogy can't be missed which is often the case with global consideration. 
+Our attempt is based on alignment as well. Unlike \cite{sigg2010alignment} we make use of the Smith-Waterman algorithm \cite{smith1981identification} within our location prediction approach. In contrast to the Needleman-Wunsch and the Hirschberg algorithm, this algorithm is able to find a local optimum. One benefit would be the fact, that local analogy can't be missed which is often the case with global consideration. 
 
 Apart from the use of alignment algorithms there are two additional approaches for location prediction. Craig et al. \cite{craig2017region} use a clustering approach for defining whereabouts of one person trough clusters. This is done by deviding a location in preferably small regions and then combining similar adjacent regions to bigger clusters. Based on these regions the next objective is to predict the next location where a person will be situated. On the basis of the current or previous location the algorithm checks which route is the user is currently on. The cluster, which contains the user's next possible goal, is then determined with the aid of this information. Unlike our approach, clustering doesn't provide an optimal solution but rather it performs a reduction of data and thus enables the use for it on under-performing devices.
 
@@ -317,13 +317,21 @@ Betrachtet wird außerdem die Auswirkklung der Länge der Such-Sequenz \textit{k} 
 \section{Conclusion}\label{section:conclusion}
 
 %Erneute Zusammenfassung der Ergebnisse
-Den nächsten Standort einer Person vorhersagen zu können ist für viele Anwendungen hilfreich. Ein Beispiel für eine solche Anwendung findet sich im medizinischen Bereich. Hierbei könnte die Location Prediction besonders hilfreich bei der Detektion von Stürzen von älteren Personen sein. Weicht eine ältere Person mehrfach signifikant von der Vorhersage ab, könnte dies darauf hindeuten, dass sie Hilfe benötigt.
+\todo{Den nächsten Standort einer Person vorhersagen zu können ist für viele Anwendungen hilfreich. Ein Beispiel für eine solche Anwendung findet sich im medizinischen Bereich. Hierbei könnte die Location Prediction besonders hilfreich bei der Detektion von Stürzen von älteren Personen sein. Weicht eine ältere Person mehrfach signifikant von der Vorhersage ab, könnte dies darauf hindeuten, dass sie Hilfe benötigt.
 
 Wir haben Daten von der Google Location History von verschiedenen Nutzern entnommen und versucht eine Vorhersage über die nächsten Standorte zumachen. Dazu haben wir einen Alginment Ansatz verwendet. Die Daten haben wir zu einer Sequenz umgewandelt und mit dem Smith-Waterman-Algorithmus haben wir eine mögliche Weiterführung der Sequenz durchgeführt.
 %Was ist dabei herausgekommen?
 
 %Was kÃ¶nnte man noch machen?
 In der Zukunft wollen wir unseren Ansatz noch dahingehend verbessern das wir unser Programm besser auf Echtzeitanwendungen abstimmen wollen und das die Daten direkt aus der Google Location History entnommen werden. Eine mögliche Anwendung ist die Nutzung der Location Prediction im Bereich von Smart Home. Anhand des prädizierten Aufenthaltsorts des Nutzers könnten beispielsweise die Heizung oder die Kaffeemaschine eingeschaltet werden. 
+}
+
+The ability to predict a person's next location is beneficial to many applications. An example for such kind of application can be found in a medical environment. In this case, location prediction could be particularly  helpful in detecting falls of elderly persons. If an older persons behaviour significantly differs from the prediction on several occasions, it could indicate that the person needs help.
+
+The presented approach collected Google Location History data from several users. Based on this, our approach was to predict the next location of a user by applying alignment techniques. Therefore, we converted the data into a sequence and with the \algoSW\ we tried to determine a possible continuation of the sequence.
+%Hier noch ergebnisse von evaluation beschreiben
+
+In our future work, we want to improve the performance of our approach in order to use it in real-time applications. Furthermore, we want to extract the data directly from Google Location History. One possible application is the use of our approach in the Smart Home environment. Based on the user's predicted location the heater or coffee machine could be automatically turned on at a certain time.
 
 %\newpage
 \bibliographystyle{IEEEtran}
