@@ -85,17 +85,17 @@ All die genannten Szenarien sind abhängig von Positionsbestimmung und -vorhersag
 
 In dieser Arbeit wird versucht, eine Positionsvorhersage mit dem Ansatz des Alignments zu erstellen. Die dabei genutzten, aufgezeichneten Positionsdaten wurden vorab durch verschiedene Smartphones und Personen erfasst. Mit Hilfe der Daten und einem Alignment-Algorithmus werden wir versuchen die nächste Position vorherzusagen.
 }
-The knowledge about a person?s location plays a very important role in today?s digital world. An exact location can, in all imaginable areas, be helpful or even save lives. Another step forward is the prediction of the future location of a person. With that, one can not only acquire the information of the current location of said person, but also where he/she will with high probability be located next. To further illustrate the meaning/importance of this technology, some likely scenarios will be presented in the following.
+The knowledge about a person's location plays a very important role in today's digital world. An exact location in all imaginable areas can be helpful or even save lives. Another step forward is the prediction of the future location of a person. With that, one can not only acquire the information of the current location of said person and also determine with high probability where he/she will be located next. To further illustrate the meaning/importance of this technology, some likely scenarios will be presented in the following.
 
-One life saving possibility using this technology, presents itself in relation to the elderly. Fitted with the right devices, it is possible today to determine the state of health of a person and take action accordingly. Should this state take a turn for the worse or when the person has taken a fall, it can be possible to get the required help in time. In those situations the location of a person is of great importance. With the location ascertainment it will be possible to find him/her ? given, that the location information is current. Furthermore, it will be possible using location ascertainment to predict the location even if the device is forgotten or malfunctions.
+One life saving possibility using this technology, presents itself in relation to the elderly. Provided with the right devices, it is possible today to determine the state of health of a person and take action accordingly. Should this state take a turn for the worse or when the person has taken a fall, it can be possible to get the required help in time. In those situations the location of a person is of great importance. With the location ascertainment it will be possible to find the person with the correct latest location information. Furthermore, it will be possible using location ascertainment to predict the location even if the device is is left behind or if it malfunctions.
 
-An exact location is helpful in other scenarios relating to danger and rescue as well. If one imagines an accident on the freeway, it is very important for the rescue to know the exact road on which the accident took place. In this case the exact position is more important than the prediction. However, there are several situations, where the possibility of location prediction plays a more important role. Some examples of that would be rescuing hikers stuck on the trail due to bad weather, or people after a natural disaster.
+An exact location is helpful in other scenarios relating to danger and rescue as well. If one imagines an accident on the freeway, it is very important for the rescue to know the exact road on which the accident took place. In this case the exact position is more important than the prediction. However, there are several situations, where the possibility of location prediction plays a more important role. Some examples of that would be rescuing hikers stuck on the trail due to bad weather, or helping people after a natural disaster.
  
-Additional importance for location ascertainment of persons is in the field of crime fighting and -solving. It could also be a profitable for companies ? the use of this technology allows them to project and distribute personalized marketing in predetermined locations. But even a private user would find benefits in the determination of his/her location, when one bears in mind the constant rise in use of smart-home-technology. Using the location information of the user, the home system knows when he/she will be home and even the right time to turn on the heating.
+Additional importance for location ascertainment of people is in the field of crime fighting and -solving. It could also be profitable for companies because the use of this technology allows them to project and distribute personalized marketing in predetermined locations. But even a private user would find benefits in the determination of his/her location, when one bears in mind the constant rise in use of smart-home-technology. Using the location information of the user, the home system knows when he/she will be home and even the right time to turn on the heating.
 
-All the scenarios described above are dependent on determining and predicting the location of a Person. It is also not problematic to acquire the data needed for this in today?s digital world. In the last ten years the Smartphone has proven itself to be a useful gadget and a permanent companion. But the power of this device is still underrated by most. With the gathered ? and in most cases also saved Data, it is possible to make assumptions about the owner of the Phone. Even more, it is possible to create a very detailed personal profile. With the gathered location data, using the right algorithms and methods, a position prediction becomes possible.
+All the scenarios described above are dependent on determining and predicting the location of a person. It is also not problematic to acquire the data needed for this in today's digital world. In the last ten years the Smartphone has proven itself to be a useful gadget and a permanent companion. But the power of this device is still underrated by most. With the gathered and in most cases also saved data, it is possible to make assumptions about the owner of the phone. Even more, it is possible to create a very detailed personal profile. With the gathered location data, using the right algorithms and methods, a position prediction becomes possible.
 
-In the following, an attempt will be made to create a location prediction using Alignments. The positioning-data used, was gathered in advance from various people and Smartphones. Using this Information and an alignment algorithm, an effort will be made to predict the next location.  
+In the following, an attempt will be made to create a location prediction using alignment. The used positioning data was gathered in advance from various people and smartphones. Using this information and an alignment algorithm, an effort will be made to predict the next location.  
 
 %Voraussage der Location von alten Menschen und rechtzeitiges Handeln, wenn sie sich nicht an der entsprechenden Position befinden (Verhalten)
 
@@ -147,19 +147,56 @@ All in all the sequence prediction has several uses and potentially qualifies fo
 
 %Alignment lÃ¤sst sich auf Location data anwenden
 
-Nowadays, almost anybody using a mobile device with a GPS (Global Positioning System) on-board. 
+\todo{
+Heutzutage besitzt fast jeder Mensch ein Smartphone.
 
-Heutzutage besitzt fast jeder Mensch ein Smartphone. Der Vorteil ist, dass die Daten bereits über Google Location Data \cite{37522} automatisch über eine Applikation aufgenommen werden, die auf Android-Systemen bereits bei einem Kauf des Geräts mitgeliefert wird. Die täglich aufgezeichneten Daten beinhalten genaue Positionskoordinaten und Zeiten bis hin zur Ortsbezeichnungen und Ortsgenauigkeiten.
+Der Vorteil ist, dass die Daten bereits über Google Location Data \cite{37522} automatisch über eine Applikation aufgenommen werden, die auf Android-Systemen bereits bei einem Kauf des Geräts mitgeliefert wird. Die täglich aufgezeichneten Daten beinhalten genaue Positionskoordinaten und Zeiten bis hin zur Ortsbezeichnungen und Ortsgenauigkeiten.
 
 Die hier genutzten Daten stammen aus dem Google Location-Projekt \cite{google-location} und liegen als .CSV-Datei vor, die auszugweise im folgenden Listing \ref{listing:exampledata}  dargestellt ist.
 
-\begin{lstlisting}[basicstyle=\small, caption={Example of collected location data}, label=listing:exampledata]
-timestamp, accuracy, logitude, latitude, altitude, description
-1311761703, 36, 9.472.948, 51.311.078, 0, WORK
-1311747139, 55, 9.403.654, 51.404.189, 0, HOME
-\end{lstlisting}
+...
 
 Für die Vorhersage der Location werden die einzelnen Datensätze der .CSV-Datei nach Zeit (\texttt{timestamp}) sortiert. Die Beschreibung (\texttt{description}) definiert den Ort des Nutzers anhand der Koordinaten (\texttt{logitude}, \texttt{latitude} und der Höhe \texttt{altitude}), während \texttt{accuracy} die Ortsgenauigkeit beschreibt. Für unseren Ansatz benötigen wird lediglich diese Beschreibung in der korrekten, zeitlichen Reihenfolge.
+
+...
+
+Die Idee ist es nun, den nächsten Ort einer Person anhand ihrer jetzigen und vergangenen Positionen vorherzusagen. Dafür betrachten wir die Daten als eine lange Sequenz, wie in Fig. \ref{fig:diagram} dargestellt. Aus ihr wird eine Suchsequenz mit den letzten \textit{x} Zeichen entnommen. Das Alignment wird nun auf der gesamten Sequenz und der Suchsequenz angewendet, um die ähnlichste lokale Sequenz zu finden. Alle Zeichen danach bilden die Vorhersagesequenz der Länge \textit{l}.
+
+Der Algorithmus, der sich für dieses Problem am besten eignet, ist der \algoSW-Algorithmus, da er auf unterschiedlich lange Sequenzen angewendet werden kann, um lokal den kleinst möglichen Match zu finden. Ein anderer Vorteil ist, dass die Sequenzen nicht identisch sein müssen, sodass ebenfalls auch ähnliche Sequenzen gefunden werden können. Algorithmen wie Needleman-Wunsch und Hirschberg eignen sich dafür weniger, da diese nur global die größte, ähnlichste Sequenz aus den beiden Sequenzen errechnet.
+
+Der \algoSW ist ein lokaler Optimierungsalgorithmus, der auf zwei Zeichenketten-Sequenzen arbeitet. Im ersten Schritt werden beide Sequenzen so angeordnet, dass sie eine Matrix bilden, von denen die erste Spalte und Zeile jeweils mit Nullen initialisiert wird. Jedes Zeichen aus Sequenz A wird mit jedem Zeichen aus Sequenz B iterativ, beginnend mit dem ersten Index in der Matrix, verglichen. Anhand von Rekurrenzen wird dann ein Ähnlichkeitsmaß (Score) berechnet. Handelt es sich beispielsweise um einen Match, so erhöht sich der Score um einen festgelegten Rekurrenzwert. Analog dazu verringert sich der Score dementsprechend. Ebenso kann es passieren, dass die Sequenzen zwar ähnlich, aber durch eine Lücke nicht mehr identisch sind. Bei einer Lücke handelt es sich entweder um eine Insertion oder eine Deletion in der Sequenz. Die nächsten Einträge werden genauso in Abhängigkeit vom vorherigen Wert berechnet. Im Gegensatz zum Needleman-Wunsch-Algorithmus kann der Eintrag in der Matrix beim \algoSW-Algorithmus nicht negativ sein. Sollte er jedoch in den negativen Bereich fallen, wird der Wert wieder auf Null gesetzt. Anschließend sucht man nach dem höchsten Wert in der gesamten Matrix. Dies ist der optimale Wert. Ein Alignment ist dann optimal, sobald es solch einen Wert besitzt. Eine Matrix kann mehrere Maxima haben, daher kann das Alignment an mehreren Stellen optimal sein. 
+
+Im zweiten Schritt, wie in \ref{fig:watermansmith} zu erkennen, werden die entsprechenden ähnlichsten Stellen anhand des Traceback-Algorithmus erfasst. Ausgehend vom maximalen Wert wird der Berechnungspfad rückwärts diagonal nach Nord-Westen auf den Wert Null ausgeschlossen zurückverfolgt. Daraus ergeben sich Indizes für Start und Ende der Match-Sequenz.
+
+}
+
+Nowadays, almost anybody is using a mobile device with a GPS (Global Positioning System) on-board. 
+
+The benefit of it is that google location data \cite{37522} is recorded automatically by programs that are already included in all android systems upon buying the device. The daily logged data contain accurate position coordiantes and timestamps right up to location names and inaccuracies.
+
+\begin{table}[h]
+	\caption{Example of collected Google Location Data}
+	\resizebox{0.49\textwidth}{!}{%home:700, work:500, friend:800, sport:300
+		\begin{tabular}{l*{4}{c}r}
+			timestamp & accuaracy & longitude & latitude & altitude & unknown \\ 
+			\hline		
+			1300000000 & 30 & 9.500.700 & 51.330.700 & 0 & Home \\ 
+			1299999800 & 31 & 9.500.700 & 51.330.700 & 0 & Home \\ 
+			1299999600 & 31 & 9.500.300 & 51.330.300 & 0 & Sport \\ 
+			1299999400 & 31 & 9.500.700 & 51.330.700 & 0 & Home \\ 
+			1299999200 & 31 & 9.500.800 & 51.330.800 & 0 & Friend \\ 
+			1299999000 & 32 & 9.500.800 & 51.330.800 & 0 & Friend \\ 
+			1299998800 & 32 & 9.500.700 & 51.330.700 & 0 & Home \\ 
+			1299998600 & 31 & 9.500.500 & 51.330.500 & 0 & Work \\ 
+			1299998400 & 30 & 9.500.500 & 51.330.500 & 0 & Work \\ 
+			1299998200 & 31 & 9.500.700 & 51.330.700 & 0 & Home \\ 
+	\end{tabular}}
+	\label{fig:csv}
+\end{table}
+
+The data originates from the google location project \cite{google-location} and is available as a .csv file that is represented in extracts in the following Table \ref{fig:csv}.
+
+For location prediction individual datasets of the .csv file are sorted by the \texttt{timestamp}. The \texttt{description} defines the location of the user by the \texttt{logitude}, \texttt{latitude} and \texttt{altitude} coordinates while the \texttt{accuracy} describes the precision of the location. For our approach we need merely the description in a correct and chronological order.
 
 %Idee der Implementierung und Grund für die Entscheidung
 
@@ -170,15 +207,17 @@ Für die Vorhersage der Location werden die einzelnen Datensätze der .CSV-Datei n
 	\label{fig:diagram}
 \end{figure}
 
-Die Idee ist es nun, den nächsten Ort einer Person anhand ihrer jetzigen und vergangenen Positionen vorherzusagen. Dafür betrachten wir die Daten als eine lange Sequenz, wie in Fig. \ref{fig:diagram} dargestellt. Aus ihr wird eine Suchsequenz mit den letzten \textit{x} Zeichen entnommen. Das Alignment wird nun auf der gesamten Sequenz und der Suchsequenz angewendet, um die ähnlichste lokale Sequenz zu finden. Alle Zeichen danach bilden die Vorhersagesequenz der Länge \textit{l}.
+The idea now is to predict the next location of a person with the previous location data. Now we consider the data as a long sequence like depicted in Fig. \ref{fig:diagram}. Then a search sequence with the last \textit{x} characters is extracted from it. Finally the alignment is applied to the entire sequence to find the most similar local sequence. All characters after it form the prediction sequence of length \textit{l}.
 
-Der Algorithmus, der sich für dieses Problem am besten eignet, ist der \algoSW-Algorithmus, da er auf unterschiedlich lange Sequenzen angewendet werden kann, um lokal den kleinst möglichen Match zu finden. Ein anderer Vorteil ist, dass die Sequenzen nicht identisch sein müssen, sodass ebenfalls auch ähnliche Sequenzen gefunden werden können. Algorithmen wie Needleman-Wunsch und Hirschberg eignen sich dafür weniger, da diese nur global die größte, ähnlichste Sequenz aus den beiden Sequenzen errechnet.
+The algorithm that is suited best for this kind of problem is the \algoSW algorithm because it can be utilized on sequences with different lengths to find the smallest possible match locally. Another benefit is that the sequences musn't be identical so that even similar sequences can be found as well. Algorithms like Needleman-Wunsch and Hirschberg are not suitable for it because those can only calculate the biggest, most similar sequence globally.
 
 %Erklärung Waterman-Smith
 
-Der \algoSW ist ein lokaler Optimierungsalgorithmus, der auf zwei Zeichenketten-Sequenzen arbeitet. Im ersten Schritt werden beide Sequenzen so angeordnet, dass sie eine Matrix bilden, von denen die erste Spalte und Zeile jeweils mit Nullen initialisiert wird. Jedes Zeichen aus Sequenz A wird mit jedem Zeichen aus Sequenz B iterativ, beginnend mit dem ersten Index in der Matrix, verglichen. Anhand von Rekurrenzen wird dann ein Ähnlichkeitsmaß (Score) berechnet. Handelt es sich beispielsweise um einen Match, so erhöht sich der Score um einen festgelegten Rekurrenzwert. Analog dazu verringert sich der Score dementsprechend. Ebenso kann es passieren, dass die Sequenzen zwar ähnlich, aber durch eine Lücke nicht mehr identisch sind. Bei einer Lücke handelt es sich entweder um eine Insertion oder eine Deletion in der Sequenz. Die nächsten Einträge werden genauso in Abhängigkeit vom vorherigen Wert berechnet. Im Gegensatz zum Needleman-Wunsch-Algorithmus kann der Eintrag in der Matrix beim \algoSW-Algorithmus nicht negativ sein. Sollte er jedoch in den negativen Bereich fallen, wird der Wert wieder auf Null gesetzt. Anschließend sucht man nach dem höchsten Wert in der gesamten Matrix. Dies ist der optimale Wert. Ein Alignment ist dann optimal, sobald es solch einen Wert besitzt. Eine Matrix kann mehrere Maxima haben, daher kann das Alignment an mehreren Stellen optimal sein. 
+\algoSW is a local optimization algorithm which operates on two character string sequences. First, both sequences are arranged in a way that they form a matrix so that its columns and rows are initialized with zeroes. Beginning with the first index in the matrix, every character from sequence A is compared iteratively to every character from sequence B. Then, with the help of reccurency values, a similarity score is calculated. If two characters match, then the score is increased by a fixed reccurency value. The score decreases accordingly if the characters don't match. Likewise it can happen that the sequences are indeed similar but by a gap no longer identical. During a gap situation in a sequence it is either the case of insertion or deletion. The next entries are equally calculated dependent on the previous value. Unlike in the Needleman-Wunsch algorithm, the matrix entry in the \algoSW algorithm cannot be nagative. However, if the entry falls into the negative section, its value is then set to zero. After that the algorithm looks for the highest value in the entire matrix. This is the optimal value. Alignment is optimal if and only if it contains such a value. A matrix can posses multiple maxima therefore the alignment can be optimal in several spots.
 
-Im zweiten Schritt, wie in \ref{fig:watermansmith} zu erkennen, werden die entsprechenden ähnlichsten Stellen anhand des Traceback-Algorithmus erfasst. Ausgehend vom maximalen Wert wird der Berechnungspfad rückwärts diagonal nach Nord-Westen auf den Wert Null ausgeschlossen zurückverfolgt. Daraus ergeben sich Indizes für Start und Ende der Match-Sequenz.
+Next, the respective most similar characters are ascertained by the traceback algorithm. Based on the maximum value the path is then traced back diagonally to the north west, exclussively up until the value zero. At last, the indices result from the alignment of start and end positions of the match sequence.
+
+\subsection{Example}
 
 \begin{figure}
 	\centering
@@ -187,6 +226,15 @@ Im zweiten Schritt, wie in \ref{fig:watermansmith} zu erkennen, werden die entsp
 	\label{fig:watermansmith}
 \end{figure}
 
+To illustrate the use of the algorithm we consider two sequences aligned, like shown in \ref{fig:watermansmith}.
+
+\begin{enumerate}
+\item The first column and row of the matrix should be initialized with zeroes.
+\item Beginning with the first index (0,0) the score is calculated iteratively with the help of reccurencies. The score for (G,G) results in the value 1, because there is a match, whereas for (G,C) it results in 0, because the characters don't match (so the reccurency is -1) and because the value is now negative, it is set to 0 according to the algorithm rule.
+\item If the matrix is calculated completely, the highest value, in this case it is 3, is found.
+\item Now, the traceback algorithm searches for the right path backwards diagonally to the north west until the value 0. As of now, the path has the length of 4. As said before, the calculated value 0 does not count. That means the path length is 3.
+\item By reading from the matrix the result for the local alignment is indeed "{}GCG"{}.
+\end{enumerate}
 
 \section{Implementation}\label{section:implementation}
 %Implementierung prediction
@@ -199,13 +247,13 @@ Die Implementierung nutzt zwei Arten der History-Sequenz Darstellung - die kompl
 
 \begin{table}[h]
 	\centering
-	\caption{Comparison uncompressed and compressed history sequenz}
+	\caption{Comparison uncompressed and compressed history sequence}
 	\begin{tabular}{cccc}
 		Data set & uncompressed & compressed & reduction \\
 		\hline
-		Sequenz 1 & 1858 & 436 & 76,53\% \\
-		Sequenz 2 & 5499 & 1015 & 81,54\% \\
-		Sequenz 3 & 2222 & 581 & 73,85\% \\
+		Sequence 1 & 1858 & 436 & 76,53\% \\
+		Sequence 2 & 5499 & 1015 & 81,54\% \\
+		Sequence 3 & 2222 & 581 & 73,85\% \\
 	\end{tabular}
 	\label{tab:compression}
 \end{table}
@@ -215,26 +263,6 @@ Im nächsten Schritt werden \textit{x} Zeichen am Ende der History-Sequenz als Su
 %Beispiel prediction
 
 \subsection{Example}
-
-\begin{table}[h]
-	\caption{Example of Google Location Data}
-	\resizebox{0.49\textwidth}{!}{%home:700, work:500, friend:800, sport:300
-	\begin{tabular}{l*{4}{c}r}
-		timestamp & accuaracy & longitude & latitude & altitude & unknown \\ 
-		\hline		
-		1300000000 & 30 & 9.500.700 & 51.330.700 & 0 & Home \\ 
-		1299999800 & 31 & 9.500.700 & 51.330.700 & 0 & Home \\ 
-		1299999600 & 31 & 9.500.300 & 51.330.300 & 0 & Sport \\ 
-		1299999400 & 31 & 9.500.700 & 51.330.700 & 0 & Home \\ 
-		1299999200 & 31 & 9.500.800 & 51.330.800 & 0 & Friend \\ 
-		1299999000 & 32 & 9.500.800 & 51.330.800 & 0 & Friend \\ 
-		1299998800 & 32 & 9.500.700 & 51.330.700 & 0 & Home \\ 
-		1299998600 & 31 & 9.500.500 & 51.330.500 & 0 & Work \\ 
-		1299998400 & 30 & 9.500.500 & 51.330.500 & 0 & Work \\ 
-		1299998200 & 31 & 9.500.700 & 51.330.700 & 0 & Home \\ 
-	\end{tabular}}
-	\label{fig:csv}
-\end{table}
 
 Wir nehmen an, dass der Ausschnitt einer CSV-Datei aus den unsortierten Daten wie in Tabelle \ref{fig:csv} besteht. 
 
@@ -264,20 +292,9 @@ Wir nehmen an, dass der Ausschnitt einer CSV-Datei aus den unsortierten Daten wi
 	\label{fig:csv_converted}
 \end{figure}
 
-
-
-%\begin{enumerate}
-	%\item Die erste Spalte und Zeile der Matrix wird mit Nullen initialisiert werden.
-	%\item Ausgehend von dem ersten Index (0,0) wird der Score iterativ anhand von Rekkurenzen ausgerechnet. Für (G,G) ergibt der Score 1, da dies ein Match ist. Für (G,C) hingegen ergibt der Score 0, da dies kein Match (und somit mit -1 versehen wird) ist und aus dem Grund, dass der Wert nun negativ ist, nach der Regel auf 0 gebracht. 
-	%\item Ist die Matrix vollständig berechnet, wird dort anschließend nach dem höchsten Wert gesucht. In diesem Fall beträgt er 3.
-	%\item Der Traceback-Algorithmus folgt dem Berechnungspfad diagonal nach Nord-Westen rückwärts bis zum Wert 0. Daraus ergibt sich ein Pfad der Länge 4, wobei die Null nicht dazuzählt. D.h. die Pfadlänge beträgt 3.
-	%\item Aus der Matrix kann man herauslesen, dass das Ergebnis des lokalen Alignments "{}GCG"{} lautet.
-%\end{enumerate}
-
 %Implementierung test
 
 %Sie wird an einer bestimmten Stelle - üblicherweise in der Mitte - zu einer History- und einer Testsequenz gespalten. Somit entsteht eine Historysequenz, die abrupt endet und deren \textit{l} Zeichen man vorhersagen kann. Nun wird der Historysequenz eine Suchsequenz mit den letzten \textit{x} Zeichen entnommen. Das Alignment wird dann auf die Test- und Suchsequenz angewendet, um die ähnlichste Sequenz zu finden. Alle Zeichen danach bilden die Vorhersagesequenz.
-
 
 \section{Evaluation}\label{section:evaluation}
 Es wurden uns Daten von drei unterschiedlichen Personen bereitgestellt, die jeweils einen Zeitraum von einem Monat bis hin zu mehreren Monaten aufweisen.
