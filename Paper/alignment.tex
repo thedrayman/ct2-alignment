@@ -221,7 +221,7 @@ Next, the respective most similar characters are ascertained by the traceback al
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.45\textwidth]{images/watermansmith.jpg}
+	\includegraphics[width=0.45\textwidth]{images/SWTab.png}
 	\caption{Filled-in Smith-Waterman table with traceback\cite{ibm}}
 	\label{fig:watermansmith}
 \end{figure}
@@ -323,6 +323,15 @@ Let us assume that the exctract from a .csv file consists of unsorted data like 
 %Sie wird an einer bestimmten Stelle - üblicherweise in der Mitte - zu einer History- und einer Testsequenz gespalten. Somit entsteht eine Historysequenz, die abrupt endet und deren \textit{l} Zeichen man vorhersagen kann. Nun wird der Historysequenz eine Suchsequenz mit den letzten \textit{x} Zeichen entnommen. Das Alignment wird dann auf die Test- und Suchsequenz angewendet, um die ähnlichste Sequenz zu finden. Alle Zeichen danach bilden die Vorhersagesequenz.
 
 \section{Evaluation}\label{section:evaluation}
+
+\todo{
+
+Es wurden uns Daten von drei unterschiedlichen Personen bereitgestellt, die jeweils einen Zeitraum von einem Monat bis hin zu mehreren Monaten aufweisen.
+
+Um die Genauigkeit der Vorhersage zu evaluieren, versuchen wir auf den vorhandnen Daten Vorhersagen zu machen und diese mit den vorliegenden Datensatz zu vergleichen. Dazu nutzen wir die letzten \textit{x} Daten als Test-Sequenz, welcher wir eine Such-Sequenz entnehmen. Folglich bilden die übrigen Daten die History-Sequenz. Die an die Such-Sequenz anschließenden \textit{y} Zeichen definieren wir als zu \textit{erwartende Vorhersage}. Nun wenden wir unser Programm auf die Such- und History-Sequenz an. Wird eine Vorhersage gefunden, wird diese mit der erwartenden Vorhersage verglichen. Dieses Evlauationsverfahren ist auf Abbildung \ref{fig:diagram_test} dargestellt.
+
+}
+
 Es wurden uns Daten von drei unterschiedlichen Personen bereitgestellt, die jeweils einen Zeitraum von einem Monat bis hin zu mehreren Monaten aufweisen.
 
 Um die Genauigkeit der Vorhersage zu evaluieren, versuchen wir auf den vorhandnen Daten Vorhersagen zu machen und diese mit den vorliegenden Datensatz zu vergleichen. Dazu nutzen wir die letzten \textit{x} Daten als Test-Sequenz, welcher wir eine Such-Sequenz entnehmen. Folglich bilden die übrigen Daten die History-Sequenz. Die an die Such-Sequenz anschließenden \textit{y} Zeichen definieren wir als zu \textit{erwartende Vorhersage}. Nun wenden wir unser Programm auf die Such- und History-Sequenz an. Wird eine Vorhersage gefunden, wird diese mit der erwartenden Vorhersage verglichen. Dieses Evlauationsverfahren ist auf Abbildung \ref{fig:diagram_test} dargestellt.
