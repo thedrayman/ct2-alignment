@@ -237,13 +237,30 @@ To illustrate the use of the algorithm we consider two sequences aligned, like s
 \end{enumerate}
 
 \section{Implementation}\label{section:implementation}
-%Implementierung prediction
+
+\todo{
 
 Wie in Kapitel \ref{section:conception} bereits erklärt, benötigen wir für das Alignment aus den Daten nur den timestamp und die Ortsbezeichnungen.
 
 Die Daten der CSV-Datei sind durch Semikolons voneinander getrennt. Beim Einlesen wird die Header-Zeile zunächst übersprungen. Aus den Zeilen werden Ortsbezeichnungen entnommen und anhand des timestamps sortiert. Während des zeilenweisen Einlesens werden den Orten jeweils ein Buchstabe aus dem Alphabet zugeordnet. Dies ist nötig, da die Implementierung des Algorithmuses zur Berechnung ein einzelnes Zeichen erwartet - Anpassungen und Optimierungen auf Zeichenketten als Ortsbezeichnung sind durchführbar. Um Dopplungen zu vermeiden, wird nicht der erste Buchstaben der Ortsbezeichnung als Zeichen genutzt, sondern ein vorab definierter Buchstabe. Diese Zeichenkette ist anhand des Zeitstempels sortiert und bildet die sogenannte \textit{History-Sequenz}.
 
 Die Implementierung nutzt zwei Arten der History-Sequenz Darstellung - die komplette Zeichenkette der Ortsbezeichnung und eine zusammengefasste. Bei der ersten Darstellung, werden alle zu Verfügung stehenden, aufgezeichneten Daten in die History-Sequenz übernommen. Die zusammengefasste Darstellung fast Dateneinträge anhand von Zeitintervallen zusammen. Dabei wird die Sequenz Zeichen für Zeichen eingelesen und überprüft, ob sich aufeinanderfolgende die Zeichen zusammenfassen lassen. Das hier gewählte Zeitintervall beträgt 30 Minuten. Sollte sich innerhalb dieses Intervalls das Zeichen nicht ändern, so wird dieses ignoriert. Folgt auf das betrachtet Zeichen ein anderes ( Ortswechsel) wrid dieses Zeichen in den komprimierte Sequenz aufgenommen. Ist das nachfolgende Zeichen gleich, aber dasZeitintervall wird überschritten, verbleibt das Zeichen in der Sequenz. Hier wird ein längerer Aufenthalt an einem Ort dargestellt. Durch die Komprimierung erhält man eine deutlich kürzere Sequenz, was in der nachfolgenden Tabelle \ref{tab:compression} detailiert dargestellt ist.
+
+...
+
+Im nächsten Schritt werden \textit{x} Zeichen am Ende der History-Sequenz als Suchsequenz definiert. Nun werden beide Sequenzen an den Smith-Waterman-Algorithmus übergeben, damit er aus ihnen eine Score-Matrix berechnen kann. In unserem Programm arbeitet der Algorithmus auf den Rekurrenzen \textit{match=2}, \textit{mismatch=-1} und \textit{gap=-1}. Als Ausgabe wird eine Matrixzelle mit dem höchsten Score und mit den Indizes der gefundenen lokalen Sequenz erwartet, sodass man direkt auf die Stelle in der History-Sequenz zugreifen kann. Gibt es mehrere höchste Scores, so wird der zuerst gefundene genommen. Alle Zeichen mit der gewählten Länge \textit{l} können nun aus der History-Sequenz abgelesen werden.
+
+...
+
+}
+
+%Implementierung prediction
+
+Like in Chapter \ref{section:conception} already explained, we require for alignment only timestamps and descriptions from the data.
+
+The data from the csv. file is seperated by semicolons from each other. While reading the data, the header line is initially skipped. Descriptions are extracted from the lines and then sorted by the timestamps. During the row-wise reading each location name is assigned to a different character from the alphabet. This is necessary because the implementation of the algorithm expects one particular character for the calculation. Adjustments and Optimization on strings for location name are also viable. To avoid duplicates, the first character from the location name is not used but rather a beforehand defined character. This character string is sorted by timestamps and it forms a so-called \textit{history sequence}.
+
+The implementation uses two types of depiction of the history sequence - the entire character string of location names and the summarized. In the first depiction all available, recorded data in the history sequence is carried over. The summarized depiction summarizes all data entries based on time intervals. When each character is imported, the algorithm checks wheter the sequent characters can be summarized. Here, the chosen time interval is 30 minutes. Within this time interval, if the character doesn't change it will be ignored. If another character (location change) follows after a considered one then this character is included in a compressed sequence. Is the subsequent character equal but the time interval is exceeded, the character remains in the sequence. Here, a long-term stay in one location is pictured. By applying the compression we obtain a clearly shoter sequence which is presented in-depth in the following Table \ref{tab:compression}.
 
 \begin{table}[h]
 	\centering
@@ -258,13 +275,13 @@ Die Implementierung nutzt zwei Arten der History-Sequenz Darstellung - die kompl
 	\label{tab:compression}
 \end{table}
 
-Im nächsten Schritt werden \textit{x} Zeichen am Ende der History-Sequenz als Suchsequenz definiert. Nun werden beide Sequenzen an den Smith-Waterman-Algorithmus übergeben, damit er aus ihnen eine Score-Matrix berechnen kann. In unserem Programm arbeitet der Algorithmus auf den Rekurrenzen \textit{match=2}, \textit{mismatch=-1} und \textit{gap=-1}. Als Ausgabe wird eine Matrixzelle mit dem höchsten Score und mit den Indizes der gefundenen lokalen Sequenz erwartet, sodass man direkt auf die Stelle in der History-Sequenz zugreifen kann. Gibt es mehrere höchste Scores, so wird der zuerst gefundene genommen. Alle Zeichen mit der gewählten Länge \textit{l} können nun aus der History-Sequenz abgelesen werden.
+The next step will be to define \textit{x} characters at the end of the history sequence. Now, both sequences are handed over to the \algoSW algorithm in order to compute the score matrix. In our program, the algorithm operates on the reccurencies \textit{match=2}, \textit{mismatch=-1} and \textit{gap=-1}. A matrix cell with the highest score and with the indices of the found local sequence is expected as output so that we can  get the values of the history sequence directly. If the matrix contains more than one highest score, the first found one is taken. All the characters with the selected length \textit{l} can now be read off the history sequence.
 
 %Beispiel prediction
 
 \subsection{Example}
 
-Wir nehmen an, dass der Ausschnitt einer CSV-Datei aus den unsortierten Daten wie in Tabelle \ref{fig:csv} besteht. 
+Let us assume that the exctract from a .csv file consists of unsorted data like shown in Table \ref{fig:csv}. After the ..
 
 \begin{table}[h]
 	\centering
