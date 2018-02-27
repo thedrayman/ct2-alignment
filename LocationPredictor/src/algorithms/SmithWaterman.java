@@ -143,11 +143,35 @@ public class SmithWaterman {
 		String predictedSequence = predict(endIndex, length);
 		System.out.println("Expected sequence of max length " + length + ": " + testSequence.substring(0, length));
 		
-		int similarity = computeLevenshteinDistance(predictedSequence, testSequence.substring(0, length));
+		//int similarity = computeLevenshteinDistance(predictedSequence, testSequence.substring(0, length));
+		
+		int similarity = computeSimilarity(predictedSequence, testSequence.substring(0, length));
 		
 		System.out.println("Similarity: " + similarity);
 		
 		return similarity;
+	}
+	
+	public int computeSimilarity(CharSequence lhs, CharSequence rhs) {
+		int similarityScore = 0;
+		
+		if(lhs.length() > 3 || rhs.length() > 3) {
+			return similarityScore;
+		}
+		
+		if(lhs.charAt(0) == rhs.charAt(0)) {
+			similarityScore += 4;
+		}
+		
+		if(lhs.charAt(1) == rhs.charAt(1)) {
+			similarityScore += 2;
+		}
+		
+		if(lhs.charAt(2) == rhs.charAt(2)) {
+			similarityScore += 1;
+		}
+		
+		return similarityScore;
 	}
 	
 	public int computeLevenshteinDistance(CharSequence lhs, CharSequence rhs) {      

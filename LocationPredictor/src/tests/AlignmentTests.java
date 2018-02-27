@@ -47,12 +47,12 @@ public class AlignmentTests {
 	public void testShift() {
 		long start = System.currentTimeMillis();
 		LocalAlignment localAlignment = new LocalAlignment("google location data/Latitude_ik (2013_06_19 08_17_46 UTC).csv");
-		localAlignment.findPrediction(5, 10);
+		localAlignment.findPrediction(5, 3);
 		
 		ArrayList<Integer> list = new ArrayList<>();
 		
 		for(int i = 0; i < 20; i++) {
-			list.add(localAlignment.testSequences(5, 10, i));		
+			list.add(localAlignment.testSequences(5, 3, i));		
 			
 		}
 		
@@ -60,7 +60,7 @@ public class AlignmentTests {
 		
 		System.out.println("Time needed for algorithm: " + (end - start) + "ms");
 		
-		System.out.println("Levenstein distances: " + list);
+		System.out.println("Similarity: " + list);
 	}
 	
 	@Test
