@@ -42,7 +42,7 @@
 
 \hyphenation{op-tical net-works semi-conduc-tor}
 
-\newcommand{\algoSW}{Smith-Waterman algorithm}
+\newcommand{\algoSW}{Smith-Waterman algorithm }
 
 
 \begin{document}
@@ -202,7 +202,7 @@ For location prediction individual datasets of the .csv file are sorted by the \
 
 The idea now is to predict the next location of a person with the previous location data. Now we consider the data as a long sequence like depicted in Fig. \ref{fig:diagram}. Then a search sequence with the last \textit{x} characters is extracted from it. Finally the alignment is applied to the entire sequence to find the most similar local sequence. All characters after it form the prediction sequence of length \textit{l}.
 
-The algorithm that is suited best for this kind of problem is the \algoSW algorithm because it can be utilized on sequences with different lengths to find the smallest possible match locally. Another benefit is that the sequences musn't be identical so that even similar sequences can be found as well. Algorithms like Needleman-Wunsch and Hirschberg are not suitable for it because those can only calculate the biggest, most similar sequence globally.
+The algorithm that is suited best for this kind of problem is the \algoSW because it can be utilized on sequences with different lengths to find the smallest possible match locally. Another benefit is that the sequences musn't be identical so that even similar sequences can be found as well. Algorithms like Needleman-Wunsch and Hirschberg are not suitable for it because those can only calculate the biggest, most similar sequence globally.
 
 \begin{figure}[h]
 	\centering
@@ -213,7 +213,7 @@ The algorithm that is suited best for this kind of problem is the \algoSW algori
 
 %Erkl‰rung Waterman-Smith
 
-\algoSW is a local optimization algorithm which operates on two character string sequences. First, both sequences are arranged in a way that they form a matrix so that its columns and rows are initialized with zeroes. Beginning with the first index in the matrix, every character from sequence A is compared iteratively to every character from sequence B. Then, with the help of reccurency values, a similarity score is calculated. If two characters match, then the score is increased by a fixed reccurency value. The score decreases accordingly if the characters don't match. Likewise it can happen that the sequences are indeed similar but by a gap no longer identical. During a gap situation in a sequence it is either the case of insertion or deletion. The next entries are equally calculated dependent on the previous value. Unlike in the Needleman-Wunsch algorithm, the matrix entry in the \algoSW algorithm cannot be nagative. However, if the entry falls into the negative section, its value is then set to zero. After that the algorithm looks for the highest value in the entire matrix. This is the optimal value. Alignment is optimal if and only if it contains such a value. A matrix can posses multiple maxima therefore the alignment can be optimal in several spots.
+\algoSW is a local optimization algorithm which operates on two character string sequences. First, both sequences are arranged in a way that they form a matrix so that its columns and rows are initialized with zeroes. Beginning with the first index in the matrix, every character from sequence A is compared iteratively to every character from sequence B. Then, with the help of reccurency values, a similarity score is calculated. If two characters match, then the score is increased by a fixed reccurency value. The score decreases accordingly if the characters don't match. Likewise it can happen that the sequences are indeed similar but by a gap no longer identical. During a gap situation in a sequence it is either the case of insertion or deletion. The next entries are equally calculated dependent on the previous value. Unlike in the Needleman-Wunsch algorithm, the matrix entry in the \algoSW cannot be nagative. However, if the entry falls into the negative section, its value is then set to zero. After that the algorithm looks for the highest value in the entire matrix. This is the optimal value. Alignment is optimal if and only if it contains such a value. A matrix can posses multiple maxima therefore the alignment can be optimal in several spots.
 
 Next, the respective most similar characters are ascertained by the traceback algorithm. Based on the maximum value the path is then traced back diagonally to the north west, exclussively up until the value zero. At last, the indices result from the alignment of start and end positions of the match sequence.
 
@@ -222,7 +222,7 @@ Next, the respective most similar characters are ascertained by the traceback al
 \begin{figure}
 	\centering
 	\includegraphics[width=0.45\textwidth]{images/SWTab.png}
-	\caption{Filled-in Smith-Waterman table with traceback\cite{ibm}}
+	\caption{Filled-in Smith-Waterman matrix with traceback\cite{ibm}}
 	\label{fig:watermansmith}
 \end{figure}
 
@@ -275,7 +275,7 @@ The implementation uses two types of depiction of the history sequence - the ent
 	\label{tab:compression}
 \end{table}
 
-The next step will be to define \textit{x} characters at the end of the history sequence. Now, both sequences are handed over to the \algoSW algorithm in order to compute the score matrix. In our program, the algorithm operates on the reccurencies \textit{match=2}, \textit{mismatch=-1} and \textit{gap=-1}. A matrix cell with the highest score and with the indices of the found local sequence is expected as output so that we can  get the values of the history sequence directly. If the matrix contains more than one highest score, the first found one is taken. All the characters with the selected length \textit{l} can now be read off the history sequence. We finally obtain the predicted sequence.
+The next step will be to define \textit{x} characters at the end of the history sequence. Now, both sequences are handed over to the \algoSW in order to compute the score matrix. In our program, the algorithm operates on the reccurencies \textit{match=2}, \textit{mismatch=-1} and \textit{gap=-1}. A matrix cell with the highest score and with the indices of the found local sequence is expected as output so that we can  get the values of the history sequence directly. If the matrix contains more than one highest score, the first found one is taken. All the characters with the selected length \textit{l} can now be read off the history sequence. We finally obtain the predicted sequence.
 
 %Beispiel prediction
 
@@ -295,7 +295,7 @@ Let us assume that the exctract from a .csv file consists of unsorted data like 
 	\item When every character is arranged into a character string, it represents the sequence \texttt{ABBACCADAA}.
 	\item Normally, the sequence is much longer but to demonstrate the compression, we remove duplicate characters in order to receive the shortened sequence \texttt{ABBACADA}. Since the time interval between the first and the second \texttt{B} is greater than 30 minutes, they won't be shortened but the rest is. We now have gotten our history sequence.
 	\item Since also the history sequence is very short, we say, that our search sequence consists only of the character \texttt{A} which is found at the end. 
-	\item After applying the \algoSW algorithm, we receive \texttt{B} as the predicted next character of the sequence because it follows after the first found character \texttt{A} in the history sequence. Again, the algorithm operates best on much longer sequences.
+	\item After applying the \algoSW, we receive \texttt{B} as the predicted next character of the sequence because it follows after the first found character \texttt{A} in the history sequence. Again, the algorithm operates best on much longer sequences.
 \end{enumerate}
 
 \begin{table}[h!]
@@ -334,32 +334,36 @@ Betrachtet wird auﬂerdem die Auswirkklung der L‰nge der Such-Sequenz \textit{k} 
 
 }
 
-The data, that is provided for us by three different people, compirises a time period from one and up to several month.
+The data, that is provided for us by three different people, compirises a time period from up to several month.
 
-To evaluate the accuracy of the prediction, we try to make predictions on existent data to compare it to available data sets. From the whole sequence, we use a certain amount of data to be our test sequence. Hence the rest is the history sequence from which we extract the search sequence like before. We define all the characters after the search sequence (which are now located in the test sequence) as the \textit{expected prediction}. Now, we apply the \algoSW algorithm to the search and history sequence to obtain the possible prediction. If it is found, we compare it to the expected prediction. This evaluation method is shown in Fig. \ref{fig:diagram_test} .
+To evaluate the accuracy of the prediction, we try to make predictions on existent data to compare it to available data sets. From the whole sequence, we use a certain amount of data to be our test sequence. Hence the rest becomes the history sequence from which we extract the search sequence like before. We define all the characters after the search sequence (which are now the first few characters of the test sequence) as the \textit{expected prediction}. Now, we apply the \algoSW to the search and history sequence to obtain the \textit{possible prediction}. If this is found, we compare it to the expected prediction to verify the correctness of the process. This evaluation method is depicted in Fig. \ref{fig:prediction_concept}. 
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.49\textwidth]{images/alignment_diagram6.pdf}
 	\caption{Concept of prediction sequence testing}
-	\label{fig:diagram_test}
+	\label{fig:prediction_concept}
 \end{figure}
 
-Furthermore, we observe the impact of the search sequence length \textit{k} and the prediction sequence length \textit{l}. Dabei f‰llt auf, dass
+Furthermore, we consider the impact of alteration of the search sequence length \textit{k} and the prediction sequence length \textit{l} for uncompressed (Fig. \ref{fig:prediction_uncompressed}) and compressed (Fig. \ref{fig:prediction_compressed}) sequences. For both sequences, we observe the first three predicted characters with different search sequence lengths. For the accuracy, we shift the search sequence of all data sets by a certain amount to obtain multiple results.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.49\textwidth]{images/evaluation_uncompressed.pdf}
 	\caption{Predicted values from original sequence}
-	\label{fig:diagram_test}
+	\label{fig:prediction_uncompressed}
 \end{figure}
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.49\textwidth]{images/evaluation_compressed.pdf}
 	\caption{Predicted values from the summarized 30 minutes sequence}
-	\label{fig:diagram_test}
+	\label{fig:prediction_compressed}
 \end{figure}
+
+As one can see, the accuracy of an uncompressed sequence rises with the search sequence length. Additionally, the accuracy for each of the three characters stays about the same within a certain range but improves overall because of the fact that the uncompressed sequence generally has multiple repitions of the same characters.
+
+Meanwhile, the values for the compressed sequence aggravate in terms of accuracy when the search sequence length is increased. However multiple advantages are given when using this method. Trough compressing the sequence, the redundancy of pointless character repitions is avoided so the actual prediction accuracy of useful characters is overall improved. Though it may seem, that the accuracy for uncompressed sequences is a little higher than for the compressed one, we should consider that it does not tell the real usefullness of the prediction because of random time intervals. So even if the accuracy for compressed sequences is lower, it is much more precise in that way and also faster regarding the sequence length.
 
 %Wie schnell ist der Algorithmus auf gro√üen Daten?
 
