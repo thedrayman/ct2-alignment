@@ -172,7 +172,7 @@ Im zweiten Schritt, wie in \ref{fig:watermansmith} zu erkennen, werden die entsp
 
 Nowadays, almost anybody is using a mobile device with a GPS (Global Positioning System) on-board. 
 
-The benefit of it is that google location data \cite{37522} is recorded automatically by programs that are already included in all android systems upon buying the device. The daily logged data contain accurate position coordiantes and timestamps right up to location names and inaccuracies.
+The benefit of it is that Google Location History data \cite{37522} is gathered automatically by every mobile device that uses Google services. The daily logged data contain accurate position coordinates and timestamps right up to location names and inaccuracies.
 
 \begin{table}[h]
 	\caption{Example of collected Google Location Data}
@@ -194,15 +194,15 @@ The benefit of it is that google location data \cite{37522} is recorded automati
 	\label{fig:csv}
 \end{table}
 
-The data originates from the google location project \cite{google-location} and is available as a .csv file that is represented in extracts in the following Table \ref{fig:csv}.
+The data originates from the Google Location project \cite{google-location} and is available as a .csv file that is represented in extracts in the following Table \ref{fig:csv}.
 
-For location prediction individual datasets of the .csv file are sorted by the \texttt{timestamp}. The \texttt{location} defines the location name of the user while \texttt{logitude}, \texttt{latitude} and \texttt{altitude} represent the coordinates. Additionally, the \texttt{accuracy} describes the precision of the location. For our approach we need merely the description in a correct and chronological order.
+For location prediction individual datasets of the .csv file are sorted by the \texttt{timestamp}. The \texttt{location} describes the location name of the user while \texttt{logitude}, \texttt{latitude} and \texttt{altitude} represent the coordinates. Additionally, the \texttt{accuracy} specifies the location precision. For our approach we need merely location names in a correct and chronological order.
 
 %Idee der Implementierung und Grund für die Entscheidung
 
-The idea now is to predict the next location of a person with the previous location data. Now we consider the data as a long sequence like depicted in Fig. \ref{fig:diagram}. Then a search sequence with the last \textit{x} characters is extracted from it. Finally the alignment is applied to the entire sequence to find the most similar local sequence. All characters after it form the prediction sequence of length \textit{l}.
+The idea now is to predict the next location of a person with the previous location data. Now we consider the data as a long sequence like depicted in Fig. \ref{fig:diagram}. Then a search sequence with the last \textit{x} characters is extracted from it. Finally the alignment is applied to the entire sequence to find the most similar local sequence. All following characters form the prediction sequence of length \textit{l}.
 
-The algorithm that is suited best for this kind of problem is the \algoSW because it can be utilized on sequences with different lengths to find the smallest possible match locally. Another benefit is that the sequences musn't be identical so that even similar sequences can be found as well. Algorithms like Needleman-Wunsch and Hirschberg are not suitable for it because those can only calculate the biggest, most similar sequence globally.
+The algorithm that is suited best for this kind of problem is the \algoSW because it can be utilized for sequences with different lengths to find the smallest possible match locally. Another benefit is that the sequences mustn't be identical so that even similar sequences can be found as well. Algorithms like Needleman-Wunsch and Hirschberg are not suitable for it because those can only calculate the biggest, most similar sequence globally.
 
 \begin{figure}[h]
 	\centering
@@ -213,9 +213,9 @@ The algorithm that is suited best for this kind of problem is the \algoSW becaus
 
 %Erklärung Waterman-Smith
 
-\algoSW is a local optimization algorithm which operates on two character string sequences. First, both sequences are arranged in a way that they form a matrix so that its columns and rows are initialized with zeroes. Beginning with the first index in the matrix, every character from sequence A is compared iteratively to every character from sequence B. Then, with the help of reccurency values, a similarity score is calculated. If two characters match, then the score is increased by a fixed reccurency value. The score decreases accordingly if the characters don't match. Likewise it can happen that the sequences are indeed similar but by a gap no longer identical. During a gap situation in a sequence it is either the case of insertion or deletion. The next entries are equally calculated dependent on the previous value. Unlike in the Needleman-Wunsch algorithm, the matrix entry in the \algoSW cannot be nagative. However, if the entry falls into the negative section, its value is then set to zero. After that the algorithm looks for the highest value in the entire matrix. This is the optimal value. Alignment is optimal if and only if it contains such a value. A matrix can posses multiple maxima therefore the alignment can be optimal in several spots.
+\algoSW is a local optimization algorithm which operates on two character string sequences. First, both sequences are arranged in a way that they form a matrix so that its columns and rows are initialized with zeros. Beginning with the first index in the matrix, every character from \texttt{sequence A} is compared iteratively to every character from \texttt{sequence B}. Then, with the help of recurrence values, a similarity score is calculated. If two characters match, then the score is increased by a fixed recurrence value. The score decreases accordingly if the characters don't match. Likewise it can happen that the sequences are indeed similar but by a gap no longer identical. During a gap situation in a sequence it is either the case of insertion or deletion. The next entries are equally calculated dependent on the previous value. Unlike in the Needleman-Wunsch algorithm, the matrix entry in the \algoSW cannot be negative. However, if the entry falls into the negative section, its value is then set to zero. After that the algorithm looks for the highest value in the entire matrix. This is the optimal value. Alignment is optimal if and only if it contains such a value. A matrix can posses multiple maxima therefore the alignment can be optimal in several spots.
 
-Next, the respective most similar characters are ascertained by the traceback algorithm. Based on the maximum value the path is then traced back diagonally to the north west, exclussively up until the value zero. At last, the indices result from the alignment of start and end positions of the match sequence.
+Next, the respective most similar characters are ascertained by the traceback algorithm. Based on the maximum value the path is then traced back diagonally to the north west, exclusively up until the value zero. At last, the indices result from the alignment of start and end positions of the match sequence.
 
 \subsection{Example}
 
@@ -229,8 +229,8 @@ Next, the respective most similar characters are ascertained by the traceback al
 To illustrate the use of the algorithm we consider two sequences \texttt{GCCCTAGCG} and \texttt{GCGCAATG} to be aligned, like shown in Fig. \ref{fig:watermansmith}.
 
 \begin{enumerate}
-\item The first column and row of the matrix should be initialized with zeroes.
-\item Beginning with the first index \texttt{(0,0)} the score is calculated iteratively with the help of reccurencies. The score for \texttt{(G,G)} results in the value 1, because there is a match, whereas for (G,C) it results in 0, because the characters don't match (so the reccurency is \texttt{gap=-1}) and because the value is now negative, it is set to 0 according to the algorithm rule.
+\item The first column and row of the matrix should be initialized with zeros.
+\item Beginning with the first index \texttt{(0,0)} the score is calculated iteratively with the help of recurrences. The score for \texttt{(G,G)} results in the value 1, because there is a match, whereas for \texttt{(G,C)} it results in 0, because the characters don't match (so the recurrence is \texttt{gap=-1}) and because the value is now negative, it is set to 0 according to the algorithm rule.
 \item If the matrix is calculated completely, the highest value, in this case it is 3, is found.
 \item Now, the traceback algorithm searches for the right path backwards diagonally to the north west until the value 0. As of now, the path has the length of 4. As said before, the calculated value 0 does not count. That means the path length is 3.
 \item By reading from the matrix the result for the local alignment is indeed \texttt{GCG}.
