@@ -97,15 +97,6 @@ All the scenarios described above are dependent on determining and predicting th
 
 In the following, an attempt will be made to create a location prediction using alignment. The used positioning data was gathered in advance from various people and smartphones. Using this information and an alignment algorithm, an effort will be made to predict the next location.  
 
-%Voraussage der Location von alten Menschen und rechtzeitiges Handeln, wenn sie sich nicht an der entsprechenden Position befinden (Verhalten)
-
-%Locations werden oft Ã¼ber bestimmte Applikationen automatisch von Smartphones aufgezeichnet
-
-%Anbieten von personenbezogener Werbung an den vorhergesagten Standort
-
-%Smart-Home Bereich (Temperatur, Energiemanagement, Komfort)
-
-
 \section{Related Work}\label{section:relatedWork}
 \todo{
 Zu Location Prediction gibt es eine Menge Forschungsmaterial.
@@ -125,7 +116,6 @@ Dazu werden diskrete sowie kontinuierliche Datensequenzen verwendet, z.\,B.Schme
 Zusammenfassend findet Sequenzprediction eine breite Anwendung und eignet sich daher auch potentiell zu Verwendung von Location Prediction.
 
 }
-
 Plenty of research material exists for location prediction.
 Alignment algorithms offer a similarity measure for arbitrary continuations of data points which are also called sequences. In other words the use for such algorithms allows us to check and compare the similarity of two sequences. Common adaptations often take place in bioinformatics. Here, DNA (Deoxyribonucleic acid) and protein sequences are being analyzed to determine evolution based relations. An example for this purpose can be found in \cite{waterman1995introduction}.
 
@@ -133,20 +123,13 @@ Sigg et al. \cite{sigg2010alignment} describe an approach where context sequence
 
 Our attempt is based on alignment as well. Unlike \cite{sigg2010alignment} we make use of the \algoSW \cite{smith1981identification} within our location prediction approach. In contrast to the Needleman-Wunsch and Hirschberg algorithm, this algorithm is able to find a local optimum. One benefit would be in fact, that local analogy can't be missed which is often the case with global consideration. 
 
-Apart from the use of alignment algorithms there are two additional approaches for location prediction. Craig et al. \cite{craig2017region} use a clustering approach for defining whereabouts of one person trough clusters. This is done by deviding a location in preferably small regions and then combining similar adjacent regions to bigger clusters. Based on these regions the next objective is to predict the next location where a person will be situated. On the basis of the current or previous location the algorithm checks which route is the user is currently on. The cluster, which contains the user's next possible goal, is then determined with the aid of this information. Unlike our approach, clustering doesn't provide an optimal solution but rather it performs a reduction of data and thus enables the use for it on under-performing devices.
+Apart from the use of alignment algorithms there are two additional approaches for location prediction. Craig et al. \cite{craig2017region} use a clustering approach for defining whereabouts of one person trough clusters. This is done by dividing a location in preferably small regions and then combining similar adjacent regions to bigger clusters. Based on these regions the next objective is to predict the next location where a person will be situated. On the basis of the current or previous location the algorithm checks which route is the user is currently on. The cluster, which contains the user's next possible goal, is then determined with the aid of this information. Unlike our approach, clustering doesn't provide an optimal solution but rather it performs a reduction of data and thus enables the use for it on under-performing devices.
 
 Rjeily et al. \cite{8167546} use a sequence prediction approach to detect heart deficiencies of patients. For this to happen, discrete and continuous data sequences, for example, are applied to determine the chest pain index from 1 to 4 and high blood pressure values. Therefore their approach is based on the compact prediction tree algorithm extension \cite{gueniche2013compact}. This algorithm is capable of estimating the next symbol of a given sequence which places the patients in a certain risk group. In doing so the sequence is used to check the ranking of the patient in the risk category. In comparison to this presented approach the algorithm of Rjeily et al. operates on complex high-dimensional data hence it is too sophisticated for our data. Because the data is composed of pure discrete symbols, the application of such an algorithm would be unsuitable for our approach.
 
 All in all the sequence prediction has several uses and potentially qualifies for location prediction.
 
-\section{Conception}\label{section:conception} 
-
-%Alignment wird normalerweise in der Biologie zum Vergleich von DNA-Sequenzen genutzt
-
-%Wir nutzen Google Location Data, da Google es anbietet und fast jeder heutzutage ein Smartphone besitzt
-
-%Alignment lÃ¤sst sich auf Location data anwenden
-
+\section{Conception}\label{section:conception}
 \todo{
 Heutzutage besitzt fast jeder Mensch ein Smartphone.
 
@@ -169,7 +152,6 @@ Der \algoSW ist ein lokaler Optimierungsalgorithmus, der auf zwei Zeichenketten-
 Im zweiten Schritt, wie in \ref{fig:watermansmith} zu erkennen, werden die entsprechenden ähnlichsten Stellen anhand des Traceback-Algorithmus erfasst. Ausgehend vom maximalen Wert wird der Berechnungspfad rückwärts diagonal nach Nord-Westen auf den Wert Null ausgeschlossen zurückverfolgt. Daraus ergeben sich Indizes für Start und Ende der Match-Sequenz.
 
 }
-
 Nowadays, almost anybody is using a mobile device with a GPS (Global Positioning System) on-board. 
 
 The benefit of it is that Google Location History data \cite{37522} is gathered automatically by every mobile device that uses Google services. The daily logged data contain accurate position coordinates and timestamps right up to location names and inaccuracies.
@@ -198,8 +180,6 @@ The data originates from the Google Location project \cite{google-location} and 
 
 For location prediction individual datasets of the .csv file are sorted by the \texttt{timestamp}. The \texttt{location} describes the location name of the user while \texttt{logitude}, \texttt{latitude} and \texttt{altitude} represent the coordinates. Additionally, the \texttt{accuracy} specifies the location precision. For our approach we need merely location names in a correct and chronological order.
 
-%Idee der Implementierung und Grund für die Entscheidung
-
 The idea now is to predict the next location of a person with the previous location data. Now we consider the data as a long sequence like depicted in Fig. \ref{fig:diagram}. Then a search sequence with the last \textit{x} characters is extracted from it. Finally the alignment is applied to the entire sequence to find the most similar local sequence. All following characters form the prediction sequence of length \textit{l}.
 
 The algorithm that is suited best for this kind of problem is the \algoSW because it can be utilized for sequences with different lengths to find the smallest possible match locally. Another benefit is that the sequences mustn't be identical so that even similar sequences can be found as well. Algorithms like Needleman-Wunsch and Hirschberg are not suitable for it because those can only calculate the biggest, most similar sequence globally.
@@ -210,8 +190,6 @@ The algorithm that is suited best for this kind of problem is the \algoSW becaus
 	\caption{Concept of sequence alignment and prediction}
 	\label{fig:diagram}
 \end{figure}
-
-%Erklärung Waterman-Smith
 
 \algoSW is a local optimization algorithm which operates on two character string sequences. First, both sequences are arranged in a way that they form a matrix so that its columns and rows are initialized with zeros. Beginning with the first index in the matrix, every character from \texttt{sequence A} is compared iteratively to every character from \texttt{sequence B}. Then, with the help of recurrence values, a similarity score is calculated. If two characters match, then the score is increased by a fixed recurrence value. The score decreases accordingly if the characters don't match. Likewise it can happen that the sequences are indeed similar but by a gap no longer identical. During a gap situation in a sequence it is either the case of insertion or deletion. The next entries are equally calculated dependent on the previous value. Unlike in the Needleman-Wunsch algorithm, the matrix entry in the \algoSW cannot be negative. However, if the entry falls into the negative section, its value is then set to zero. After that the algorithm looks for the highest value in the entire matrix. This is the optimal value. Alignment is optimal if and only if it contains such a value. A matrix can posses multiple maxima therefore the alignment can be optimal in several spots.
 
@@ -237,7 +215,6 @@ To illustrate the use of the algorithm we consider two sequences \texttt{GCCCTAG
 \end{enumerate}
 
 \section{Implementation}\label{section:implementation}
-
 \todo{
 
 Wie in Kapitel \ref{section:conception} bereits erklärt, benötigen wir für das Alignment aus den Daten nur den timestamp und die Ortsbezeichnungen.
@@ -253,9 +230,6 @@ Im nächsten Schritt werden \textit{x} Zeichen am Ende der History-Sequenz als Su
 ...
 
 }
-
-%Implementierung prediction
-
 In Chapter \ref{section:conception} we already explained, that we require for the alignment only timestamps and descriptions from the data.
 
 The data from the Comma-separated-values-file (CSV-file) is separated by semicolons from each other. Descriptions are extracted from the lines and then sorted by the timestamps. During the row-wise reading each location name is assigned to a different character from the alphabet. This is necessary because the implementation of the algorithm expects one particular character for the calculation. Adjustments and Optimization on strings for location name are also viable. To avoid duplicates, the first character from the location name is not used but rather a beforehand defined character. This character string is sorted by timestamps and it forms a so-called \textit{history sequence}.
@@ -277,8 +251,6 @@ The implementation uses two types of depiction of the history sequence - the ent
 
 The next step will be to define \textit{x} characters at the end of the history sequence. Now, both sequences are handed over to the \algoSW in order to compute the score matrix. In our program, the algorithm operates on the recurrences \textit{match=2}, \textit{mismatch=-1} and \textit{gap=-1}. A matrix cell with the highest score and with the indices of the found local sequence is expected as output so that we can  get the values of the history sequence directly. If the matrix contains more than one highest score, the first found one is taken. All the characters with the selected length \textit{l} can now be read off the history sequence. We finally obtain the predicted sequence.
 
-%Beispiel prediction
-
 \begin{figure}[h!]
 	\[Home \rightarrow A, Work \rightarrow B, Friend \rightarrow C, Sport \rightarrow D\]
 	\caption{Example of location data mapping}
@@ -290,7 +262,7 @@ The next step will be to define \textit{x} characters at the end of the history 
 Let us assume that the extract from a CSV-file consists of unsorted data like shown in Table \ref{fig:csv}.
 
 \begin{enumerate}
-	\item First, the data sets are sorted by a timestamp and reduced to two columns, like presented in Table \ref{fig:csv_sorted}. 
+	\item First, the data sets are sorted by a timestamps and reduced to two columns, like presented in Table \ref{fig:csv_sorted}. 
 	\item Each location name now represents an individual character from the alphabet. This is shown in Fig. \ref{fig:csv_converted}.
 	\item When every character is arranged into a character string, it represents the sequence \texttt{ABBACCADAA}.
 	\item Normally, the sequence is much longer but to demonstrate the compression, we remove duplicate characters in order to receive a shortened sequence \texttt{ABBACADA}. Since the time interval between the first and the second \texttt{B} is greater than 30 minutes, they won't be shortened but the rest is. We now have gotten our history sequence.
@@ -302,7 +274,7 @@ Let us assume that the extract from a CSV-file consists of unsorted data like sh
 	\centering
 	\caption{Sorted, usable Google Location History Data}
 	\begin{tabular}{cr}
-		timestamp & location \\ 
+		timestamps & location \\ 
 		\hline
 		1299998200 & Home \\ 
 		1300003200 & Work \\ 
@@ -318,10 +290,6 @@ Let us assume that the extract from a CSV-file consists of unsorted data like sh
 	\label{fig:csv_sorted}
 \end{table}
 
-%Implementierung test
-
-%Sie wird an einer bestimmten Stelle - üblicherweise in der Mitte - zu einer History- und einer Testsequenz gespalten. Somit entsteht eine Historysequenz, die abrupt endet und deren \textit{l} Zeichen man vorhersagen kann. Nun wird der Historysequenz eine Suchsequenz mit den letzten \textit{x} Zeichen entnommen. Das Alignment wird dann auf die Test- und Suchsequenz angewendet, um die ähnlichste Sequenz zu finden. Alle Zeichen danach bilden die Vorhersagesequenz.
-
 \section{Evaluation}\label{section:evaluation}
 \todo{
 Es wurden uns Daten von drei unterschiedlichen Personen bereitgestellt, die jeweils einen Zeitraum von einem Monat bis hin zu mehreren Monaten aufweisen.
@@ -330,7 +298,6 @@ Um die Genauigkeit der Vorhersage zu evaluieren, versuchen wir auf den vorhandne
 
 Betrachtet wird außerdem die Auswirkklung der Länge der Such-Sequenz \textit{k} und der Länge der Vorhersage \textit{l}. Dabei fällt auf, dass...
 }
-
 To evaluate the accuracy of the prediction, we try to make predictions on existent data to compare it to available data sets. The used data sets are comprises time periods from one to several months. Out of the whole sequence, we use a certain amount of data to be our test sequence. Hence the rest becomes the history sequence from which we extract the search sequence like before. We define all the characters after the search sequence (which are now the first few characters of the test sequence) as the \textit{expected prediction}. Now, we apply the \algoSW to the search and history sequence to obtain a \textit{possible prediction}. If a prediction exists, we compare it to the expected prediction to verify the correctness of the process. This evaluation method is depicted in Fig. \ref{fig:prediction_concept}. 
 
 \begin{figure}[h]
@@ -349,7 +316,7 @@ Furthermore, we consider the impact of alteration of the search sequence length 
 	\label{fig:prediction_uncompressed}
 \end{figure}
 
-As one can see, the accuracy of an uncompressed sequence rises with the search sequence length. Additionally, the accuracy for each of the three characters stays about the same within a certain range but improves overall because of the fact that the uncompressed sequence generally has multiple repitions of the same characters.
+As one can see, the accuracy of an uncompressed sequence rises with the search sequence length. Additionally, the accuracy for each of the three characters stays about the same within a certain range but improves overall because of the fact that the uncompressed sequence generally has multiple repetitions of the same characters.
 
 \begin{figure}[h!]
 	\centering
@@ -358,17 +325,9 @@ As one can see, the accuracy of an uncompressed sequence rises with the search s
 	\label{fig:prediction_compressed}
 \end{figure}
 
-Meanwhile, the values for the compressed sequence aggravate in terms of accuracy when the search sequence length is increased. However multiple advantages are given when using this method. Trough compressing the sequence, the redundancy of pointless character repitions is avoided so the actual prediction accuracy of useful characters is overall improved. Though it may seem, that the accuracy for uncompressed sequences is a little higher than for the compressed one, we should consider that it does not tell the real usefullness of the prediction because of random time intervals. So even if the accuracy for compressed sequences is lower, it is much more precise in that way and also faster regarding the sequence length.
-
-%Wie schnell ist der Algorithmus auf groÃŸen Daten?
-
-%LÃ¤nge der Vergleichssequenz
-
-%Nutzbarkeit für Real-Time-Anwendung
-
+Meanwhile, the values for the compressed sequence aggravate in terms of accuracy when the search sequence length is increased. However multiple advantages are given when using this method. Trough compressing the sequence, the redundancy of pointless character repetitions is avoided so the actual prediction accuracy of useful characters is overall improved. Though it may seem, that the accuracy for uncompressed sequences is a little higher than for the compressed one, we should consider that it does not tell the real usefulness of the prediction because of random time intervals. So even if the accuracy for compressed sequences is lower, it is much more precise in that way and also faster regarding the sequence length.
 
 \section{Conclusion}\label{section:conclusion}
-%Erneute Zusammenfassung der Ergebnisse
 \todo{
 Den nächsten Standort einer Person vorhersagen zu können ist für viele Anwendungen hilfreich. Ein Beispiel für eine solche Anwendung findet sich im medizinischen Bereich. Hierbei könnte die Location Prediction besonders hilfreich bei der Detektion von Stürzen von älteren Personen sein. Weicht eine ältere Person mehrfach signifikant von der Vorhersage ab, könnte dies darauf hindeuten, dass sie Hilfe benötigt.
 
@@ -378,11 +337,9 @@ Wir haben Daten von der Google Location History von verschiedenen Nutzern entnom
 %Was kÃ¶nnte man noch machen?
 In der Zukunft wollen wir unseren Ansatz noch dahingehend verbessern das wir unser Programm besser auf Echtzeitanwendungen abstimmen wollen und das die Daten direkt aus der Google Location History entnommen werden. Eine mögliche Anwendung ist die Nutzung der Location Prediction im Bereich von Smart Home. Anhand des prädizierten Aufenthaltsorts des Nutzers könnten beispielsweise die Heizung oder die Kaffeemaschine eingeschaltet werden. 
 }
-
-The ability to predict a person's next location is beneficial to many applications. An example for such kind of application can be found in a medical environment. In this case, location prediction could be particularly  helpful in detecting falls of elderly persons. If an older person's behaviour significantly differs from the prediction on several occasions, it could indicate that the person needs help.
+The ability to predict a person's next location is beneficial to many applications. An example for such kind of application can be found in a medical environment. In this case, location prediction could be particularly  helpful in detecting falls of elderly persons. If an older person's behavior significantly differs from the prediction on several occasions, it could indicate that the person needs help.
 
 The presented approach collected Google Location History data from several users. Based on this, our approach was to predict the next location of a user by applying alignment techniques. Therefore, we converted the data into a sequence and with the \algoSW\ we tried to determine a possible continuation of the sequence. Summarizing the evaluation results it can be said that using the compressed sequences lowers the prediction accuracy. On the other hand this data reduction significantly reduces the needed storage space which could be beneficial for the use in mobile devices. Therefore, we suggest to use there original data on high-performance devices and the compressed sequences in low-performance devices.
-%Hier noch ergebnisse von evaluation beschreiben
 
 In our future work, we want to improve the performance of our approach in order to use it in real-time applications. In order to improve the algorithm and find the best match sequence out of multiple possible matches with the highest score, we could compare each of their predictions to take one with the best accuracy. Additionally we want to take more data into account. For example, the exact coordinates provide additional information to the locations given by Google Location History and could enhance the prediction. Furthermore, we want to extract the data directly from Google Location History. One possible application is the use of our approach in the Smart Home environment. Based on the user's predicted location the heater or coffee machine could be automatically turned on at a certain time.
 
