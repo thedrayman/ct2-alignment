@@ -347,21 +347,21 @@ To evaluate the accuracy of the prediction, we try to make predictions on existe
 
 Furthermore, we consider the impact of alteration of the search sequence length \textit{k} and the prediction sequence length \textit{l} for uncompressed (Fig. \ref{fig:prediction_uncompressed}) and compressed (Fig. \ref{fig:prediction_compressed}) sequences. For both sequences, we observe the first three predicted characters with different search sequence lengths. For the accuracy, we shift the search sequence of all data sets by a certain amount to obtain multiple results.
 
-\begin{figure}[h]
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.49\textwidth]{images/evaluation_uncompressed.pdf}
 	\caption{Predicted values from original sequence}
 	\label{fig:prediction_uncompressed}
 \end{figure}
 
-\begin{figure}[h]
+As one can see, the accuracy of an uncompressed sequence rises with the search sequence length. Additionally, the accuracy for each of the three characters stays about the same within a certain range but improves overall because of the fact that the uncompressed sequence generally has multiple repitions of the same characters.
+
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.49\textwidth]{images/evaluation_compressed.pdf}
 	\caption{Predicted values from the summarized 30 minutes sequence}
 	\label{fig:prediction_compressed}
 \end{figure}
-
-As one can see, the accuracy of an uncompressed sequence rises with the search sequence length. Additionally, the accuracy for each of the three characters stays about the same within a certain range but improves overall because of the fact that the uncompressed sequence generally has multiple repitions of the same characters.
 
 Meanwhile, the values for the compressed sequence aggravate in terms of accuracy when the search sequence length is increased. However multiple advantages are given when using this method. Trough compressing the sequence, the redundancy of pointless character repitions is avoided so the actual prediction accuracy of useful characters is overall improved. Though it may seem, that the accuracy for uncompressed sequences is a little higher than for the compressed one, we should consider that it does not tell the real usefullness of the prediction because of random time intervals. So even if the accuracy for compressed sequences is lower, it is much more precise in that way and also faster regarding the sequence length.
 
