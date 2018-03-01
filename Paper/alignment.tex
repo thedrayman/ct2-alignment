@@ -342,21 +342,21 @@ To evaluate the accuracy of the prediction, we try to make predictions on existe
 
 Furthermore, we consider the impact of alteration of the search sequence length \textit{k} and the prediction sequence length \textit{l} for uncompressed (Fig. \ref{fig:prediction_uncompressed}) and compressed (Fig. \ref{fig:prediction_compressed}) sequences. For both sequences, we observe the first three predicted characters with different search sequence lengths. For the accuracy, we shift the search sequence of all data sets by a certain amount to obtain multiple results.
 
-\begin{figure}[h]
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.49\textwidth]{images/evaluation_uncompressed.pdf}
 	\caption{Predicted values from original sequence}
 	\label{fig:prediction_uncompressed}
 \end{figure}
 
-\begin{figure}[h]
+As one can see, the accuracy of an uncompressed sequence rises with the search sequence length. Additionally, the accuracy for each of the three characters stays about the same within a certain range but improves overall because of the fact that the uncompressed sequence generally has multiple repitions of the same characters.
+
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.49\textwidth]{images/evaluation_compressed.pdf}
 	\caption{Predicted values from the summarized 30 minutes sequence}
 	\label{fig:prediction_compressed}
 \end{figure}
-
-As one can see, the accuracy of an uncompressed sequence rises with the search sequence length. Additionally, the accuracy for each of the three characters stays about the same within a certain range but improves overall because of the fact that the uncompressed sequence generally has multiple repitions of the same characters.
 
 Meanwhile, the values for the compressed sequence aggravate in terms of accuracy when the search sequence length is increased. However multiple advantages are given when using this method. Trough compressing the sequence, the redundancy of pointless character repitions is avoided so the actual prediction accuracy of useful characters is overall improved. Though it may seem, that the accuracy for uncompressed sequences is a little higher than for the compressed one, we should consider that it does not tell the real usefullness of the prediction because of random time intervals. So even if the accuracy for compressed sequences is lower, it is much more precise in that way and also faster regarding the sequence length.
 
@@ -378,12 +378,12 @@ Wir haben Daten von der Google Location History von verschiedenen Nutzern entnom
 In der Zukunft wollen wir unseren Ansatz noch dahingehend verbessern das wir unser Programm besser auf Echtzeitanwendungen abstimmen wollen und das die Daten direkt aus der Google Location History entnommen werden. Eine mögliche Anwendung ist die Nutzung der Location Prediction im Bereich von Smart Home. Anhand des prädizierten Aufenthaltsorts des Nutzers könnten beispielsweise die Heizung oder die Kaffeemaschine eingeschaltet werden. 
 }
 
-The ability to predict a person's next location is beneficial to many applications. An example for such kind of application can be found in a medical environment. In this case, location prediction could be particularly  helpful in detecting falls of elderly persons. If an older persons behaviour significantly differs from the prediction on several occasions, it could indicate that the person needs help.
+The ability to predict a person's next location is beneficial to many applications. An example for such kind of application can be found in a medical environment. In this case, location prediction could be particularly  helpful in detecting falls of elderly persons. If an older person's behaviour significantly differs from the prediction on several occasions, it could indicate that the person needs help.
 
 The presented approach collected Google Location History data from several users. Based on this, our approach was to predict the next location of a user by applying alignment techniques. Therefore, we converted the data into a sequence and with the \algoSW\ we tried to determine a possible continuation of the sequence. Summarizing the evaluation results it can be said that using the compressed sequences lowers the prediction accuracy. On the other hand this data reduction significantly reduces the needed storage space which could be beneficial for the use in mobile devices. Therefore, we suggest to use there original data on high-performance devices and the compressed sequences in low-performance devices.
 %Hier noch ergebnisse von evaluation beschreiben
 
-In our future work, we want to improve the performance of our approach in order to use it in real-time applications. Additionally we want to take more data into account. For example, the exact coordinates provide additional information to the locations given by Google Location History and could enhance the prediction. Furthermore, we want to extract the data directly from Google Location History. One possible application is the use of our approach in the Smart Home environment. Based on the user's predicted location the heater or coffee machine could be automatically turned on at a certain time.
+In our future work, we want to improve the performance of our approach in order to use it in real-time applications. In order to improve the algorithm and find the best match sequence out of multiple possible matches with the highest score, we could compare each of their predictions to take one with the best accuracy. Additionally we want to take more data into account. For example, the exact coordinates provide additional information to the locations given by Google Location History and could enhance the prediction. Furthermore, we want to extract the data directly from Google Location History. One possible application is the use of our approach in the Smart Home environment. Based on the user's predicted location the heater or coffee machine could be automatically turned on at a certain time.
 
 %\newpage
 \bibliographystyle{IEEEtran}
