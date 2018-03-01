@@ -83,7 +83,7 @@ All die genannten Szenarien sind abhängig von Positionsbestimmung und -vorhersag
 
 In dieser Arbeit wird versucht, eine Positionsvorhersage mit dem Ansatz des Alignments zu erstellen. Die dabei genutzten, aufgezeichneten Positionsdaten wurden vorab durch verschiedene Smartphones und Personen erfasst. Mit Hilfe der Daten und einem Alignment-Algorithmus werden wir versuchen die nächste Position vorherzusagen.
 }
-The knowledge about a person's location plays a very important role in today's digital world. An exact location in all imaginable areas can be helpful or even save lives. Another step forward is the prediction of the future location of a person. With that, one can not only acquire the information of the current location of said person and also determine with high probability where he/she will be located next. To further illustrate the meaning/importance of this technology, some likely scenarios will be presented in the following.
+The knowledge about a person's location plays a very important role in today's digital world. An exact location in all imaginable areas can be helpful or even save lives. Another step forward is the prediction of the future location of a person. With that, one can not only acquire the information of the current location of said person and also determine with high probability where he/she will be located next. To further illustrate the importance of this technology, some likely scenarios will be presented in the following.
 
 One life saving possibility using this technology, presents itself in relation to the elderly. Provided with the right devices, it is possible today to determine the state of health of a person and take action accordingly. Should this state take a turn for the worse or when the person has taken a fall, it can be possible to get the required help in time. In those situations the location of a person is of great importance. With the location ascertainment it will be possible to find the person with the correct latest location information. Furthermore, it will be possible using location ascertainment to predict the location even if the device is is left behind or if it malfunctions.
 
@@ -91,7 +91,7 @@ An exact location is helpful in other scenarios relating to danger and rescue as
  
 Additional importance for location ascertainment of people is in the field of crime fighting and -solving. It could also be profitable for companies because the use of this technology allows them to project and distribute personalized marketing in predetermined locations. But even a private user would find benefits in the determination of his/her location, when one bears in mind the constant rise in use of smart-home-technology. Using the location information of the user, the home system knows when he/she will be home and even the right time to turn on the heating.
 
-All the scenarios described above are dependent on determining and predicting the location of a person. It is also not problematic to acquire the data needed for this in today's digital world. In the last ten years the Smartphone has proven itself to be a useful gadget and a permanent companion. But the power of this device is still underrated by most. With the gathered and in most cases also saved data, it is possible to make assumptions about the owner of the phone. Even more, it is possible to create a very detailed personal profile. With the gathered location data, using the right algorithms and methods, a position prediction becomes possible.
+All the scenarios described above are dependent on determining and predicting the location of a person. It is also not problematic to acquire the data needed for this in today's digital world. In the last ten years the smartphone has proven itself to be a useful gadget and a permanent companion. But the power of this device is still underrated by most. With the gathered and in most cases also saved data, it is possible to make assumptions about the owner of the phone. Even more, it is possible to create a very detailed personal profile. With the gathered location data, using the right algorithms and methods, a position prediction becomes possible.
 
 In the following, an attempt will be made to create a location prediction using alignment. The used positioning data was gathered in advance from various people and smartphones. Using this information and an alignment algorithm, an effort will be made to predict the next location.  
 
@@ -254,11 +254,11 @@ Im nächsten Schritt werden \textit{x} Zeichen am Ende der History-Sequenz als Su
 
 %Implementierung prediction
 
-Like in Chapter \ref{section:conception} already explained, we require for alignment only timestamps and descriptions from the data.
+In Chapter \ref{section:conception} we already explained, that we require for the alignment only timestamps and descriptions from the data.
 
-The data from the csv. file is seperated by semicolons from each other. While reading the data, the header line is initially skipped. Descriptions are extracted from the lines and then sorted by the timestamps. During the row-wise reading each location name is assigned to a different character from the alphabet. This is necessary because the implementation of the algorithm expects one particular character for the calculation. Adjustments and Optimization on strings for location name are also viable. To avoid duplicates, the first character from the location name is not used but rather a beforehand defined character. This character string is sorted by timestamps and it forms a so-called \textit{history sequence}.
+The data from the Comma-separated-values-file (CSV-file) is separated by semicolons from each other. Descriptions are extracted from the lines and then sorted by the timestamps. During the row-wise reading each location name is assigned to a different character from the alphabet. This is necessary because the implementation of the algorithm expects one particular character for the calculation. Adjustments and Optimization on strings for location name are also viable. To avoid duplicates, the first character from the location name is not used but rather a beforehand defined character. This character string is sorted by timestamps and it forms a so-called \textit{history sequence}.
 
-The implementation uses two types of depiction of the history sequence - the entire character string of location names and the summarized. In the first depiction all available, recorded data in the history sequence is carried over. The summarized depiction summarizes all data entries based on time intervals. When each character is imported, the algorithm checks wheter the sequent characters can be summarized. Here, the chosen time interval is 30 minutes. Within this time interval, if the character doesn't change it will be ignored. If another character (location change) follows after a considered one then this character is included in a compressed sequence. Is the subsequent character equal but the time interval is exceeded, the character remains in the sequence. Here, a long-term stay in one location is pictured. By applying the compression we obtain a clearly shoter sequence which is presented in-depth in the following Table \ref{tab:compression}.
+The implementation uses two types of depiction of the history sequence - the entire character string of location names and the summarized. In the first depiction all available, recorded data in the history sequence is carried over. The summarized depiction summarizes all data entries based on time intervals. When each character is imported, the algorithm checks whether the sequent characters can be summarized. Here, the chosen time interval is 30 minutes. Within this time interval, if the character doesn't change it will be ignored. If another character (this means a location change) follows after a considered one then this character is included in a compressed sequence. Is the subsequent character equal but the time interval is exceeded, the character remains in the sequence. Here, a long-term stay in one location is pictured. By applying the compression we obtain a clearly shorter sequence which is presented in-depth in the following Table \ref{tab:compression}.
 
 \begin{table}[h]
 	\centering
@@ -273,7 +273,7 @@ The implementation uses two types of depiction of the history sequence - the ent
 	\label{tab:compression}
 \end{table}
 
-The next step will be to define \textit{x} characters at the end of the history sequence. Now, both sequences are handed over to the \algoSW in order to compute the score matrix. In our program, the algorithm operates on the reccurencies \textit{match=2}, \textit{mismatch=-1} and \textit{gap=-1}. A matrix cell with the highest score and with the indices of the found local sequence is expected as output so that we can  get the values of the history sequence directly. If the matrix contains more than one highest score, the first found one is taken. All the characters with the selected length \textit{l} can now be read off the history sequence. We finally obtain the predicted sequence.
+The next step will be to define \textit{x} characters at the end of the history sequence. Now, both sequences are handed over to the \algoSW in order to compute the score matrix. In our program, the algorithm operates on the recurrences \textit{match=2}, \textit{mismatch=-1} and \textit{gap=-1}. A matrix cell with the highest score and with the indices of the found local sequence is expected as output so that we can  get the values of the history sequence directly. If the matrix contains more than one highest score, the first found one is taken. All the characters with the selected length \textit{l} can now be read off the history sequence. We finally obtain the predicted sequence.
 
 %Beispiel prediction
 
@@ -285,20 +285,20 @@ The next step will be to define \textit{x} characters at the end of the history 
 
 \subsection{Example}
 
-Let us assume that the exctract from a .csv file consists of unsorted data like shown in Table \ref{fig:csv}.
+Let us assume that the extract from a CSV-file consists of unsorted data like shown in Table \ref{fig:csv}.
 
 \begin{enumerate}
-	\item First, the data sets are sorted by the timestamp and reduced to two columns, like presented in Table \ref{fig:csv_sorted}. 
+	\item First, the data sets are sorted by a timestamp and reduced to two columns, like presented in Table \ref{fig:csv_sorted}. 
 	\item Each location name now represents an individual character from the alphabet. This is shown in Fig. \ref{fig:csv_converted}.
 	\item When every character is arranged into a character string, it represents the sequence \texttt{ABBACCADAA}.
-	\item Normally, the sequence is much longer but to demonstrate the compression, we remove duplicate characters in order to receive the shortened sequence \texttt{ABBACADA}. Since the time interval between the first and the second \texttt{B} is greater than 30 minutes, they won't be shortened but the rest is. We now have gotten our history sequence.
+	\item Normally, the sequence is much longer but to demonstrate the compression, we remove duplicate characters in order to receive a shortened sequence \texttt{ABBACADA}. Since the time interval between the first and the second \texttt{B} is greater than 30 minutes, they won't be shortened but the rest is. We now have gotten our history sequence.
 	\item Since also the history sequence is very short, we say, that our search sequence consists only of the character \texttt{A} which is found at the end. 
 	\item After applying the \algoSW, we receive \texttt{B} as the predicted next character of the sequence because it follows after the first found character \texttt{A} in the history sequence. Again, the algorithm operates best on much longer sequences.
 \end{enumerate}
 
 \begin{table}[h!]
 	\centering
-	\caption{Sorted, usable Google Location Data}
+	\caption{Sorted, usable Google Location History Data}
 	\begin{tabular}{cr}
 		timestamp & location \\ 
 		\hline
