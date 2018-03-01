@@ -323,20 +323,15 @@ Let us assume that the exctract from a .csv file consists of unsorted data like 
 %Sie wird an einer bestimmten Stelle - üblicherweise in der Mitte - zu einer History- und einer Testsequenz gespalten. Somit entsteht eine Historysequenz, die abrupt endet und deren \textit{l} Zeichen man vorhersagen kann. Nun wird der Historysequenz eine Suchsequenz mit den letzten \textit{x} Zeichen entnommen. Das Alignment wird dann auf die Test- und Suchsequenz angewendet, um die ähnlichste Sequenz zu finden. Alle Zeichen danach bilden die Vorhersagesequenz.
 
 \section{Evaluation}\label{section:evaluation}
-
 \todo{
-
 Es wurden uns Daten von drei unterschiedlichen Personen bereitgestellt, die jeweils einen Zeitraum von einem Monat bis hin zu mehreren Monaten aufweisen.
 
 Um die Genauigkeit der Vorhersage zu evaluieren, versuchen wir auf den vorhandnen Daten Vorhersagen zu machen und diese mit den vorliegenden Datensatz zu vergleichen. Dazu nutzen wir die letzten \textit{x} Daten als Test-Sequenz, welcher wir eine Such-Sequenz entnehmen. Folglich bilden die übrigen Daten die History-Sequenz. Die an die Such-Sequenz anschließenden \textit{y} Zeichen definieren wir als zu \textit{erwartende Vorhersage}. Nun wenden wir unser Programm auf die Such- und History-Sequenz an. Wird eine Vorhersage gefunden, wird diese mit der erwartenden Vorhersage verglichen. Dieses Evlauationsverfahren ist auf Abbildung \ref{fig:diagram_test} dargestellt.
 
 Betrachtet wird außerdem die Auswirkklung der Länge der Such-Sequenz \textit{k} und der Länge der Vorhersage \textit{l}. Dabei fällt auf, dass...
-
 }
 
-The data, that is provided for us by three different people, compirises a time period from up to several month.
-
-To evaluate the accuracy of the prediction, we try to make predictions on existent data to compare it to available data sets. From the whole sequence, we use a certain amount of data to be our test sequence. Hence the rest becomes the history sequence from which we extract the search sequence like before. We define all the characters after the search sequence (which are now the first few characters of the test sequence) as the \textit{expected prediction}. Now, we apply the \algoSW to the search and history sequence to obtain the \textit{possible prediction}. If this is found, we compare it to the expected prediction to verify the correctness of the process. This evaluation method is depicted in Fig. \ref{fig:prediction_concept}. 
+To evaluate the accuracy of the prediction, we try to make predictions on existent data to compare it to available data sets. The used data sets are comprises time periods from one to several months. Out of the whole sequence, we use a certain amount of data to be our test sequence. Hence the rest becomes the history sequence from which we extract the search sequence like before. We define all the characters after the search sequence (which are now the first few characters of the test sequence) as the \textit{expected prediction}. Now, we apply the \algoSW to the search and history sequence to obtain a \textit{possible prediction}. If a prediction exists, we compare it to the expected prediction to verify the correctness of the process. This evaluation method is depicted in Fig. \ref{fig:prediction_concept}. 
 
 \begin{figure}[h]
 	\centering
@@ -373,7 +368,6 @@ Meanwhile, the values for the compressed sequence aggravate in terms of accuracy
 
 
 \section{Conclusion}\label{section:conclusion}
-
 %Erneute Zusammenfassung der Ergebnisse
 \todo{Den nächsten Standort einer Person vorhersagen zu können ist für viele Anwendungen hilfreich. Ein Beispiel für eine solche Anwendung findet sich im medizinischen Bereich. Hierbei könnte die Location Prediction besonders hilfreich bei der Detektion von Stürzen von älteren Personen sein. Weicht eine ältere Person mehrfach signifikant von der Vorhersage ab, könnte dies darauf hindeuten, dass sie Hilfe benötigt.
 
