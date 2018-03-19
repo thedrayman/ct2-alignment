@@ -118,8 +118,8 @@ public class SmithWaterman {
 	      currentNode = currentNode.getPreviousNode();
 	   }
 	 
-	   String[] alignments = new String[] { "In test sequence: " + align1Buf.toString(),
-	         "In search sequence: " + align2Buf.toString() };
+	   String[] alignments = new String[] { "Found part in history sequence: " + align1Buf.toString(),
+	         "Match sequence: " + align2Buf.toString() };
 	 
 	   return alignments;
 	}
