@@ -191,14 +191,16 @@ The algorithm that is suited best for this kind of problem is the \algoSW becaus
 
 \algoSW is a local optimization algorithm which operates on two character string sequences. First, both sequences are arranged in a way that they form a matrix so that its columns and rows are initialized with zeros. Beginning with the first index in the matrix, every character from \texttt{sequence A} is compared iteratively to every character from \texttt{sequence B}. Then, with the help of recurrence values, a similarity score is calculated. If two characters match, then the score is increased by a fixed recurrence value. The score decreases accordingly if the characters don't match. Likewise it can happen that the sequences are indeed similar but by a gap no longer identical. During a gap situation in a sequence it is either the case of insertion or deletion. The next entries are equally calculated dependent on the previous value. Unlike in the Needleman-Wunsch algorithm, the matrix entry in the \algoSW cannot be negative. However, if the entry falls into the negative section, its value is then set to zero. After that the algorithm looks for the highest value in the entire matrix. This is the optimal value. Alignment is optimal if and only if it contains such a value. A matrix can posses multiple maxima therefore the alignment can be optimal in several spots.
 
-Next, the respective most similar characters are ascertained by the traceback algorithm. Based on the maximum value the path is then traced back diagonally to the north west, exclusively up until the value zero. At last, the indices result from the alignment of start and end positions of the match sequence.
+Next, the respective most similar characters are ascertained by the traceback algorithm. Based on the maximum value the path is then traced back diagonally to the north west, exclusively up until the value zero. At last, the indices result from the alignment of start and end positions of the match sequence. 
+
+In addition, the matrix can contain more than one of the highest scores. In this case our program takes the chronologically first result. This is important because the possibility to get a longer prediction sequence is much higher. If the result is located mainly at the end of the sequence, the prediction algorithm has much less characters to work with.
 
 \subsection{Example}
 
 \begin{figure}
 	\centering
 	\includegraphics[width=0.45\textwidth]{images/SW-BABA.png}
-	\caption{Filled-in Smith-Waterman matrix with traceback\cite{ibm}}
+	\caption{Filled-in Smith-Waterman matrix with traceback\cite{baba}}
 	\label{fig:watermansmith}
 \end{figure}
 
