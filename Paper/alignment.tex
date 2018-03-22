@@ -197,19 +197,19 @@ Next, the respective most similar characters are ascertained by the traceback al
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.45\textwidth]{images/SWTab.png}
+	\includegraphics[width=0.45\textwidth]{images/SW-BABA.png}
 	\caption{Filled-in Smith-Waterman matrix with traceback\cite{ibm}}
 	\label{fig:watermansmith}
 \end{figure}
 
-To illustrate the use of the algorithm we consider two sequences \texttt{GCCCTAGCG} and \texttt{GCGCAATG} to be aligned, like shown in Fig. \ref{fig:watermansmith}.
+To illustrate the use of the algorithm we consider two sequences \texttt{ACBACCAB} and \texttt{ACA} to be aligned, like shown in Fig. \ref{fig:watermansmith}.
 
 \begin{enumerate}
 \item The first column and row of the matrix should be initialized with zeros.
-\item Beginning with the first index \texttt{(0,0)} the score is calculated iteratively with the help of recurrences. The score for \texttt{(G,G)} results in the value 1, because there is a match, whereas for \texttt{(G,C)} it results in 0, because the characters don't match (so the recurrence is \texttt{gap=-1}) and because the value is now negative, it is set to 0 according to the algorithm rule.
-\item If the matrix is calculated completely, the highest value, in this case it is 3, is found.
-\item Now, the traceback algorithm searches for the right path backwards diagonally to the north west until the value 0. As of now, the path has the length of 4. As said before, the calculated value 0 does not count. That means the path length is 3.
-\item By reading from the matrix the result for the local alignment is indeed \texttt{GCG}.
+\item Beginning with the first empty slot in the upper left corner the score is calculated iteratively with the help of recurrences. The score for \texttt{(A,A)} results in the value 2, because there is a match, whereas for \texttt{(A,C)} it results in 1, because the characters don't match (so the recurrence is \texttt{gap=-1}) and because the previous value is 2, the recurrence is subtracted.
+\item If the matrix is calculated completely, the highest value, in this case it is 5, is found.
+\item Now, the traceback algorithm searches for the right path backwards diagonally to the north west until the value 0. As of now, the path has the length of 5. As said before, the calculated value 0 does not count. That means the path length is 4.
+\item By reading from the matrix the result for the local alignment is \texttt{A-CA}, because the algorithm found a gap.
 \end{enumerate}
 
 \section{Implementation}\label{section:implementation}
