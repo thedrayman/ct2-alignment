@@ -318,7 +318,7 @@ Furthermore, we consider the impact of alteration of the search sequence length 
 	\label{fig:prediction_uncompressed}
 \end{figure}
 
-As one can see, the accuracy of an uncompressed sequence rises with the search sequence length. For the 15 character search length we got 84.44\% accuracy for the first predicted character which was the best result. The accuracy for five and ten character search length were very similar and are by 76.67\% and 77.78\%.
+As one can see, the accuracy of an uncompressed sequence rises with the search sequence length. For the 15 character search length we reached 84.44\% accuracy for the first predicted character which was the best result. The accuracy for five and ten character search length were very similar. They reside at 76.67\% and 77.78\%.
 Additionally, the accuracy for each of the three characters stays about the same within a certain range but improves overall because of the fact that the uncompressed sequence generally has multiple repetitions of the same characters.
 
 \begin{figure}[h!]
@@ -328,8 +328,8 @@ Additionally, the accuracy for each of the three characters stays about the same
 	\label{fig:prediction_compressed}
 \end{figure}
 
-Meanwhile, the values for the compressed sequence aggravate in terms of accuracy when the search sequence length is increased. The best result was for the five character search length here we got 71.11\% accuracy. For ten character search length the accuracy was 55\% and for 15 character search length the accuracy was 60\%.
- However multiple advantages are given when using this method. Trough compressing the sequence, the redundancy of pointless character repetitions is avoided so the actual prediction accuracy of useful characters is overall improved. Though it may seem, that the accuracy for uncompressed sequences is a little higher than for the compressed one, we should consider that it does not tell the real usefulness of the prediction because of random time intervals. So even if the accuracy for compressed sequences is lower, it is much more precise in that way and also faster regarding the sequence length.
+Meanwhile, the values for the compressed sequence aggravate in terms of accuracy when the search sequence length is increased. The best result for the five character search length accuracy is 71.11\%. For ten character search length the accuracy is 55\% and for 15 character search length it is 60\%.
+However multiple advantages are given when using this method. Through compressing the sequence, the redundancy of pointless character repetitions is avoided so the actual prediction accuracy of useful characters is overall improved. Though it may seem, that the accuracy for uncompressed sequences is a little higher than for the compressed one, we should consider that it does not tell the real usefulness of the prediction because of random time intervals. So even if the accuracy for compressed sequences is lower, it is much more precise in that way and also faster regarding the sequence length.
 
 \section{Conclusion}\label{section:conclusion}
 \todo{
